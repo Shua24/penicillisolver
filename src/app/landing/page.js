@@ -1,18 +1,22 @@
 import React from "react";
 import "./landing.css";
 import Image from "next/image";
-
+import Link from "next/link";
 
 function LandingPage() {
   return (
     <div className="container">
       <header className="header">
         <div className="Logo">
-        <Image src="/lambang.png" alt="Logo" width={225} height={70} />
+          <Image src="/lambang.png" alt="Logo" width={225} height={70} />
         </div>
         <div className="button">
-          <a href="../Daftar/daftar.html">Daftar</a>
-          <a href="../Login/login.html">Login</a>
+          <Link href="/daftar">
+            Daftar
+          </Link>
+          <Link href="/login">
+            Login
+          </Link>
         </div>
       </header>
       <main className="main-content">
@@ -36,7 +40,7 @@ function LandingPage() {
           </div>
         </div>
         <div className="image-content">
-        <Image src="/dokter2.png" alt="Logo"width={200} height={100} />
+          <Image src="/dokter2.png" alt="Dokter" width={200} height={100} />
         </div>
       </main>
     </div>
