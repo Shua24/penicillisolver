@@ -1,6 +1,6 @@
 
 .container {
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -93,7 +93,7 @@
 }
 @keyframes Animation2 {
     0% {
-        transform: translateX(100px);
+        transform: translateY(100px);
         opacity: 0;
     }
     100% {
