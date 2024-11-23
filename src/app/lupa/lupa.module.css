@@ -1,0 +1,103 @@
+
+.container {
+    overflow: auto;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    background-color:#008080;
+}
+
+.form {
+    width: 400px;
+    height: 100%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    animation: Animation2 1s ease-in-out;
+    width: 550px;
+}
+
+.logo img {
+    width: 400px;
+    display: block;
+    margin-left: 110px;
+}
+.LupaSandi {
+    margin-top: -10px;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+}
+
+.label {
+    margin: 5px 0 5px;
+    color: #008080;
+    margin-bottom: 0px;
+    margin-top: 30px;
+    display: block;
+    animation: Animation1 1s ease-in-out;
+}
+
+.input {
+    border: 1px solid #008080;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    background-color: white;
+    color: black;
+    width: 100%;
+    animation: Animation1 1s ease-in-out;
+}
+.input:focus{
+    background-color: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 5px 0.1px #008080 ;
+    outline: none;
+    transition: all 0.3s ease-out;
+}
+
+.Masukkan{
+    text-align: center;
+    margin-top: 30px;
+    color: black;
+}
+.tombolverifikasi {
+    background-color: #008080;
+    color: white;
+    border: 1px #008080;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    animation: Animation1 1s ease-in-out;
+}
+
+.tombolverifikasi:hover {
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 0 10px 1px #008080;
+    transition: all 0.3s ease-out;
+
+}
+@keyframes Animation1 {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 5;
+    }
+}
+@keyframes Animation2 {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 5;
+    }
+}

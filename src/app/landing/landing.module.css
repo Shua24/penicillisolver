@@ -1,0 +1,122 @@
+.body {
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+    user-select: none;
+}
+.container {
+    max-width: 3000px;
+    margin: 0 auto;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    animation: Animation2 1s ease-in-out;
+}
+
+.logoImage {
+    height: 70px;
+    width: auto;
+}
+
+.button {
+    display: flex;
+    gap: 20px;
+}
+
+.button a {
+    margin: 0;
+    padding: 10px 20px;
+    background-color: #008080;
+    color: #f7f7f7;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button a:hover {
+    background-color: #f7f7f7;
+    color: #008080;
+    box-shadow: 0 0 1px 1px #008080;
+    transition: background-color 0.1s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out; 
+}
+
+.mainContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #008080;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 70vh;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.textContent {
+    width: 60%;
+    padding-right: 50px;
+}
+
+.tagline {
+    font-family: "Krona One", sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0 0 50px 10%;
+    padding-top: 5%;
+    animation: Animation1 1s ease-in-out;
+}
+
+.text {
+    padding-left: 10%;
+    font-size: 20px;
+    line-height: 1.5;
+    animation: Animation1 1s ease-in-out;
+}
+
+.imageContent {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    animation: Animation1 1s ease-in-out;
+}
+
+.imageContent img {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 60%;
+    height: auto;
+    object-fit: cover;
+    object-position: center 30%;
+}
+
+@keyframes Animation1 {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 5;
+    }
+}
+@keyframes Animation2 {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 5;
+    }
+}
