@@ -1,30 +1,26 @@
 import React from "react";
-import "./landing.css";
+import styles from "./landing.module.css"; // Import the CSS module
 import Image from "next/image";
 import Link from "next/link";
 
 function LandingPage() {
   return (
-    <div className="container">
-      <header className="header">
-        <div className="Logo">
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <div className={styles.logo}>
           <Image src="/lambang.png" alt="Logo" width={225} height={70} />
         </div>
-        <div className="button">
-          <Link href="/daftar">
-            Daftar
-          </Link>
-          <Link href="/login">
-            Login
-          </Link>
+        <div className={styles.button}>
+          <Link href="/daftar">Daftar</Link>
+          <Link href="/login">Login</Link>
         </div>
       </header>
-      <main className="main-content">
-        <div className="text-content">
-          <div className="tagline">
+      <main className={styles.mainContent}>
+        <div className={styles.textContent}>
+          <div className={styles.tagline}>
             <p>Pola Kuman: Kini dipermudah</p>
           </div>
-          <div className="text">
+          <div className={styles.text}>
             <p>
               Pola kuman merujuk pada jenis dan distribusi mikroorganisme, terutama
               bakteri, yang ditemukan dalam lingkungan atau tubuh manusia, dan penting
@@ -39,7 +35,7 @@ function LandingPage() {
             </p>
           </div>
         </div>
-        <div className="image-content">
+        <div className={styles.imageContent}>
           <Image src="/dokter2.png" alt="Dokter" width={200} height={100} />
         </div>
       </main>
