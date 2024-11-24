@@ -55,37 +55,21 @@ const Verifikasi = () => {
         }
     };
 
-    const playAlarm1 = () => {
-        const alarmSound = new Audio("/gokgok.MP3"); 
-        alarmSound.play();
-    };
-    const playAlarm2= () => {
-        const alarmSound = new Audio("/aahhg.MP3"); 
-        alarmSound.play();
-    };
-    const playAlarm3= () => {
-        const alarmSound = new Audio("/mabejaina.MP3"); 
-        alarmSound.play();
-    };
-  
     const verifikasi = () => {
         const userOtp = otp.join("");
         if (userOtp === generatedOTP) {
             setMessage("Kode OTP Benar 👍");
             setMessageColor("blue");
-            playAlarm1();
             setTimeout(() => {
                 window.location.href = "./beranda";
             }, 2000);
         } else if (userOtp === "") {
             setMessage("Kode OTP Gk Boleh Kosong!");
             setMessageColor("red");
-            playAlarm2();
             triggerErrorAnimation(); 
         } else {
             setMessage("Kode OTP Salah!");
             setMessageColor("red");
-            playAlarm3();
             triggerErrorAnimation(); 
         }
     };
