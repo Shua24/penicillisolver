@@ -1,20 +1,17 @@
 'use client';
 
 import React, { useState } from "react";
-import styles from "./Login.module.css"; // Import CSS Modules
+import styles from "./Login.module.css"; 
 import Link from "next/link";
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Mengambil data pengguna dari localStorage
     const users = JSON.parse(localStorage.getItem("userData")) || [];
-
-    // Mencari user berdasarkan email
     const user = users.find((user) => user.email === email);
 
     if (!user) {
@@ -23,9 +20,12 @@ function Login() {
       alert("Kata sandi salah!");
     } else {
       alert("Login berhasil!");
-      window.location.href = "/beranda"; // Ganti sesuai rute React Anda
+      window.location.href = "/beranda"; 
     }
   };
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+};
 
   return (
     <div className={styles.scopedContainer}>
@@ -56,9 +56,10 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.input}
               />
-              <label htmlFor="password" className={styles.label}>Password</label>
+              <label htmlFor="password" className={styles.label}>Kata Sandi</label>
+              <div className={styles.passwordContainer}>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 required
@@ -66,11 +67,23 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 className={styles.input}
               />
+              <span
+                className={`${styles.eye} ${
+                  showPassword ? styles.openEye : styles.closeEye
+                }`}
+                onClick={togglePasswordVisibility}
+              >
+                <img
+                  src={showPassword ? "/openeye.png" : "/closeeye.png"}
+                  alt={showPassword ? "Show Password" : "Hide Password"}
+                />
+              </span>
+            </div>
               <button type="submit" className={styles.login}>
                 Login
               </button>
               <div className={styles.lupa}>
-                <Link href="/lupa">Lupa Password</Link>
+                <Link href="/lupa">Lupa Kata Sandi ?</Link>
               </div>
               <div className={styles.daftar}>
                 Belum Punya Akun? <Link href="/daftar">Daftar</Link>
