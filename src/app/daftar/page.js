@@ -183,7 +183,7 @@ const Daftar = () => {
             </button>
           </form>
           <div className="login">
-            Sudah Punya Akun? <Link href="/Login/login">Login</Link>
+            Sudah Punya Akun? <Link href="/login">Login</Link>
           </div>
           <div className="lanjutkan">
             <p>Atau lanjutkan dengan :</p>
