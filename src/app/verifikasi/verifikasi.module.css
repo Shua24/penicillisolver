@@ -1,0 +1,206 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    background-color: #008080;
+    transition: background-color 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh; 
+    box-sizing: border-box; 
+}
+
+.header{
+    background-color: rgb(255, 255, 255);
+    top: 0%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    z-index: 10;
+    justify-content: space-between;
+    align-items: center;
+}
+.header img{
+    width: 15%;
+    padding: 10px;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+.header h3{
+    color: #008080;
+    margin-right: 50px;
+    cursor: pointer;
+}
+.form {
+    margin-top: 85px;
+    overflow: hidden;
+    width: 40%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    position: relative;
+    z-index: 10;
+    border-radius: 10px;
+    animation: Animation1 1s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes Animation1 {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 5;
+    }
+}
+.background1, .background2, .background3 {
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    background-image: url('/wa.png');
+    background-repeat: repeat;
+}
+.background1 {
+    background-image: url('/wa.png'); 
+    opacity: 0.1; 
+}
+.background2 {
+    background-image: url('/wa.png'); 
+    opacity: 0.1; 
+}
+.background3 {
+    background-image: url('/wa.png'); 
+    opacity: 0.1; 
+}
+
+.logo img {
+    width: 250px;
+    display: block;
+    margin: 0 auto 10px;
+    pointer-events: none;
+}
+
+.verifikasi {
+    text-align: center;
+    font-size: 15px;
+    color: black;
+    margin-top: -10px;
+}
+
+.masukkan { 
+    text-align: center;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.isi {
+    display: flex;
+    gap: 30px; 
+    margin-bottom: 30px;
+    margin-top: 10px;
+    justify-content: center; 
+    width: auto;
+    color: black;
+}
+.label {
+    margin: 5px 0 5px;
+    color: #008080;
+    margin-bottom: 0px;
+    margin-top: 30px;
+}
+
+.input[type="text"] {
+    border: 1px solid #008080;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.code-input {
+    width: 50px; 
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+    border: 1px solid #008080;
+    border-radius: 5px;
+    outline: none;
+    background-color: #f9f9f9;
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+    color: black;
+}
+
+.code-input:focus {
+    border-color: #008080; 
+    box-shadow: 0 0 5px rgba(0, 128, 128, 0.5);
+    transition: all 0.2s ease-out;
+}
+
+.tombol {
+    background-color: #008080;
+    color: white;
+    border: 1px solid #008080;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.tombol:hover {
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 0 10px 1px #008080;
+    transition: all 0.3s ease-out;
+}
+.pesan {
+    min-height: 20px;
+    text-align: center;
+    margin-top: 10px;
+    color: red;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.kirim {
+    text-align: center;
+    margin-top: 20px;
+    color: #008080;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    10% { transform: translateY(-5px); }
+    20% { transform: translateX(5px); }
+    30% { transform: translateY(-5px); }
+    40% { transform: translateX(5px); }
+    50% { transform: translateY(-5px); }
+    60% { transform: translateX(5px); }
+    70% { transform: translateY(-5px); }
+    80% { transform: translateX(5px); }
+    90% { transform: translateY(-5px); }
+    100% { transform: translateX(0); }
+}
+.error {
+    border-color: red 10px !important;
+    animation: shake 0.3s ease;
+}
+.code-input-error {
+    border-color: red !important;
+}
+.backgroundError {
+    background-color: #ff0000;
+}
+.tombolError{
+    background-color: #ff0000;
+}
+.tombolError:hover {
+    background-color: #ffffff;
+    color: #ff0000;
+    box-shadow: 0 0 10px 1px #ff0000;
+}
