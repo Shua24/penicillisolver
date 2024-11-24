@@ -57,26 +57,27 @@
         opacity: 5;
     }
 }
-.background1, .background2, .background3 {
+.background{
     position: absolute;
     width: 100%;
     height: 100%; 
     background-image: url('/wa.png');
     background-repeat: repeat;
+    background-size: auto;
+    opacity: 0.5; 
+    animation: moveBackground 15s linear infinite;
 }
-.background1 {
-    background-image: url('/wa.png'); 
-    opacity: 0.1; 
+@keyframes moveBackground {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10%); 
+    }
+    100%{
+        transform: translateY(0%);
+    }
 }
-.background2 {
-    background-image: url('/wa.png'); 
-    opacity: 0.1; 
-}
-.background3 {
-    background-image: url('/wa.png'); 
-    opacity: 0.1; 
-}
-
 .logo img {
     width: 150px;
     display: block;

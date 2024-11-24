@@ -95,14 +95,8 @@ const Verifikasi = () => {
           </Link>
             <h3>Butuh Bantuan ?</h3>
             </div>
-            <div className={style.background1}>
-                <img src="/wa.png" alt="background" />
-            </div>
-            <div className={style.background2}>
-                <img src="/wa.png" alt="background" />
-            </div>
-            <div className={style.background3}>
-                <img src="/wa.png" alt="background" />
+            <div className={style.background}>
+                
             </div>
             <div className={style.form}>
                 <div className={style.verifikasi}>

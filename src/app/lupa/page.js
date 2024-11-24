@@ -36,15 +36,8 @@ function LupaKataSandi() {
           </Link>
             <h3>Butuh Bantuan ?</h3>
             </div>
-       <div className={styles.background1}>
-                <img src="/wa.png"></img>
-            </div>
-            <div className={styles.background2}>
-                <img src="/wa.png"></img>
-            </div>
-            <div className={styles.background3}>
-                <img src="/wa.png"></img>
-            </div>
+            <div className={styles.background}>
+            </div> 
       <div className={styles.form}>
         <div className={styles.LupaSandi}>
           <h1>Lupa Kata Sandi?</h1>

@@ -16,6 +16,7 @@
  .background {
     flex: 0 0 auto;
     position: relative;
+    animation: moveBackground 30s linear infinite;
 }
 
  .background img {
@@ -23,6 +24,18 @@
     width: 2500px;
     height: 100%;
     object-fit: cover;
+
+}
+@keyframes moveBackground {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-100px); 
+    }
+    100% {
+        transform: translateX(0); 
+    }
 }
 
 @keyframes formAnimation {
@@ -174,13 +187,18 @@
     transition: all 0.2s ease-out;
 }
 
- .daftar {
-    text-align: center;
-    font-size: small;
+.daftar {
     display: flex;
-    margin: 20px 0 15px 85px;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    text-align: center;
+    margin: auto;
     color: #000;
+    height: 100%;
+    margin-bottom: 15px;
 }
+
 
  .daftar a {
     margin-left: 5px;
