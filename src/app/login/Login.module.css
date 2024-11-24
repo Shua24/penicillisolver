@@ -20,7 +20,7 @@
 
  .background img {
     pointer-events: none;
-    width: 1700px;
+    width: 2500px;
     height: 100%;
     object-fit: cover;
 }
@@ -103,8 +103,13 @@
     background-color: #ffffff;
     transition: all 0.3s ease-out;
     width: 100%;
+    color: #000;
 }
-
+.passwordContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
  .input:focus {
     background-color: #ffffff;
     color: #000000;
@@ -123,6 +128,29 @@
     width: 100%;
 }
 
+.eye {
+    margin-left: 15px;
+    top: 50%; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px; 
+  }
+  
+  .eye img {
+    width: 100%; 
+    height: auto; 
+    object-fit: contain; 
+  }
+  .openEye img{
+    filter: brightness(1);
+    margin-bottom: 20px;
+  }
+  .closeEye img{
+    margin-bottom: 5px;
+  }
  .lupa {
     margin-top: 30px;
     margin-bottom: 20px;
@@ -181,3 +209,6 @@
     padding: 5px;
     border-radius: 20%;
 }
+
+
+  
