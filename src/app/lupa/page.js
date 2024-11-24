@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from './lupa.module.css';
+import Link from "next/link";
 
 function LupaKataSandi() {
   const [emailInput, setEmailInput] = useState("");
@@ -30,7 +31,9 @@ function LupaKataSandi() {
   return (
     <div className={`${styles.container} ${error ? styles.backgroundError : ""}`}>
       <div className={styles.header}>
+          <Link href="/landing">
             <img src="/lambang.png" alt="logo" />
+          </Link>
             <h3>Butuh Bantuan ?</h3>
             </div>
        <div className={styles.background1}>

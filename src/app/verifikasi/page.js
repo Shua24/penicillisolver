@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import style from "./verifikasi.module.css";
+import Link from "next/link";
 
 const Verifikasi = () => {
     const [generatedOTP, setGeneratedOTP] = useState("");
@@ -89,7 +90,9 @@ const Verifikasi = () => {
     return (
         <div className={`${style.container} ${error ? style.backgroundError : ""}`}>
             <div className={style.header}>
+            <Link href="/landing">
             <img src="/lambang.png" alt="logo" />
+          </Link>
             <h3>Butuh Bantuan ?</h3>
             </div>
             <div className={style.background1}>
