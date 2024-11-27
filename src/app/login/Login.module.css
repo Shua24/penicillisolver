@@ -129,6 +129,9 @@
     box-shadow: 0 0 5px 0.1px #008080;
     outline: none;
 }
+.input:hover {
+    pointer-events:visibleFill;
+}
 
  .login {
     background-color: #008080;

@@ -11,11 +11,11 @@ function LandingPage() {
        </div> 
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Image src="/lambang.png" alt="Logo" width={225} height={70} />
+          <img src="/lambang.png" alt="Logo"/>
         </div>
         <div className={styles.hello}>Selamat Datang di Penicillisolver !</div>
         <div className={styles.button}>
-          <Link href="/daftar">Daftar Sekarang</Link>
+          <Link href="/daftar">Daftar</Link>
           <Link href="/login">Login</Link>
         </div>
       </header>

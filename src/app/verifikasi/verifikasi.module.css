@@ -33,6 +33,7 @@
     cursor: pointer;
 }
 .form {
+    min-width: 500px;
     margin-top: 85px;
     overflow: hidden;
     width: 40%;
