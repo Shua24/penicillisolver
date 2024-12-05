@@ -20,9 +20,6 @@
     overflow: auto; /* Allow scrolling if content exceeds height */
 }
 
-
-
-
 .table, .th, .td {
     font-family: Poppins, sans-serif;
     border: 1px solid black;
@@ -64,4 +61,32 @@
 
 .button:active {
     background-color: #004747;
+}
+
+@media (prefers-color-scheme: dark) {
+    .title, .text {
+        font-family: Poppins, sans-serif;
+        color: #00b1dc;
+        padding-bottom: 30px;
+        padding-top: 20px;
+    }
+    
+    .table {
+        background-color: #222;
+        user-select: none;
+        max-width: 90%; /* Maximum width */
+        overflow: auto; /* Allow scrolling if the content exceeds the table's height */
+        margin: 0 auto; /* Center the table horizontally */
+    }
+
+    .table, .th, .td {
+        font-family: Poppins, sans-serif;
+        border: 1px solid white;
+        border-collapse: collapse;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #222;
+        user-select: text;
+        word-wrap: break-word; /* Ensure content doesn't overflow the cells */
+    }
 }

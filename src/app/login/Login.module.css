@@ -176,8 +176,113 @@
 
  .icon img {
     pointer-events: none;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     padding: 5px;
     border-radius: 20%;
+}
+
+.twitterLogo {
+    transition: filter 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    .form {
+        display: flex;
+        flex-direction: column;
+        color: #777;
+    }
+
+    .background img {
+        pointer-events: none;
+        width: 1700px;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.6);
+    }
+
+    .form {
+        position: absolute;
+        margin: auto;
+        right: 0;
+        width: 400px;
+        height: 100%;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        background-color: rgba(17, 17, 17, 0.8);
+        backdrop-filter: blur(5px);
+        overflow: auto;
+        z-index: 2;
+        transition: transform 0.3s, backdrop-filter 0.3s;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        animation: formAnimation 1s ease-in-out;
+    }
+
+    .scopedContainer {
+        margin: 0;
+        padding: 0;
+        font-family: Poppins;
+        height: 100vh;
+        overflow: hidden;
+        user-select: none;
+        background-color: #1111;
+    }
+
+    .selamat h1 {
+        color: #fff;
+        margin-bottom: 5px;
+        text-align: center;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+    
+    .selamat h3 {
+        color: #ddd;
+        font-weight: normal;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .input {
+        margin-top: 5px;
+        display: block;
+        border: 1px solid #008080;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        background-color: #222;
+        transition: all 0.3s ease-out;
+        width: 100%;
+    }
+
+    .lupa {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: small;
+        color: white;
+    }
+
+    .daftar {
+        text-align: center;
+        font-size: small;
+        display: flex;
+        margin: 20px 0 15px 85px;
+        color: white;
+    }
+
+    .lanjut {
+        text-align: center;
+        font-size: small;
+        color: white;
+        margin-bottom: 30px;
+        margin-left: 10px;
+    }
+
+    .twitterLogo {
+        filter: invert(1) brightness(100%) contrast(100%);
+    }
 }

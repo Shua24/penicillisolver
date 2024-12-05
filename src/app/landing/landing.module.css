@@ -120,3 +120,28 @@
         opacity: 5;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .button a {
+        margin: 0;
+        padding: 10px 20px;
+        background-color: #004c4d;
+        color: #f7f7f7;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .mainContent {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        background-color: #004c4d;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        min-height: 70vh;
+        box-sizing: border-box;
+        position: relative;
+    }
+}
