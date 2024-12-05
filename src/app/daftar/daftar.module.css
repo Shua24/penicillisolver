@@ -1,90 +1,140 @@
+.dasar{
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins";
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+  background-color: #ffffff;
+}
+
+.background {
+  flex: 0 0 auto;
+  position: relative;
+  animation: moveBackground 30s linear infinite;
+}
+
 .container {
-    display: flex;
-    height: 100vh;
-    position: relative; /* Make sure the background image stays behind the form */
-  }
+  display: flex;
+  height: 100vh;
+}
+
+.background img {
+  width: 1700px;
+  height: 100%;
+  object-fit: cover;
+}
 
 .logo img {
-    display: block;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
+  pointer-events: none;
+  width: 120px;
+  display: block;
+  margin: 0 auto 10px;
+  height: auto;
 }
 
 .selamat h1 {
-    color: #000000;
-    margin-bottom: 5px;
-    text-align: center;
-    font-size: 20px;
+  color: #000;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 10px;
 }
 
 .selamat h3 {
-    color: #666;
-    font-weight: normal;
-    margin-top: 0;
-    text-align: center;
-    font-size: 15px;
+  color: #666;
+  font-weight: normal;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 15px;
 }
-  
-.background {
-    position: absolute; /* Position the background image behind other elements */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Ensure the background is behind the form */
-    overflow: hidden;
-}
-  
-.background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-  
-  .form {
-    position: absolute;
-    right: 0;
-    width: 400px;
-    height: 100%;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.9);
-    z-index: 2; /* Make sure the form content is above the background */
-    transition: transform 0.3s;
-    overflow-y: auto;
-}
-  
-  .formContainer {
-    display: flex;
-    flex-direction: column;
-}
-  
-  .label {
-    margin-top: 20px;
-    padding-bottom: 10px;
-    color: #008080;
-    font-weight: 600;
-}
-  
-  .input {
-    border: 1px solid #008080;
-    padding: 10px;
-    background-color: white;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    width: 100%;
-    margin-top: 10px;
-    box-sizing: border-box;
+
+@keyframes moveBackground {
+  0% {
+      transform: translateX(0);
   }
+  50% {
+      transform: translateX(-100px); 
+  }
+  100% {
+      transform: translateX(0); 
+  }
+}
   
-  .passwordInput {
+.form {
+  position: absolute;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px); 
+  z-index: 2; 
+  transition: transform 0.3s, backdrop-filter 0.3s;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  overflow-y: auto;
+  animation: formAnimation 1s ease-in-out; 
+}
+
+  
+.formContainer {
+    display: flex;
+    flex-direction: column;
+}
+  
+.label {
+    margin-top: 10px;
+    padding-bottom: 20px;
+    color: #008080;
+}
+  
+.input {
+  margin-top: 3px;
+  display: block;
+  border: 1px solid #008080;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  transition: all 0.3s ease-out;
+  width: 100%;
+  color: #000;
+}
+
+.input:focus {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 0 5px 0.1px #008080;
+  outline: none;
+}
+
+.daftar {
+  background-color: #008080;
+  color: white;
+  border: 3px #008080;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  transition: all 0.2s ease-out;
+}
+
+.daftar:hover {
+  background-color: #ffffff;
+  color: #008080;
+  box-shadow: 0 0 10px 1px #008080;
+}
+
+.passwordInput {
     display: flex;
     align-items: center;
-  }
+}
   
-  .passwordButton {
+.passwordButton {
     background-color: transparent;
     border: none;
     color: #008080;
@@ -92,17 +142,17 @@
     padding: 5px 10px;
     font-size: 14px;
     margin-left: 10px;
-  }
+}
   
-  .roleSelection {
+.roleSelection {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 20px;
     padding-top: 20px;
-  }
+}
   
-  .roleSelection button {
+.roleSelection button {
     background-color: transparent;
     border: 1px solid #008080;
     color: #008080;
@@ -112,52 +162,56 @@
     font-size: 12px;
 }
   
-  .roleSelection button:hover,
-  .roleSelection button:focus {
+.roleSelection button:hover {
     background-color: #008080;
+    color: white;
+    transition: all 0.2s ease-out;
+}
+
+.roleSelection button:focus {
+    background-color: #005858;
     color: white;
 }
 
 .pilih {
+    color: #008080;
     text-align: center;
     margin-top: 10px;
 }
   
-.daftar {
-    background-color: #008080;
-    color: white;
-    border: 3px #008080;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    width: 100%;
-}
 
 .login {
-    margin-top: 50px;
+  font-size: 15px;
+    margin-top: 30px;
     text-align: center;
     color: black;
     padding-bottom: 15px;
 }
-  
-.daftar:hover {
-    background-color: #ffffff;
-    color: #008080;
-    box-shadow: 0 0 10px 1px #008080;
+.login a{
+  color: blue;
 }
   
 .lanjutkan {
     text-align: center;
-    font-size: big;
+    font-size: 15px;
     color: black;
-    padding-bottom: 20px;
+
+}
+.lanjutkan p{
+  margin-bottom: 10px;
 }
   
 .lanjutkan img {
     padding: 10px;
 }
 
-.twitterLogo {
-  transition: filter 0.3s ease;
+@keyframes formAnimation {
+  0% {
+      transform: translateX(100px);
+      opacity: 0;
+  }
+  100% {
+      transform: translateX(0px);
+      opacity: 1;
+  }
 }
