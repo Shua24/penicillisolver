@@ -16,13 +16,26 @@
  .background {
     flex: 0 0 auto;
     position: relative;
+    animation: moveBackground 30s linear infinite;
 }
 
  .background img {
     pointer-events: none;
-    width: 1700px;
+    width: 2500px;
     height: 100%;
     object-fit: cover;
+
+}
+@keyframes moveBackground {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-100px); 
+    }
+    100% {
+        transform: translateX(0); 
+    }
 }
 
 @keyframes formAnimation {
@@ -103,13 +116,21 @@
     background-color: #ffffff;
     transition: all 0.3s ease-out;
     width: 100%;
+    color: #000;
 }
-
+.passwordContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
  .input:focus {
     background-color: #ffffff;
     color: #000000;
     box-shadow: 0 0 5px 0.1px #008080;
     outline: none;
+}
+.input:hover {
+    pointer-events:visibleFill;
 }
 
  .login {
@@ -123,6 +144,29 @@
     width: 100%;
 }
 
+.eye {
+    margin-left: 15px;
+    top: 50%; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px; 
+  }
+  
+  .eye img {
+    width: 100%; 
+    height: auto; 
+    object-fit: contain; 
+  }
+  .openEye img{
+    filter: brightness(1);
+    margin-bottom: 20px;
+  }
+  .closeEye img{
+    margin-bottom: 5px;
+  }
  .lupa {
     margin-top: 30px;
     margin-bottom: 20px;
@@ -146,13 +190,18 @@
     transition: all 0.2s ease-out;
 }
 
- .daftar {
-    text-align: center;
-    font-size: small;
+.daftar {
     display: flex;
-    margin: 20px 0 15px 85px;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    text-align: center;
+    margin: auto;
     color: #000;
+    height: 100%;
+    margin-bottom: 15px;
 }
+
 
  .daftar a {
     margin-left: 5px;
@@ -181,3 +230,6 @@
     padding: 5px;
     border-radius: 20%;
 }
+
+
+  
