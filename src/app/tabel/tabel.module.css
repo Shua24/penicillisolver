@@ -1,0 +1,67 @@
+/* table.module.css */
+.tableWrapper {
+    padding-left: 30px;
+    margin: 0 auto; /*Center the wrapper */
+    overflow-x: auto; /* Enable horizontal scrolling if table overflows */
+}
+
+.table {
+    background-color: #dfdfdf;
+    user-select: none;
+    max-width: 90%; /* Maximum width */
+    overflow: auto; /* Allow scrolling if the content exceeds the table's height */
+    margin: 0 auto; /* Center the table horizontally */
+}
+
+.tableContainer {
+    width: 100%;
+    max-width: 90%;
+    max-height: 700px; /* Increase the maximum height of the table container */
+    overflow: auto; /* Allow scrolling if content exceeds height */
+}
+
+
+
+
+.table, .th, .td {
+    font-family: Poppins, sans-serif;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    user-select: text;
+    word-wrap: break-word; /* Ensure content doesn't overflow the cells */
+}
+
+.center {
+    margin-left: 270px;
+    padding: 30px;
+}
+
+.title, .text {
+    font-family: Poppins, sans-serif;
+    color: #005f76;
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+.button {
+    font-family: "Poppins", sans-serif;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #008080;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #005f5f;
+}
+
+.button:active {
+    background-color: #004747;
+}
