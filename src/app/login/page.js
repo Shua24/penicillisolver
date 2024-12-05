@@ -100,7 +100,7 @@ function Login() {
                 <img src="/fb.png" alt="Facebook" />
               </a>
               <a href="https://x.com" target="_blank" rel="noopener noreferrer">
-                <img src="/x.png" alt="X" />
+                <img src="/x.png" alt="X" className={styles.twitterLogo} />
               </a>
             </div>
           </div>

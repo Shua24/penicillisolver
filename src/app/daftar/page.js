@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import "./daftar.css";
+import styles from "./daftar.module.css"; // Assuming you renamed the file as needed
 import { auth, db } from "./firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
@@ -78,8 +78,8 @@ const Daftar = () => {
   };
 
   return (
-    <div className="container">
-      <div className="background">
+    <div className={styles.container}>
+      <div className={styles.background}>
         <Image
           src="/dokter1.png"
           alt="Gambar Dokter"
@@ -87,21 +87,22 @@ const Daftar = () => {
           objectFit="cover"
         />
       </div>
-      <div className="form">
-        <div className="logo">
+      <div className={styles.form}>
+        <div className={styles.logo}>
           <Link href="/Landing/landing">
             <Image src="/logo.png" alt="logo" width={100} height={50} />
           </Link>
         </div>
-        <div className="form-container">
-          <div className="selamat">
+        <div className={styles.formContainer}>
+          <div className={styles.selamat}>
             <h1>Selamat Datang</h1>
             <h3>Silakan Daftar</h3>
           </div>
           <form onSubmit={handleRegister}>
-            {error && <p className="error">{error}</p>}
-            <label htmlFor="nama">Nama Lengkap</label>
+            {error && <p className={styles.error}>{error}</p>}
+            <label htmlFor="nama" className={styles.label}>Nama Lengkap</label>
             <input
+              className={styles.input}
               type="text"
               id="nama"
               name="nama"
@@ -110,8 +111,9 @@ const Daftar = () => {
               required
               autoComplete="off"
             />
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className={styles.label}>Email</label>
             <input
+              className={styles.input}
               type="email"
               id="email"
               name="email"
@@ -120,8 +122,9 @@ const Daftar = () => {
               required
               autoComplete="off"
             />
-            <label htmlFor="sip">Nomor SIP</label>
+            <label htmlFor="sip" className={styles.label}>Nomor SIP</label>
             <input
+              className={styles.input}
               type="text"
               id="sip"
               name="sip"
@@ -129,9 +132,10 @@ const Daftar = () => {
               onChange={handleInputChange}
               autoComplete="off"
             />
-            <label htmlFor="password">Password</label>
-            <div className="password-input">
+            <label htmlFor="password" className={styles.label}>Password</label>
+            <div className={styles.passwordInput}>
               <input
+                className={styles.input}
                 type={isPasswordVisible ? "text" : "password"}
                 id="password"
                 name="password"
@@ -140,15 +144,17 @@ const Daftar = () => {
                 required
               />
               <button
+                className={styles.passwordButton}
                 type="button"
                 onClick={() => setPasswordVisible(!isPasswordVisible)}
               >
                 {isPasswordVisible ? "Hide" : "Show"}
               </button>
             </div>
-            <label htmlFor="confirmPassword">Konfirmasi Password</label>
-            <div className="password-input">
+            <label htmlFor="confirmPassword" className={styles.label}>Konfirmasi Password</label>
+            <div className={styles.passwordInput}>
               <input
+                className={styles.input}
                 type={isConfirmPasswordVisible ? "text" : "password"}
                 id="confirmPassword"
                 name="confirmPassword"
@@ -157,44 +163,58 @@ const Daftar = () => {
                 required
               />
               <button
+                className={styles.passwordButton}
                 type="button"
                 onClick={() => setConfirmPasswordVisible(!isConfirmPasswordVisible)}
               >
                 {isConfirmPasswordVisible ? "Hide" : "Show"}
               </button>
             </div>
-            <div className="pilih">
+            <div className={styles.pilih}>
               <label>Daftar sebagai:</label>
             </div>
-            <div className="role-selection">
+            <div className={styles.roleSelection}>
               {["Mikrobiologi", "Dokter lain", "PPI", "PPRA", "Penanggung Jawab Lab"].map((role) => (
                 <button
                   key={role}
                   type="button"
-                  className={formData.role === role ? "selected" : ""}
+                  className={formData.role === role ? styles.selected : ""}
                   onClick={() => selectRole(role)}
                 >
                   {role}
                 </button>
               ))}
             </div>
-            <button type="submit" className="daftar">
+            <button type="submit" className={styles.daftar}>
               Daftar
             </button>
           </form>
-          <div className="login">
+          <div className={styles.login}>
             Sudah Punya Akun? <Link href="/login">Login</Link>
           </div>
-          <div className="lanjutkan">
+          <div className={styles.lanjutkan}>
             <p>Atau lanjutkan dengan :</p>
             <Link href="http://www.google.com" target="_blank">
-              <Image src="/google.png" alt="Google" width={30} height={30} />
+              <Image
+              src="/google.png"
+              alt="Google"
+              width={75}
+              height={75} />
             </Link>
             <Link href="http://www.facebook.com" target="_blank">
-              <Image src="/fb.png" alt="Facebook" width={30} height={30} />
+              <Image
+              src="/fb.png"
+              alt="Facebook"
+              width={75}
+              height={75} />
             </Link>
             <Link href="https://x.com/?lang=en" target="_blank">
-              <Image src="/x.png" alt="X" width={30} height={30} />
+              <Image 
+              src="/x.png"
+              alt="X"
+              className={styles.twitterLogo}
+              width={75}
+              height={75} />
             </Link>
           </div>
         </div>

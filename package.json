@@ -11,6 +11,7 @@
   "dependencies": {
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "axios": "^1.7.7",
+    "express": "^4.21.1",
     "firebase": "^11.0.2",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
