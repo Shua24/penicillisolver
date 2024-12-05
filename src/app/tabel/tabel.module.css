@@ -1,34 +1,43 @@
-/* table.module.css */
+.global {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
 .tableWrapper {
     padding-left: 30px;
-    margin: 0 auto; /*Center the wrapper */
-    overflow-x: auto; /* Enable horizontal scrolling if table overflows */
+    background-color: white;
+    margin: 0 auto; 
+    overflow-x: auto;
 }
 
 .table {
     background-color: #dfdfdf;
     user-select: none;
-    max-width: 90%; /* Maximum width */
-    overflow: auto; /* Allow scrolling if the content exceeds the table's height */
-    margin: 0 auto; /* Center the table horizontally */
+    max-width: 90%;
+    overflow: auto;
+    margin: 0 auto;
 }
 
 .tableContainer {
     width: 100%;
     max-width: 90%;
-    max-height: 700px; /* Increase the maximum height of the table container */
-    overflow: auto; /* Allow scrolling if content exceeds height */
+    max-height: 700px;
+    overflow: auto;
+    border: 1px solid black;
 }
 
 .table, .th, .td {
     font-family: Poppins, sans-serif;
     border: 1px solid black;
     border-collapse: collapse;
+    color: black;
     padding-left: 10px;
     padding-right: 10px;
     background-color: white;
     user-select: text;
-    word-wrap: break-word; /* Ensure content doesn't overflow the cells */
+    word-wrap: break-word;
 }
 
 .center {
@@ -61,32 +70,4 @@
 
 .button:active {
     background-color: #004747;
-}
-
-@media (prefers-color-scheme: dark) {
-    .title, .text {
-        font-family: Poppins, sans-serif;
-        color: #00b1dc;
-        padding-bottom: 30px;
-        padding-top: 20px;
-    }
-    
-    .table {
-        background-color: #222;
-        user-select: none;
-        max-width: 90%; /* Maximum width */
-        overflow: auto; /* Allow scrolling if the content exceeds the table's height */
-        margin: 0 auto; /* Center the table horizontally */
-    }
-
-    .table, .th, .td {
-        font-family: Poppins, sans-serif;
-        border: 1px solid white;
-        border-collapse: collapse;
-        padding-left: 10px;
-        padding-right: 10px;
-        background-color: #222;
-        user-select: text;
-        word-wrap: break-word; /* Ensure content doesn't overflow the cells */
-    }
 }
