@@ -2,55 +2,66 @@
 
 import React, { useState } from 'react';
 import styles from './lupa.module.css';
+import Link from "next/link";
 
 function LupaKataSandi() {
   const [emailInput, setEmailInput] = useState("");
+  const [error, setError] = useState(false); 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Mendapatkan data pengguna dari localStorage
+    if (!emailInput) {
+      setError(true);
+      setTimeout(() => setError(false), 300);
+      return;
+    }
     const users = JSON.parse(localStorage.getItem("userData")) || [];
     const user = users.find((user) => user.email === emailInput);
 
     if (!user) {
-      alert("Email Salah");
+      setError(true);
+      setTimeout(() => setError(false), 1000);
+      alert("Email tidak ditemukan!");
     } else {
-      // Redirect ke halaman verifikasi
-      window.location.href = "../Verifikasi/verifikasi.html";
+      alert("Redirect ke halaman verifikasi...");
+      window.location.href = "./verifikasi";
     }
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${error ? styles.backgroundError : ""}`}>
+      <div className={styles.header}>
+          <Link href="/landing">
+            <img src="/lambang.png" alt="logo" />
+          </Link>
+            <h3>Butuh Bantuan ?</h3>
+            </div>
+            <div className={styles.background}>
+            </div> 
       <div className={styles.form}>
         <div className={styles.LupaSandi}>
-          <h1>Lupa Kata Sandi ?</h1>
+          <h1>Lupa Kata Sandi?</h1>
         </div>
         <div className={styles.logo}>
           <img src="/lupa2.gif" alt="logo" />
         </div>
-        <div className={styles.formContainer}>
-          <div className={styles.Masukkan}>
+        <div className={styles.Masukkan}>
             <h3>Masukkan Email Anda</h3>
-          </div>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email" className={styles.label}>Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              autoComplete="off"
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
-              className={styles.input}
-            />
-            <button type="submit" className={styles.tombolverifikasi}>
-              Verifikasi
-            </button>
-          </form>
         </div>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email" className={`${styles.label} ${error ? styles.labelError : ""}`}>Email</label>
+          <input
+          autoComplete='off'
+            type="email"
+            id="email"
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+            className={`${styles.input} ${error ? styles.inputError : ""}`}
+          />
+          <button type="submit" className={styles.tombolverifikasi}>
+            Verifikasi
+          </button>
+        </form>
       </div>
     </div>
   );

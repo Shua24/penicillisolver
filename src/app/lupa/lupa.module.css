@@ -1,27 +1,83 @@
-
 .container {
-    overflow: auto;
+    overflow: hidden;
     display: flex;
-    height: 100vh;
-    justify-content: center;
-    background-color:#008080;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    background-color: #008080;
+    transition: background-color 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh; 
+    box-sizing: border-box; 
+}
+
+.header{
+    background-color: rgba(255, 255, 255, 0.900);
+    top: 0%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    z-index: 10;
+    justify-content: space-between;
+    align-items: center;
+}
+.header img{
+    min-width: 150px;
+    width: 125px;
+    padding: 10px;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+.header h3{
+    color: #008080;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+.background{
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    background-image: url('/wa.png');
+    background-repeat: repeat;
+    background-size: auto;
+    opacity: 0.5; 
+    animation: moveBackground 15s linear infinite;
+}
+@keyframes moveBackground {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10%); 
+    }
+    100%{
+        transform: translateY(0%);
+    }
 }
 
 .form {
-    width: 400px;
-    height: 100%;
-    padding: 50px;
+    min-width: 500px;
+    margin-top: 85px;
+    overflow: hidden;
+    width: 40%;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    animation: Animation2 1s ease-in-out;
-    width: 550px;
+    background-color: rgba(255, 255, 255, 0.900);
+    position: relative;
+    z-index: 10;
+    border-radius: 10px;
+    animation: Animation1 1s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .logo img {
-    width: 400px;
+    width: 100px;
     display: block;
-    margin-left: 110px;
+    margin: auto;
+    margin-top: 20px;
 }
 .LupaSandi {
     margin-top: -10px;
@@ -36,7 +92,7 @@
     margin-bottom: 0px;
     margin-top: 30px;
     display: block;
-    animation: Animation1 1s ease-in-out;
+
 }
 
 .input {
@@ -48,7 +104,8 @@
     background-color: white;
     color: black;
     width: 100%;
-    animation: Animation1 1s ease-in-out;
+ 
+    transition: border-color 0.3s ease;
 }
 .input:focus{
     background-color: #ffffff;
@@ -71,7 +128,6 @@
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-    animation: Animation1 1s ease-in-out;
 }
 
 .tombolverifikasi:hover {
@@ -79,7 +135,6 @@
     color: #008080;
     box-shadow: 0 0 10px 1px #008080;
     transition: all 0.3s ease-out;
-
 }
 @keyframes Animation1 {
     0% {
@@ -102,59 +157,32 @@
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    .container {
-        overflow: auto;
-        display: flex;
-        height: 100vh;
-        justify-content: center;
-        background-color:#004c4d;
-    }
-    
-    .LupaSandi {
-        margin-top: -10px;
-        text-align: center;
-        font-size: 15px;
-        color: white;
-    }
-
-    .Masukkan{
-        text-align: center;
-        margin-top: 30px;
-        color: white;
-    }
-    
-    .form {
-        width: 400px;
-        height: 100%;
-        padding: 50px;
-        display: flex;
-        flex-direction: column;
-        background-color: black;
-        animation: Animation2 1s ease-in-out;
-        width: 550px;
-    }
-
-    .input {
-        border: 1px solid #008080;
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 5px;
-        margin-bottom: 30px;
-        background-color: white;
-        color: black;
-        width: 100%;
-        animation: Animation1 1s ease-in-out;
-    }
-
-    .tombolverifikasi {
-        background-color: #004c4d;
-        color: white;
-        border: 1px #008080;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100%;
-        animation: Animation1 1s ease-in-out;
-    }
+@keyframes shake {
+    0% { transform: translateX(0); }
+    10% { transform: translateX(-5px); }
+    20% { transform: translateX(5px); }
+    30% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    50% { transform: translateX(-5px); }
+    60% { transform: translateX(5px); }
+    70% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    90% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+/* .error {
+    border-color: red 10px; 
+    animation: shake 0.2s ease;
+} */
+.inputError {
+    border-color: red;
+    animation: shake 0.3s ease; 
+}
+.backgroundError {
+    background-color: #ff0000; 
+    transition: background-color 0.2s ease-in-out; 
+}
+.labelError {
+    color:red;
+    animation: shake 0.3s ease; 
 }
