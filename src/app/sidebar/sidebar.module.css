@@ -1,0 +1,65 @@
+/* Sidebar.module.css */
+.global {
+    font-family: "Poppins";
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: #ececec;
+    color: #005F76;
+    padding: 20px;
+}
+
+.lambang {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.menuItem {
+    background-color: #f7f7f7;
+    margin: 0 0 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.menuItem:hover {
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 0 10px 1px #008080;
+    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out; 
+}
+
+.userInfo {
+    position: absolute;
+    bottom: 40px;
+    left: 20px;
+    right: 20px;
+    user-select: none;
+}
+
+.logoutBox {
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    bottom: 100px;
+    width: 75%;
+}
+
+.logoutBox:hover {
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 0 10px 1px #008080;
+    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out; 
+}
