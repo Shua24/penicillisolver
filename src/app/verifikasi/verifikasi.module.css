@@ -22,9 +22,8 @@
     align-items: center;
 }
 .header img{
-    width: 20%;
+    width: 150px;
     padding: 10px;
-    margin-left: 30px;
     margin-top: 5px;
 }
 .header h3{
@@ -65,7 +64,7 @@
     background-image: url('/wa.png');
     background-repeat: repeat;
     background-size: auto;
-    opacity: 0.5; 
+    opacity: 0.3; 
     animation: moveBackground 15s linear infinite;
 }
 @keyframes moveBackground {
