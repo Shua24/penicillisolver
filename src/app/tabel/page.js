@@ -18,6 +18,7 @@ const Tabel = () => {
    const dataRows = rows.slice(1);
  
    return (
+    <div className={styles.global}>
      <div className={styles.tableWrapper}>
        <h1 className={styles.title}>Pola Kuman Tahun Ini</h1>
        <div className={styles.tableContainer}>
@@ -41,6 +42,7 @@ const Tabel = () => {
        </table>
        </div>
      </div>
+  </div>
    );
  };
  
