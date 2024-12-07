@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import styles from "./daftar.module.css"; // Assuming you renamed the file as needed
+import styles from "./daftar.module.css";
 import { auth, db } from "./firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 const Daftar = () => {
   const [formData, setFormData] = useState({
@@ -45,17 +45,35 @@ const Daftar = () => {
       return;
     }
 
+    // Menentukan dokumen referensi berdasarkan role
+    const roleToHakAksesMap = {
+      "Mikrobiologi": "mikrobiologi",
+      "PPI": "ppi",
+      "PPRA": "ppra",
+      "Dokter lain": "dokterLain",
+      "Penanggung Jawab Lab": "pj_lab",
+    };
+
+    const hakAksesRef = roleToHakAksesMap[role] 
+      ? doc(db, "hakAkses", roleToHakAksesMap[role]) 
+      : null;
+
     try {
       setError("");
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      await addDoc(collection(db, "users"), {
+      // Update display name
+      await updateProfile(user, { displayName: nama });
+
+      // Add user data to Firestore
+      await setDoc(doc(collection(db, "users"), user.uid), {
         uid: user.uid,
         nama,
         email,
         sip,
         role,
+        hakAksesRef, // Menambahkan field referensi ke hakAkses
         createdAt: new Date().toISOString(),
       });
 
@@ -193,7 +211,7 @@ const Daftar = () => {
             <div className={styles.lanjutkan}>
               <p>Atau lanjutkan dengan :</p>
               <Link href="http://www.google.com" target="_blank">
-                <img
+                <img 
                 src="/google.png"
                 alt="Google"
                 width={60}
