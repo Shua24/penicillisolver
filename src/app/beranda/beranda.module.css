@@ -1,0 +1,60 @@
+.sidebar {
+  background-color: #f0f0f0;
+  width: 280px;
+  position: fixed;
+  height: 100%;
+}
+
+.lambang {
+  margin: 20px;
+  display: block;
+}
+
+.menuItem {
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.menuItem.active:hover,
+.menuItem.active {
+  color: #ffffff;
+  background-color: #008080;
+}
+
+.userInfo {
+  margin: 20px 0;
+}
+
+.userAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: gray;
+  margin-bottom: 10px;
+}
+
+.logoutBox {
+  padding: 10px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mainContent {
+  margin-left: 280px;
+  padding: 20px;
+}
+
+.heading {
+    color: #005F76;
+    text-align: left;
+    margin: 50px 0 -10px;
+} 
+
+.tanggal {
+  color: green;
+  font-weight: bold;
+}
