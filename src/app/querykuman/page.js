@@ -24,8 +24,8 @@ const Query = () => {
       }
 
       const data = await response.json();
-      setResults(data); // Update state with API response
-      setError(null); // Clear any previous errors
+      setResults(data);
+      setError(null);
     } catch (err) {
       setError("Failed to fetch data. Please try again later.");
       console.error(err);
@@ -83,7 +83,6 @@ const Query = () => {
         <h1 className={styles.headingPrimary}>Cari Antibiotik</h1>
         <h3 className={styles.headingSecondary}>Pilih pencarian (isi salah satu)</h3>
         <br />
-        {/* Form for Bacteria */}
         <div className={styles.sicknessSearch}>
           <p className={styles.paragraph}>Berdasarkan spesies bakteri</p>
           <form onSubmit={handleSubmit}>
@@ -103,7 +102,6 @@ const Query = () => {
           </form>
         </div>
         <br />
-        {/* Form for Sickness */}
         <div className={styles.sicknessSearch}>
           <p className={styles.paragraph}>Berdasarkan penyakit</p>
           <form onSubmit={handleSubmit}>
@@ -123,7 +121,6 @@ const Query = () => {
           </form>
         </div>
 
-        {/* Results Table */}
         {error && <div className={styles.error}>{error}</div>}
         {results && (
           <div className={styles.results}>
