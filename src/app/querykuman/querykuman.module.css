@@ -28,10 +28,31 @@
     font-size: 20px;
 }
 
+.headingThird {
+    color: #005f76;
+}
+
 .label {
     color: #005f76;
     padding-right: 40px;
     font-size: 20px;
+}
+
+.table {
+    background-color: #dfdfdf;
+    user-select: none;
+}
+
+.table, .th, .td {
+    font-family: Poppins, sans-serif;
+    border: 1px solid black;
+    border-collapse: collapse;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    user-select: text;
+    word-wrap: break-word;
 }
 
 .paragraph {
