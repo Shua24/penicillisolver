@@ -1,0 +1,167 @@
+/* General page styles */
+.body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+    background-color: #dfdfdf;
+}
+
+/* Center container */
+.center {
+    margin-left: 280px;
+    padding: 20px;
+}
+
+/* Headings and text styles */
+.headingPrimary {
+    font-size: 40px;
+    margin-top: 50px;
+    color: #005f76;
+}
+
+.headingSecondary {
+    color: #005f76;
+    padding-right: 40px;
+    font-size: 20px;
+}
+
+.headingThird {
+    color: #005f76;
+}
+
+.label {
+    color: #005f76;
+    padding-right: 40px;
+    font-size: 20px;
+}
+
+.table {
+    background-color: #dfdfdf;
+    user-select: none;
+}
+
+.table, .th, .td {
+    font-family: Poppins, sans-serif;
+    border: 1px solid black;
+    border-collapse: collapse;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    user-select: text;
+    word-wrap: break-word;
+}
+
+.paragraph {
+    margin-top: -5px;
+    color: #005f76;
+    font-size: 20px;
+}
+
+.button {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 5px;
+    margin-top: 35px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #008080;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.button:hover {
+    background-color: #005f76;
+}
+
+/* Input field styles */
+.inputText {
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    color: grey;
+    padding: 20px;
+    width: 200px;
+    float: right;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Search container */
+.sicknessSearch {
+    border: 1px solid #bfbdbd;
+    user-select: text;
+    padding: 20px;
+    width: 420px;
+    border-radius: 8px;
+    background-color: #dfdfdf;
+}
+
+/* Sidebar.module.css */
+.global {
+    font-family: "Poppins";
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: #ececec;
+    color: #005F76;
+    padding: 20px;
+}
+
+.lambang {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.menuItem {
+    background-color: #f7f7f7;
+    margin: 0 0 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.menuItem:hover {
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 0 10px 1px #008080;
+    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out; 
+}
+
+.userInfo {
+    position: absolute;
+    bottom: 40px;
+    left: 20px;
+    right: 20px;
+    user-select: none;
+}
+
+.logoutBox {
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    bottom: 100px;
+    width: 75%;
+}
+
+.logoutBox:hover {
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 0 10px 1px #008080;
+    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out; 
+}
