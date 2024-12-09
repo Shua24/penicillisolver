@@ -49,7 +49,7 @@
         transform: translateY(0);
     }
     50% {
-        transform: translateY(10%); 
+        transform: translateY(5%); 
     }
     100%{
         transform: translateY(0%);
@@ -119,6 +119,7 @@
     margin-top: 30px;
     color: black;
 }
+
 .tombolverifikasi {
     background-color: #008080;
     color: white;
@@ -169,10 +170,7 @@
     90% { transform: translateX(-5px); }
     100% { transform: translateX(0); }
 }
-/* .error {
-    border-color: red 10px; 
-    animation: shake 0.2s ease;
-} */
+
 .inputError {
     border-color: red;
     animation: shake 0.3s ease; 
@@ -185,3 +183,15 @@
     color:red;
     animation: shake 0.3s ease; 
 }
+.message {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+  .messageSuccess {
+    color: #008080;
+  }
+  .messageError {
+    color: red;
+  }
+  

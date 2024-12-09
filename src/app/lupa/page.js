@@ -3,41 +3,63 @@
 import React, { useState } from 'react';
 import styles from './lupa.module.css';
 import Link from "next/link";
+import { auth } from '../daftar/firebase'; // Pastikan path ini benar
+import { sendPasswordResetEmail } from 'firebase/auth';
+import {useRouter} from 'next/navigation';
 
 function LupaKataSandi() {
+  const [isResetCompleted, setResetCompleted] = useState(false);
   const [emailInput, setEmailInput] = useState("");
-  const [error, setError] = useState(false); 
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setMessage("");
+    setError(false);
+
     if (!emailInput) {
       setError(true);
+      setMessage("Email tidak boleh kosong.");
       setTimeout(() => setError(false), 300);
       return;
     }
-    const users = JSON.parse(localStorage.getItem("userData")) || [];
-    const user = users.find((user) => user.email === emailInput);
 
-    if (!user) {
+    try {
+      // Kirim email reset password menggunakan Firebase
+      await sendPasswordResetEmail(auth, emailInput);
+      setMessage("Email reset kata sandi telah dikirim. Periksa inbox Anda.");
+
+      // Redirect ke halaman login setelah beberapa detik
+      setTimeout(() => {
+        router.push('/login'); // Ganti '/login' dengan path halaman login Anda
+      }, 3000); // Tunggu 3 detik sebelum redirect
+    } catch (err) {
       setError(true);
-      setTimeout(() => setError(false), 1000);
-      alert("Email tidak ditemukan!");
-    } else {
-      alert("Redirect ke halaman verifikasi...");
-      window.location.href = "./verifikasi";
+      // Tangani error berdasarkan kode error Firebase
+      switch (err.code) {
+        case "auth/user-not-found":
+          setMessage("Email tidak ditemukan dalam sistem kami.");
+          break;
+        case "auth/invalid-email":
+          setMessage("Format email tidak valid.");
+          break;
+        default:
+          setMessage("Terjadi kesalahan. Silakan coba lagi nanti.");
+      }
     }
   };
 
   return (
     <div className={`${styles.container} ${error ? styles.backgroundError : ""}`}>
       <div className={styles.header}>
-          <Link href="/landing">
-            <img src="/lambang.png" alt="logo" />
-          </Link>
-            <h3>Butuh Bantuan ?</h3>
-            </div>
-            <div className={styles.background}>
-            </div> 
+        <Link href="/landing">
+          <img src="/lambang.png" alt="logo" />
+        </Link>
+        <h3>Butuh Bantuan ?</h3>
+      </div>
+      <div className={styles.background}></div>
       <div className={styles.form}>
         <div className={styles.LupaSandi}>
           <h1>Lupa Kata Sandi?</h1>
@@ -46,12 +68,17 @@ function LupaKataSandi() {
           <img src="/lupa2.gif" alt="logo" />
         </div>
         <div className={styles.Masukkan}>
-            <h3>Masukkan Email Anda</h3>
+          <h3>Masukkan Email Anda</h3>
         </div>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email" className={`${styles.label} ${error ? styles.labelError : ""}`}>Email</label>
+          <label
+            htmlFor="email"
+            className={`${styles.label} ${error ? styles.labelError : ""}`}
+          >
+            Email
+          </label>
           <input
-          autoComplete='off'
+            autoComplete="on"
             type="email"
             id="email"
             value={emailInput}
@@ -59,9 +86,18 @@ function LupaKataSandi() {
             className={`${styles.input} ${error ? styles.inputError : ""}`}
           />
           <button type="submit" className={styles.tombolverifikasi}>
-            Verifikasi
+            Kirim Tautan
           </button>
         </form>
+        {message && (
+          <p
+            className={`${styles.message} ${
+              error ? styles.messageError : styles.messageSuccess
+            }`}
+          >
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );
