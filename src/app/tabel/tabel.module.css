@@ -74,6 +74,12 @@
     background-color: #004747;
 }
 
+.pageContainer {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
 /* Sidebar.module.css */
 .global {
     font-family: "Poppins";
