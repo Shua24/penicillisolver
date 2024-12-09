@@ -1,31 +1,57 @@
 'use client';
 
 import React, { useState } from "react";
-import styles from "./Login.module.css"; 
+import styles from "./Login.module.css";
 import Link from "next/link";
+import { auth } from "../daftar/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const users = JSON.parse(localStorage.getItem("userData")) || [];
-    const user = users.find((user) => user.email === email);
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
-    if (!user) {
-      alert("User belum terdaftar!");
-    } else if (user.password !== password) {
-      alert("Kata sandi salah!");
-    } else {
-      alert("Login berhasil!");
-      window.location.href = "/beranda"; 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setErrorMessage(""); // Clear error messages before submission
+
+    try {
+      // Authenticate user with Firebase
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      if (user.emailVerified) {
+        // Navigate to homepage if email is verified
+        router.push("/beranda");
+      } else {
+        setErrorMessage("Email belum diverifikasi. Silakan cek inbox Anda.");
+      }
+    } catch (error) {
+      // Handle errors during login
+      switch (error.code) {
+        case "auth/user-not-found":
+          setErrorMessage("Pengguna tidak ditemukan. Silakan daftar terlebih dahulu.");
+          break;
+        case "auth/wrong-password":
+          setErrorMessage("Kata sandi salah. Silakan coba lagi.");
+          break;
+        case "auth/invalid-credential":
+          setErrorMessage("Email atau kata sandi salah.");
+          break;
+        default:
+          setErrorMessage("Terjadi kesalahan. Silakan coba lagi nanti.");
+          // setErrorMessage(`${error.code}`);
+          break;
+      }
     }
   };
+
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
-};
+  };
 
   return (
     <div className={styles.scopedContainer}>
@@ -45,52 +71,59 @@ function Login() {
               <h3>Silakan Login</h3>
             </div>
             <form onSubmit={handleSubmit}>
-              <label htmlFor="email" className={styles.label}>Email</label>
+              <label htmlFor="email" className={styles.label}>
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 required
-                autoComplete="off"
+                autoComplete="on"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.input}
               />
-              <label htmlFor="password" className={styles.label}>Kata Sandi</label>
+              <label htmlFor="password" className={styles.label}>
+                Kata Sandi
+              </label>
               <div className={styles.passwordContainer}>
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.input}
-              />
-              <span
-                className={`${styles.eye} ${
-                  showPassword ? styles.openEye : styles.closeEye
-                }`}
-                onClick={togglePasswordVisibility}
-              >
-                <img
-                  src={showPassword ? "/openeye.png" : "/closeeye.png"}
-                  alt={showPassword ? "Show Password" : "Hide Password"}
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={styles.input}
                 />
-              </span>
-            </div>
+                <span
+                  className={`${styles.eye} ${
+                    showPassword ? styles.openEye : styles.closeEye
+                  }`}
+                  onClick={togglePasswordVisibility}
+                >
+                  <img
+                    src={showPassword ? "/openeye.png" : "/closeeye.png"}
+                    alt={showPassword ? "Show Password" : "Hide Password"}
+                  />
+                </span>
+              </div>
+              {errorMessage && (
+                <p className={styles.errorMessage}>{errorMessage}</p>
+              )}
               <button type="submit" className={styles.login}>
                 Login
               </button>
               <div className={styles.lupa}>
-                <Link href="/lupa">Lupa Kata Sandi ?</Link>
+                <Link href="/lupa">Lupa Kata Sandi?</Link>
               </div>
               <div className={styles.daftar}>
                 Belum Punya Akun? <Link href="/daftar">Daftar</Link>
               </div>
             </form>
             <div className={styles.lanjut}>
-              <p>Atau lanjutkan dengan :</p>
+              <p>Atau lanjutkan dengan:</p>
             </div>
             <div className={styles.icon}>
               <a href="http://www.google.com" target="_blank" rel="noopener noreferrer">

@@ -231,5 +231,7 @@
     border-radius: 20%;
 }
 
+.errorMessage{
+    color: red;
+}
 
-  
