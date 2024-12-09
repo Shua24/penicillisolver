@@ -7,10 +7,8 @@ import styles from './beranda.module.css';
 
 export default function Beranda() {
   return (
-    <div className={styles.pageContainer}>
-      {/* Include the new Sidebar component */}
-      <Sidebar />
-
+    <div className={styles.pageContainer}><Sidebar />
+      <div className={styles.global}>
       <div className={styles.mainContent}>
         <h1 className={styles.heading}>Beranda</h1>
         <p>Deadline pergantian :</p>
@@ -24,6 +22,7 @@ export default function Beranda() {
           <Image src="/Assets/tabelbakteri.png" alt="Bakteri" width={200} height={100} />
         </a>
       </div>
+    </div>
     </div>
   );
 }
