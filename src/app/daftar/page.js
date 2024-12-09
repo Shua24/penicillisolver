@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./daftar.module.css";
 import { auth, db } from "./firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { collection, setDoc, doc } from "firebase/firestore";
+import { useRouter } from 'next/navigation';
 
 const Daftar = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,8 @@ const Daftar = () => {
   const [error, setError] = useState("");
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -76,8 +79,11 @@ const Daftar = () => {
         hakAksesRef, // Menambahkan field referensi ke hakAkses
         createdAt: new Date().toISOString(),
       });
+      await sendEmailVerification(user);
+      setMessage('Pendaftaran berhasil! Silakan verifikasi!');
 
-      alert("Pendaftaran berhasil!");
+      // Redirect to the User Verification page
+      router.push('/verifikasi-user');
       console.log("User registered:", user);
 
       setFormData({
