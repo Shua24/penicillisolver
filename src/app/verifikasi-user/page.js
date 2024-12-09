@@ -45,23 +45,30 @@ const UserVerificationPage = () => {
   }, [timer]);
 
   const handleSendVerificationEmail = async () => {
-    if (user && timer === 0) {
-      try {
-        await sendEmailVerification(user);
-        setMessage('Tautan verifikasi terkirim. Silakan cek inbox pada email.');
-        setTimer(120); // Set timer to 2 minutes (120 seconds)
-      } catch (error) {
-        setMessage(`Error: ${error.message}`);
-        triggerErrorAnimation();
-      }
-    } else if (timer > 0) {
+    if (!user) {
+      setMessage('Tidak ada pengguna yang masuk.');
+      triggerErrorAnimation();
+      return;
+    }
+    if (timer > 0) {
       setMessage('Silakan tunggu hingga timer selesai sebelum mengirim ulang.');
       triggerErrorAnimation();
-    } else {
-      setMessage('Tidak ada pengguna yang masuk.');
+      return;
+    }
+    try {
+      await sendEmailVerification(user);
+      setMessage('Tautan verifikasi terkirim. Silakan cek inbox pada email.');
+      setTimer(600); // Timer untuk 2 menit
+    } catch (error) {
+      if (error.code === 'auth/too-many-requests') {
+        setMessage('Terlalu banyak permintaan. Tapi silakan cek email anda 😊');
+      } else {
+        setMessage(`Error: ${error.message}`);
+      }
       triggerErrorAnimation();
     }
   };
+  
 
   const triggerErrorAnimation = () => {
     setError(true);
