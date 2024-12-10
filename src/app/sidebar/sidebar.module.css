@@ -11,7 +11,7 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 200px;
+    width: 250px;
     background-color: #ececec;
     color: #005F76;
     padding: 20px;
@@ -45,6 +45,27 @@
     right: 20px;
     user-select: none;
 }
+
+
+.deleteAccount {
+    background-color: #f74040;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    bottom: 150px;
+    width: 75%;
+    color: white;
+}
+
+.deleteAccount:hover {
+    background-color: #ff0000;
+    color: white;
+    box-shadow: 0 0 10px 1px #ff0000;
+    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
 
 .logoutBox {
     background-color: #f7f7f7;
