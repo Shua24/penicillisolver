@@ -9,6 +9,16 @@
     background-color: #dfdfdf;
 }
 
+.warning {
+    color: orange;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fcf9f0;
+    border: 1px solid #f00;
+    border-radius: 5px;
+  }
+
 .pageContainer {
     height: 100vh;
     width: 100%;
