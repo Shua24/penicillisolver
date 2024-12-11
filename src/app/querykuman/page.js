@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "./querykuman.module.css";
+import Sidebar from "../sidebar/page";
 
 const Query = () => {
   const [results, setResults] = useState(null);
@@ -16,7 +17,7 @@ const Query = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/top-values?column=${encodeURIComponent(query)}`
+        `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`
       );
 
       if (!response.ok) {
@@ -33,51 +34,7 @@ const Query = () => {
   };
 
   return (
-    <div className={styles.global}>
-    <div className={styles.sidebar}>
-      <img
-        src="lambang.png"
-        alt="Lambang Penicillisolver"
-        className={styles.lambang}
-      />
-      <div
-        className={styles.menuItem}
-        onClick={() => (window.location.href = "../Beranda/beranda.html")}
-      >
-        Beranda
-      </div>
-      <div
-        className={styles.menuItem}
-        onClick={() =>
-          (window.location.href = "../tentangPolaKuman/tentangPolaKuman.html")
-        }
-      >
-        Tentang Pola Kuman
-      </div>
-      <div
-        className={styles.menuItem}
-        onClick={() =>
-          (window.location.href = "../cariAntibiotik/cariAntibiotik.html")
-        }
-      >
-        Cari Antibiotik
-      </div>
-      <div
-        className={styles.menuItem}
-        onClick={() => (window.location.href = "../aturAkses/aturAkses.html")}
-      >
-        Atur Akses
-      </div>
-      <div className={styles.userInfo}>
-        <UserInfo name="Rizky Septian" role="PPI" />
-      </div>
-      <div
-        className={styles.logoutBox}
-        onClick={() => (window.location.href = "../Landing/landing.html")}
-      >
-        Log out
-      </div>
-    </div>
+    <div className={styles.pageContainer}><Sidebar/>
     <div className={styles.body}>
       <div className={styles.center}>
         <h1 className={styles.headingPrimary}>Cari Antibiotik</h1>
@@ -120,7 +77,6 @@ const Query = () => {
             </button>
           </form>
         </div>
-
         {error && <div className={styles.error}>{error}</div>}
         {results && (
           <div className={styles.results}>
