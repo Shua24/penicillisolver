@@ -14,12 +14,8 @@ export default function Beranda() {
         <p>Deadline pergantian :</p>
         <label id="update" className={styles.tanggal}>19 Oktober 2024</label>
         <br /><br />
-        <a href="/Tabel">
-          <Image src="/Assets/pola.png" alt="Pola" width={200} height={100} />
-        </a>
-        <br /><br />
-        <a href="/Tabel/tabelbakteri">
-          <Image src="/Assets/tabelbakteri.png" alt="Bakteri" width={200} height={100} />
+        <a href="/tabel">
+          <Image src="/pola.png" alt="Pola" width={200} height={100} />
         </a>
       </div>
     </div>
