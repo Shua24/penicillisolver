@@ -1,0 +1,55 @@
+.pageContainer {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .global {
+    background-color: white;
+    width: 100%;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-left: 280px;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .heading {
+    font-size: 38px;
+    color: #005F76;
+    margin: 50px 0;
+  }
+  
+  .inline {
+    display: flex;
+    align-items: center;
+  }
+  
+  .textlink {
+    margin-left: 10px; 
+    cursor: pointer; 
+    color: #008080;
+  }
+  
+  .loadContent {
+    font-family: "Poppins";
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #008080;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .loadContent:hover {
+    background-color: #005f5f;
+  }
+  
+  .loadContent:active {
+    background-color: #004747;
+  }
+  
