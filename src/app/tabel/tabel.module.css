@@ -11,7 +11,7 @@
     background-color: white;
     margin: 0 auto; 
     overflow-x: auto;
-    padding-left: 220px;
+    padding-left: 300px;
 }
 
 .table {
@@ -72,6 +72,11 @@
 
 .button:active {
     background-color: #004747;
+}
+
+.uploading {
+    background-color: #8c8c8c;
+    color: grey;
 }
 
 .pageContainer {

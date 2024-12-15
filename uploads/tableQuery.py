@@ -36,12 +36,12 @@ def upload_to_firebase():
         excel_data = df.to_dict(orient="records")  # List of row dictionaries
 
         # Specify the Firestore collection and document name
-        collection_name = os.getenv("FIREBASE_COLLECTION", "polakuman")
+        collection_name = os.getenv("APP_FIREBASE_COLLECTION", "polakuman")
         document_name = "excel_data"  # Name of the document inside the collection
 
         # Write data to Firestore
         db.collection(collection_name).document(document_name).set({"rows": excel_data})
-        return jsonify({"message": "Excel data uploaded successfully to Firebase"}), 200
+        return jsonify({"message": "Pola kuman berhasil ter-upload ke database!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
