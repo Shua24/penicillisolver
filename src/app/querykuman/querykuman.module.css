@@ -17,7 +17,15 @@
     background-color: #fcf9f0;
     border: 1px solid #f00;
     border-radius: 5px;
-  }
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ffadad;
+}
 
 .pageContainer {
     height: 100vh;
