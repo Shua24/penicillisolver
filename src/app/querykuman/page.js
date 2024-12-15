@@ -13,68 +13,73 @@ const Query = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const form = event.target;
     const inputField = form.querySelector("input");
-    const query = inputField.value.trim().toLowerCase(); // Convert query to lowercase for case-insensitivity
-
+    const query = inputField.value.trim().toLowerCase(); // case insensitive (selalu jadi input bersih)
+  
     try {
-      // Fetch the 'excel_data' document from Firebase
       const docRef = doc(db, "polakuman", "excel_data");
       const docSnap = await getDoc(docRef);
-
+  
       if (docSnap.exists()) {
         const data = docSnap.data();
 
-        if (data.rows) {
-          // Make query case-insensitive by matching it to a key in each row
+        // Cek isi dokumen
+        if (data.rows && data.rows.length > 0) {
           const keys = Object.keys(data.rows[0]).map((key) => key.toLowerCase());
-          if (!keys.includes(query)) {
-            throw new Error(`Column "${query}" not found in Firebase. Falling back to backup.`);
+          
+          // cek bakteri
+          if (keys.includes(query)) {
+            const actualKey = Object.keys(data.rows[0]).find(
+              (key) => key.toLowerCase() === query
+            );
+            
+            // Sort data (manual)
+            const sortedRows = data.rows.sort((a, b) => b[actualKey] - a[actualKey]);
+            const topRows = sortedRows.slice(0, 3);
+  
+            setResults({
+              bakteri: actualKey,
+              tiga_antibiotik: topRows.map((row) => ({
+                Organism: row.Organism,
+                Score: row[actualKey],
+              })),
+            });
+            setError(null);
+            setDataSource("firebase");
+            return;
+          } else {
+            setResults({
+              bakteri: null,
+              tiga_antibiotik: [],
+            });
+            setError(`Bakteri "${query}" tidak ditemukan.`);
+            setDataSource("none");
+            return;
           }
-
-          // Find the actual key name to use for sorting
-          const actualKey = Object.keys(data.rows[0]).find(
-            (key) => key.toLowerCase() === query
-          );
-
-          // Sort the rows by the dynamic key (query)
-          const sortedRows = data.rows.sort((a, b) => b[actualKey] - a[actualKey]);
-          const topRows = sortedRows.slice(0, 3);
-
-          // Prepare the results to match your UI
-          setResults({
-            bakteri: actualKey, // Use the matched key name for display
-            tiga_antibiotik: topRows.map((row) => ({
-              Organism: row.Organism,
-              Score: row[actualKey],
-            })),
-          });
-          setError(null);
-          setDataSource("firebase"); // Set source as Firebase
-          return;
         } else {
-          throw new Error("No rows found in Firebase document.");
+          throw new Error("Dokumen pola kuman kosong.");
         }
       } else {
-        throw new Error("No such document exists in Firebase.");
+        throw new Error("Dokumen pola kuman tidak ada.");
       }
     } catch (firebaseError) {
-      console.warn(firebaseError.message);
-
+      console.warn("Error saat menangkap data di database:", firebaseError.message);
+  
       // Fallback: Fetch data from the backup endpoint (using NEXT_PUBLIC_TABLE_QUERY_URL from .env)
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`
         );
-
+  
         if (!response.ok) {
           throw new Error(`Backup fetch failed with status: ${response.status}`);
         }
-
+  
         const backupData = await response.json();
-
-        // Set the results directly from the backup data structure
+  
+        // Ambil dari firebase
         setResults({
           bakteri: backupData.bakteri,
           tiga_antibiotik: backupData.tiga_antibiotik.map((item) => ({
@@ -83,14 +88,14 @@ const Query = () => {
           })),
         });
         setError(null);
-        setDataSource("api"); // Set source as API
+        setDataSource("api"); // Set ke API supaya bisa ada peringatan
       } catch (backupError) {
         console.error("Backup fetch error:", backupError);
-        setError("Both Firebase and backup fetch failed. Please try again later.");
+        setError("Tidak bisa mengambil data dari Excel maupun database. Coba lagi nanti.");
       }
     }
   };
-
+  
   return (
     <div className={styles.pageContainer}>
       <Sidebar />
@@ -118,7 +123,7 @@ const Query = () => {
             </form>
           </div>
           <br />
-          <div className={styles.sicknessSearch}>
+          {/* <div className={styles.sicknessSearch}>
             <p className={styles.paragraph}>Berdasarkan penyakit</p>
             <form onSubmit={handleSubmit}>
               <label htmlFor="sickness" className={styles.label}>
@@ -135,9 +140,10 @@ const Query = () => {
                 Cari
               </button>
             </form>
-          </div>
+          </div> */}
           {error && <div className={styles.error}>{error}</div>}
-          {results && (
+
+          {!error && results && (
             <div className={styles.results}>
               <h3 className={styles.headingThird}>
                 Antibiotik responsif untuk {results.bakteri}:
