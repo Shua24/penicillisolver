@@ -46,7 +46,43 @@ const Tabel = () => {
    const headers = rows.length > 0 ? Object.values(rows[0]) : [];
  
    const dataRows = rows.slice(1);
- 
+
+   const handleUpdate = () => {
+    const updateURL = process.env.NEXT_PUBLIC_TABLE_API_URL;
+    if (updateURL) {
+      window.location.href = updateURL; // Redirect to the URL in .env
+    } else {
+      console.error("NEXT_PUBLIC_TABLE_API_URL is not defined.");
+      alert("Update URL is not configured.");
+    }
+  };
+  
+  const handleDelete = async () => {
+    const deleteURL = process.env.NEXT_PUBLIC_TABLE_API_URL;
+    if (!deleteURL) {
+      // console.error("NEXT_PUBLIC_TABLE_API_URL is not defined.");
+      alert("Delete URL is not configured.");
+      return;
+    }
+  
+    try {
+      const response = await fetch(deleteURL, {
+        method: "DELETE",
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+  
+      alert("Data successfully deleted (placeholder for delete routing).");
+      // Optionally, refresh the table data here if needed
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      alert("Failed to delete data. Routing is still in progress.");
+    }
+  };
+  
+
    return (
     <div className={styles.pageContainer}>
       <Sidebar/>
