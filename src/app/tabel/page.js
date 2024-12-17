@@ -119,12 +119,12 @@ const Tabel = () => {
         throw new Error(`Error. Details: ${(secondResponse).status} ${secondResponse.statusText}`);
       }
 
-      alert("Data successfully deleted.");
+      alert("Pola kuman terhapus.");
       setJsonData({});
 
     } catch (error) {
       console.error("Error deleting data:", error);
-      alert("Failed to delete data.");
+      alert("Penghapusan pola kuman gagal.");
     }
   };
 
@@ -157,35 +157,35 @@ const Tabel = () => {
 
     {/* Conditional buttons based on permissions */}
     {permissions.update && (
-      <div className={styles.flex}>
-        <button className={styles.button} onClick={handleUpdate}>
-          Update
-        </button>
-        <button
-          className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
-          onClick={handlePostRequest}
-          disabled={isLoading}
-        >
-          {isLoading ? "Mengupload" : "Upload ke database"}
-        </button>
-      </div>
-    )}
-
-    {/* Display post response message */}
-    {postResponse && (
-      <div className={styles.text} style={{ display: "flex", gap: "5px" }}>
-        <p>{postResponse}</p>
-      </div>
-    )}
-
-    {/* Delete button based on permissions */}
-    {permissions.hapus && (
-      <div  style={{ display: "flex", gap: "5px" }}>
-      <button className={styles.button} onClick={handleDelete}>
-        Delete
+    <div style={{ display: "flex", gap: "10px" }}>
+      <button className={styles.button} onClick={handleUpdate}>
+        Update
       </button>
-      </div>
-    )}
+      <button
+        className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
+        onClick={handlePostRequest}
+        disabled={isLoading}
+      >
+        {isLoading ? "Mengupload" : "Upload ke database"}
+      </button>
+    </div>
+  )}
+
+  {/* Display post response message with gap */}
+  {postResponse && (
+    <div className={styles.text} style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+      <p>{postResponse}</p>
+    </div>
+  )}
+
+{/* Delete button with gap */}
+{permissions.hapus && (
+  <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+    <button className={styles.button} onClick={handleDelete}>
+      Hapus pola kuman
+    </button>
+  </div>
+)}
   </div>
 </div>
   );
