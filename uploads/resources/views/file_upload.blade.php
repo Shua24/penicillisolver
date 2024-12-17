@@ -27,6 +27,11 @@
                 localStorage.setItem('theme', newTheme);
             });
         });
+
+        function closePage() {
+            // Go back to the previous page in history
+            window.history.back();
+        }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
@@ -83,7 +88,7 @@
 
     @if(session('success'))
         <p>{{ session('success') }}</p>
-        <p>File path: {{ session('path') }}</p>
+        <p>Anda bisa menutup halaman ini.</p>
     @endif
 
     <form action="{{ route('file.upload') }}" method="POST" enctype="multipart/form-data">
@@ -93,5 +98,6 @@
             <input type="file" name="file" id="file" required>
         </div><br>
         <button type="submit">Upload</button>
+        <button onclick="closePage()">Tutup</button>
     </form>
 </html>

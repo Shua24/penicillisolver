@@ -10,7 +10,7 @@ class ExcelController extends Controller
 {
     public function getExcelData(Request $request)
     {
-        $filePath = public_path('/uploads/data.xlsx');
+        $filePath = public_path('storage/uploads/data.xlsx');
         
         if (!file_exists($filePath)) {
             return response()->json(['error' => 'File not found. Public path is in '.$filePath], 404);
