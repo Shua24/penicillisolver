@@ -154,8 +154,6 @@ const Tabel = () => {
       </table>
     </div>
     <br />
-
-    {/* Conditional buttons based on permissions */}
     {permissions.update && (
     <div style={{ display: "flex", gap: "10px" }}>
       <button className={styles.button} onClick={handleUpdate}>
