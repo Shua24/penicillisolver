@@ -26,7 +26,7 @@ const AturAkses = () => {
 
               // Set authorization status based on role
               if (
-                role === "Tim Mikrobiologi" ||
+                role === "Mikrobiologi" ||
                 role === "Penanggung Jawab Lab"
               ) {
                 setIsAuthorized(true);
