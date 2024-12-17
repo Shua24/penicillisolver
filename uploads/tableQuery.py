@@ -45,6 +45,17 @@ def upload_to_firebase():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/delete-excel", methods=["DELETE"])
+def delete_firebase_data():
+    try:
+        collection_name = os.getenv("APP_FIREBASE_COLLECTION")
+        document_name = "excel_data"
+        db.collection(collection_name).document(document_name).delete()
+        return jsonify({"message":"Pola kuman berhasil terhapus!"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route("/top-values", methods=["GET"])
 def top_values():
     column_name = request.args.get("column", "").strip().lower()
