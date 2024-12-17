@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\File;
 
 class ExcelController extends Controller
 {
@@ -23,9 +24,25 @@ class ExcelController extends Controller
             return response()->json($rows, 200);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Error reading the Excel file.',
-                'message' => $e->getMessage()  // Displaying detailed error message
+                'error' => 'Error membaca excel.',
+                'message' => $e->getMessage()
             ], 500);
+        }
+    }
+
+    public function deleteExcelFile(Request $request)
+    {
+        $filePath = public_path('storage/uploads/data.xlsx');
+
+        if (!File::exists($filePath)) {
+            return response()->json(['error' => 'File not found. Public path is in '.$filePath], 404);
+        }
+
+        try {
+            File::delete($filePath);
+            return response()->json(['success' => 'Pola kuman berhasil terhapus.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error deleting the file.', 'details' => $e->getMessage()], 500);
         }
     }
 }

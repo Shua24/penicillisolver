@@ -11,15 +11,12 @@ class FileUploadController extends Controller
     {
         // Validate the uploaded file
         $request->validate([
-            'file' => 'required|mimes:xlsx|max:5120',  // Add more file types or restrictions as needed
+            'file' => 'required|mimes:xlsx|max:5120',
         ]);
 
         $fileName = 'data.xlsx';
-
-        // Store the file in the 'uploads' directory
         $path = $request->file('file')->storeAs('uploads', $fileName, 'public');
 
-        // Return a response or redirect back with a success message
-        return back()->with('success', 'File uploaded successfully')->with('path', $path);
+        return back()->with('success', 'Pola kuman ter-update!')->with('path', $path);
     }
 }

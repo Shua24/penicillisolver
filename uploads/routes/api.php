@@ -9,3 +9,4 @@ use App\Http\Controllers\ExcelController;
 // })->middleware('auth:sanctum');
 
 Route::get('/excel-data', [ExcelController::class, 'getExcelData']);
+Route::delete('/delete-excel', [ExcelController::class, 'deleteExcelFile']);
