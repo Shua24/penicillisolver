@@ -154,8 +154,6 @@ const Tabel = () => {
       </table>
     </div>
     <br />
-
-    {/* Conditional buttons based on permissions */}
     {permissions.update && (
     <div style={{ display: "flex", gap: "10px" }}>
       <button className={styles.button} onClick={handleUpdate}>
@@ -170,22 +168,19 @@ const Tabel = () => {
       </button>
     </div>
   )}
-
-  {/* Display post response message with gap */}
   {postResponse && (
     <div className={styles.text} style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
       <p>{postResponse}</p>
     </div>
   )}
 
-{/* Delete button with gap */}
-{permissions.hapus && (
-  <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-    <button className={styles.button} onClick={handleDelete}>
-      Hapus pola kuman
-    </button>
-  </div>
-)}
+  {permissions.hapus && (
+    <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+      <button className={styles.button} onClick={handleDelete}>
+        Hapus pola kuman
+      </button>
+    </div>
+  )}
   </div>
 </div>
   );
