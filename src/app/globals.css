@@ -39,6 +39,13 @@ body {
   src: url('./fonts/Poppins-Regular.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Krona One';
+  font-weight: 400;
+  font-style: normal;
+  src: url('./fonts/KronaOne-Regular.ttf') format('truetype');
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
