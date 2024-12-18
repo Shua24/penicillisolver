@@ -6,6 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import styles from "./reminder.module.css";
+import Sidebar from '../sidebar/page';
 
 export default function DatePicker() {
   const [selectedDate, setSelectedDate] = useState('');
@@ -52,7 +53,7 @@ export default function DatePicker() {
         // Parse the JSON response if it is valid JSON
         const result = await response.json();
         if (response.ok) {
-          setResponseMessage(`Date stored successfully: ${result.date}`);
+          setResponseMessage(`Tanggal berhasil diubah! Tanggal: ${result.date}`);
         } else {
           setResponseMessage(`Error: ${result.message}`);
         }
@@ -71,13 +72,21 @@ export default function DatePicker() {
 
   return (
     <div className={styles.global}>
+      <Sidebar />
+      <h1 className={styles.text}>Ubah tenggat pola kuman</h1>
       <input
         type="date"
         value={selectedDate}
         onChange={handleDateChange}
         className="border rounded p-2"
       />
-      {responseMessage && <p>{responseMessage}</p>}
+      {responseMessage && <p className={styles.text}>{responseMessage}</p>}
+      <br/>
+      <button
+      className={styles.button}
+      onClick={() => location.href = "/tabel"}>
+        Kembali melihat pola kuman
+      </button>
     </div>
   );
 }
