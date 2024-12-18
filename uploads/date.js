@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 
 // Initialize Firebase Admin
-const serviceAccount = path.resolve('path-to-your-firebase-service-account-key.json');
+const serviceAccount = path.resolve(process.env.APP_FIREBASE_CREDENTIALS);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
