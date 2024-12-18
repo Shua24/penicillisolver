@@ -156,6 +156,12 @@ const Tabel = () => {
     <br />
     {permissions.update && (
     <div style={{ display: "flex", gap: "10px" }}>
+      <button
+      className={styles.button}
+      onClick={() =>
+        (window.location.href = '/reminder')}>
+          Ubah tenggat pergantian
+      </button>
       <button className={styles.button} onClick={handleUpdate}>
         Update
       </button>
