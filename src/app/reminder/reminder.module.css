@@ -25,4 +25,49 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 30px;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #dfdfdf;
+}
+  
+.content {
+    text-align: center;
+    position: relative;
+    padding: 150px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+  
+.heading1 {
+    margin-bottom: 20px; 
+    font-size: 24px;
+    color: #005f76;
+}
+  
+.datePicker {
+    border: 1px solid #008080;
+    color: white;
+    background-color: #005f76;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+  
+.paragraph {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #555;
+}
+  
+  

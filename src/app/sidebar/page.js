@@ -91,7 +91,7 @@ const Sidebar = () => {
       <div
         className={styles.menuItem}
         onClick={() =>
-          (window.location.href = "../tentangPolaKuman/tentangPolaKuman.html")
+          (window.location.href = "/tentangpola")
         }
       >
         Tentang Pola Kuman

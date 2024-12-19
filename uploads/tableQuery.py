@@ -22,24 +22,25 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 file_path = "public/storage/uploads/data.xlsx"
-
-df = pd.read_excel(file_path)
-
-df = df.drop(df.index[[0, 2]], axis=0)
-df = df.fillna(0)
+try:
+    df = pd.read_excel(file_path)
+    df = df.drop(df.index[[0, 2]], axis=0)
+    df = df.fillna(0)
+except FileNotFoundError:
+    print(f"File '{file_path}' not found. The server will continue running.")
+    df = pd.DataFrame()  # Initialize an empty DataFrame to avoid crashes
+except Exception as e:
+    print(f"An error occurred while loading the file: {e}")
+    df = pd.DataFrame()
 
 @app.route("/upload-to-firebase", methods=["POST"])
 def upload_to_firebase():
     try:
-        # print(df.columns)
-        # Convert the Excel file to a dictionary
-        excel_data = df.to_dict(orient="records")  # List of row dictionaries
+        excel_data = df.to_dict(orient="records")
 
-        # Specify the Firestore collection and document name
         collection_name = os.getenv("APP_FIREBASE_COLLECTION", "polakuman")
-        document_name = "excel_data"  # Name of the document inside the collection
-
-        # Write data to Firestore
+        document_name = "excel_data"
+        
         db.collection(collection_name).document(document_name).set({"rows": excel_data})
         return jsonify({"message": "Pola kuman berhasil ter-upload ke database!"}), 200
     except Exception as e:
