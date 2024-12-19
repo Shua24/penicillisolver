@@ -22,11 +22,16 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 file_path = "public/storage/uploads/data.xlsx"
-
-df = pd.read_excel(file_path)
-
-df = df.drop(df.index[[0, 2]], axis=0)
-df = df.fillna(0)
+try:
+    df = pd.read_excel(file_path)
+    df = df.drop(df.index[[0, 2]], axis=0)
+    df = df.fillna(0)
+except FileNotFoundError:
+    print(f"File '{file_path}' not found. The server will continue running.")
+    df = pd.DataFrame()  # Initialize an empty DataFrame to avoid crashes
+except Exception as e:
+    print(f"An error occurred while loading the file: {e}")
+    df = pd.DataFrame()
 
 @app.route("/upload-to-firebase", methods=["POST"])
 def upload_to_firebase():
