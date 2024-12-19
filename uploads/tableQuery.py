@@ -36,15 +36,11 @@ except Exception as e:
 @app.route("/upload-to-firebase", methods=["POST"])
 def upload_to_firebase():
     try:
-        # print(df.columns)
-        # Convert the Excel file to a dictionary
-        excel_data = df.to_dict(orient="records")  # List of row dictionaries
+        excel_data = df.to_dict(orient="records")
 
-        # Specify the Firestore collection and document name
         collection_name = os.getenv("APP_FIREBASE_COLLECTION", "polakuman")
-        document_name = "excel_data"  # Name of the document inside the collection
-
-        # Write data to Firestore
+        document_name = "excel_data"
+        
         db.collection(collection_name).document(document_name).set({"rows": excel_data})
         return jsonify({"message": "Pola kuman berhasil ter-upload ke database!"}), 200
     except Exception as e:
