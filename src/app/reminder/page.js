@@ -47,10 +47,9 @@ export default function DatePicker() {
         body: JSON.stringify({ date: formattedDate }),
       });
   
-      // Check if the response's Content-Type is JSON
       const contentType = response.headers.get('Content-Type');
       if (contentType && contentType.includes('application/json')) {
-        // Parse the JSON response if it is valid JSON
+  
         const result = await response.json();
         if (response.ok) {
           setResponseMessage(`Tanggal berhasil diubah! Tanggal: ${result.date}`);
@@ -71,22 +70,26 @@ export default function DatePicker() {
   }
 
   return (
-    <div className={styles.global}>
-      <Sidebar />
-      <h1 className={styles.text}>Ubah tenggat pola kuman</h1>
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={handleDateChange}
-        className="border rounded p-2"
-      />
-      {responseMessage && <p className={styles.text}>{responseMessage}</p>}
-      <br/>
-      <button
-      className={styles.button}
-      onClick={() => location.href = "/tabel"}>
-        Kembali melihat pola kuman
-      </button>
-    </div>
+      <div className={styles.global}>
+        <Sidebar />
+        <div className={styles.container}>
+          <div className={styles.content}>
+            <h1 className={styles.heading1}>Ubah tenggat pola kuman</h1>
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={handleDateChange}
+              className={styles.datePicker}
+            />
+            {responseMessage && <p className={styles.text}>{responseMessage}</p>}
+            <br/>
+            <button
+            className={styles.button}
+            onClick={() => location.href = "/tabel"}>
+              Kembali melihat pola kuman
+            </button>
+            </div>
+          </div>
+      </div>
   );
 }
