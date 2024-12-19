@@ -14,12 +14,27 @@ const Tabel = () => {
   const [postResponse, setPostResponse] = useState(null);
   const [permissions, setPermissions] = useState({ update: false, delete: false });
   const [userId, setUserId] = useState(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/excel-data`)
-      .then((response) => response.json())
-      .then((data) => setJsonData(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    const fetchData = async () => {
+      setIsLoading(true); // Start loading
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/excel-data`);
+        if (response.status === 404) {
+          throw new Error("Pola kuman belum ada!");
+        }
+  
+        const data = await response.json();
+        setJsonData(data); // Set the table data
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false); // Stop loading
+      }
+    };
+  
+    fetchData();
   }, []);
 
   // Fetch permissions from hakAksesRef
@@ -121,6 +136,7 @@ const Tabel = () => {
 
       alert("Pola kuman terhapus.");
       setJsonData({});
+      setError(null);
 
     } catch (error) {
       console.error("Error deleting data:", error);
@@ -128,67 +144,131 @@ const Tabel = () => {
     }
   };
 
+  if(error) {
+    return (
+      <div className={styles.global}>
+        <div className={styles.pageContainer}>
+          <div className={styles.tableWrapper}>
+            <Sidebar/>
+            <p className={styles.text}>Pola kuman tidak ada.</p>
+            {permissions.update && (
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button className={styles.button} onClick={handleUpdate}>
+                  Update
+                </button>
+              </div>
+            )}
+            {postResponse && (
+              <div className={styles.text} style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+                <p>{postResponse}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+
   return (
     <div className={styles.pageContainer}>
-  <Sidebar />
-  <div className={styles.tableWrapper}>
-    <h1 className={styles.title}>Pola Kuman Tahun Ini</h1>
-    <div className={styles.tableContainer}>
-      <table className={styles.table}>
-        <thead>
-          <tr className={styles.tr}>
-            {headers.map((header, index) => (
-              <th key={index} className={styles.th}>{header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {dataRows.map((row, index) => (
-            <tr key={index} className={styles.tr}>
-              {Object.values(row).map((value, i) => (
-                <td key={i} className={styles.td}>{value}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Sidebar />
+      {isLoading ? (
+        <div className={styles.global}>
+          <div className={styles.pageContainer}>
+            <div className={styles.tableWrapper}>
+              <Sidebar />
+              <p className={styles.text}>Memuat data pola kuman...</p>
+            </div>
+          </div>
+        </div>
+      ) : Object.keys(jsonData).length === 0 ? (
+        <div className={styles.global}>
+          <div className={styles.pageContainer}>
+            <div className={styles.tableWrapper}>
+              <Sidebar />
+              <p className={styles.text}>Pola kuman tidak ada.</p>
+              {permissions.update && (
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <button className={styles.button} onClick={handleUpdate}>
+                    Update
+                  </button>
+                  <button
+                    className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
+                    onClick={handlePostRequest}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Mengupload" : "Upload ke database"}
+                  </button>
+                </div>
+              )}
+              {postResponse && (
+                <div className={styles.text} style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+                  <p>{postResponse}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className={styles.tableWrapper}>
+          <h1 className={styles.title}>Pola Kuman Tahun Ini</h1>
+          <div className={styles.tableContainer}>
+            <table className={styles.table}>
+              <thead>
+                <tr className={styles.tr}>
+                  {headers.map((header, index) => (
+                    <th key={index} className={styles.th}>{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {dataRows.map((row, index) => (
+                  <tr key={index} className={styles.tr}>
+                    {Object.values(row).map((value, i) => (
+                      <td key={i} className={styles.td}>{value}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className={styles.buttonGroup}>
+            {permissions.update && (
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button
+                  className={styles.button}
+                  onClick={() => (window.location.href = '/reminder')}>
+                  Ubah tenggat pergantian
+                </button>
+                <button className={styles.button} onClick={handleUpdate}>
+                  Update
+                </button>
+                <button
+                  className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
+                  onClick={handlePostRequest}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Mengupload" : "Upload ke database"}
+                </button>
+              </div>
+            )}
+            {postResponse && (
+              <div className={styles.text}>
+                <p>{postResponse}</p>
+              </div>
+            )}
+            {permissions.hapus && (
+              <div>
+                <button className={styles.button} onClick={handleDelete}>
+                  Hapus pola kuman
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+        )}
     </div>
-    <br />
-    {permissions.update && (
-    <div style={{ display: "flex", gap: "10px" }}>
-      <button
-      className={styles.button}
-      onClick={() =>
-        (window.location.href = '/reminder')}>
-          Ubah tenggat pergantian
-      </button>
-      <button className={styles.button} onClick={handleUpdate}>
-        Update
-      </button>
-      <button
-        className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
-        onClick={handlePostRequest}
-        disabled={isLoading}
-      >
-        {isLoading ? "Mengupload" : "Upload ke database"}
-      </button>
-    </div>
-  )}
-  {postResponse && (
-    <div className={styles.text} style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-      <p>{postResponse}</p>
-    </div>
-  )}
-
-  {permissions.hapus && (
-    <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-      <button className={styles.button} onClick={handleDelete}>
-        Hapus pola kuman
-      </button>
-    </div>
-  )}
-  </div>
-</div>
   );
 };
 
