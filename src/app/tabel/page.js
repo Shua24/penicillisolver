@@ -18,7 +18,7 @@ const Tabel = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true); // Start loading
+      setIsLoading(true);
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/excel-data`);
         if (response.status === 404) {
@@ -37,7 +37,6 @@ const Tabel = () => {
     fetchData();
   }, []);
 
-  // Fetch permissions from hakAksesRef
   useEffect(() => {
     const fetchPermissions = async (currentUserId) => {
       try {
@@ -152,7 +151,7 @@ const Tabel = () => {
             <Sidebar/>
             <p className={styles.text}>Pola kuman tidak ada.</p>
             {permissions.update && (
-              <div style={{ display: "flex", gap: "10px" }}>
+              <div className={styles.flex}>
                 <button className={styles.button} onClick={handleUpdate}>
                   Update
                 </button>
@@ -234,11 +233,13 @@ const Tabel = () => {
             </table>
           </div>
           <div className={styles.buttonGroup}>
-            {permissions.update && (
-              <div style={{ display: "flex", gap: "10px" }}>
+          {permissions.update && (
+            <div>
+              <div className={styles.flex}>
                 <button
                   className={styles.button}
-                  onClick={() => (window.location.href = '/reminder')}>
+                  onClick={() => (window.location.href = '/reminder')}
+                >
                   Ubah tenggat pergantian
                 </button>
                 <button className={styles.button} onClick={handleUpdate}>
@@ -252,7 +253,12 @@ const Tabel = () => {
                   {isLoading ? "Mengupload" : "Upload ke database"}
                 </button>
               </div>
-            )}
+              <p className={styles.text}>
+                Pola kuman dapat dibaca di aplikasi ponsel jika diunggah ke database.
+              </p>
+            </div>
+          )}
+
             {postResponse && (
               <div className={styles.text}>
                 <p>{postResponse}</p>
