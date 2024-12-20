@@ -151,7 +151,7 @@ const Tabel = () => {
             <Sidebar/>
             <p className={styles.text}>Pola kuman tidak ada.</p>
             {permissions.update && (
-              <div className={styles.flexs}>
+              <div className={styles.flex}>
                 <button className={styles.button} onClick={handleUpdate}>
                   Update
                 </button>
