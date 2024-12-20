@@ -38,7 +38,7 @@ def upload_to_firebase():
     try:
         excel_data = df.to_dict(orient="records")
 
-        collection_name = os.getenv("APP_FIREBASE_COLLECTION", "polakuman")
+        collection_name = os.getenv("APP_FIREBASE_COLLECTION")
         document_name = "excel_data"
         
         db.collection(collection_name).document(document_name).set({"rows": excel_data})
