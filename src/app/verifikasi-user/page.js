@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { auth } from '../daftar/firebase'; // Pastikan path ini benar
+import { auth } from '../daftar/firebase'; // Ensure the path is correct
 import { sendEmailVerification, onAuthStateChanged, reload } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import style from "./verifikasi-user.module.css";
@@ -16,15 +16,10 @@ const UserVerificationPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        await reload(currentUser);
-        setEmailVerified(currentUser.emailVerified);
-
-        if (currentUser.emailVerified) {
-          router.push('/login');
-        }
+        checkEmailVerification(currentUser);
       } else {
         setUser(null);
         setEmailVerified(false);
@@ -33,6 +28,26 @@ const UserVerificationPage = () => {
 
     return () => unsubscribe();
   }, [router]);
+
+  const checkEmailVerification = async (currentUser) => {
+    let attempts = 0;
+    const maxAttempts = 10; // Limit the number of checks (10 * 2 seconds = 20 seconds)
+    const interval = setInterval(async () => {
+      await reload(currentUser);
+      if (currentUser.emailVerified) {
+        clearInterval(interval);
+        setEmailVerified(true);
+        setMessage('Email Anda telah diverifikasi! 🎉 Mengalihkan ke halaman login...');
+        setTimeout(() => {
+          router.push('/login'); // Redirect after 3 seconds
+        }, 3000);
+      } else if (attempts >= maxAttempts) {
+        clearInterval(interval);
+        setMessage('Email belum terverifikasi. Coba lagi nanti.');
+      }
+      attempts++;
+    }, 2000); // Check every 2 seconds
+  };
 
   useEffect(() => {
     let interval;
@@ -58,7 +73,7 @@ const UserVerificationPage = () => {
     try {
       await sendEmailVerification(user);
       setMessage('Tautan verifikasi terkirim. Silakan cek inbox pada email.');
-      setTimer(600); // Timer untuk 2 menit
+      setTimer(600); // Timer for 10 minutes
     } catch (error) {
       if (error.code === 'auth/too-many-requests') {
         setMessage('Terlalu banyak permintaan. Tapi silakan cek email anda 😊');
@@ -68,7 +83,6 @@ const UserVerificationPage = () => {
       triggerErrorAnimation();
     }
   };
-  
 
   const triggerErrorAnimation = () => {
     setError(true);
@@ -103,14 +117,14 @@ const UserVerificationPage = () => {
               <h3>Email Anda telah diverifikasi! 🎉</h3>
             ) : (
               <>
-                <h3>Email Anda belum diverifikasi.</h3>
+                <h4>Tekan Tombol Di Bawah jika tautan belum terkirim</h4>
                 <button
                   type="button"
                   className={`${style.tombol} ${error ? style.tombolError : ""}`}
                   onClick={handleSendVerificationEmail}
                   disabled={timer > 0} // Disable button if timer is active
                 >
-                  Kirim Email Verifikasi
+                  Kirim Ulang Email Verifikasi
                 </button>
                 {timer > 0 && (
                   <p className={style.timer}>
