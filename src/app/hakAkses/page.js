@@ -1,161 +1,177 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import styles from './hakAkses.module.css';
+import React, { useState, useEffect } from "react";
+import Sidebar from "../sidebar/page";
+import styles from "./hakAkses.module.css";
+import { auth, db } from "../daftar/firebase"; // Firebase config
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 const AturAkses = () => {
-    const [ppiData, setPpiData] = useState({ update: false, hapus: false });
-    const [ppraData, setPpraData] = useState({ update: false, hapus: false });
+  const [ppiData, setPpiData] = useState({ update: false, hapus: false });
+  const [ppraData, setPpraData] = useState({ update: false, hapus: false });
+  const [userRole, setUserRole] = useState(null);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const loadData = (tim) => {
-            return {
-                update: localStorage.getItem(`update${tim}`) === 'true',
-                hapus: localStorage.getItem(`hapus${tim}`) === 'true',
-            };
-        };
+  useEffect(() => {
+    const checkUserAuthorization = async () => {
+      try {
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+              const role = userDoc.data().role;
+              setUserRole(role);
 
-        setPpiData(loadData('PPI'));
-        setPpraData(loadData('PPRA'));
-    }, []);
-
-    const handleSave = (tim, data) => {
-        localStorage.setItem(`update${tim}`, data.update);
-        localStorage.setItem(`hapus${tim}`, data.hapus);
-        alert(`Data untuk TIM ${tim} disimpan!\nUpdate Pola Kuman: ${data.update}\nHapus Pola Kuman: ${data.hapus}`);
+              // Set authorization status based on role
+              if (
+                role === "Mikrobiologi" ||
+                role === "Penanggung Jawab Lab"
+              ) {
+                setIsAuthorized(true);
+                await loadAccessData(); // Load access data only for authorized roles
+              } else {
+                setIsAuthorized(false);
+              }
+            }
+          } else {
+            setIsAuthorized(false);
+          }
+          setLoading(false); // Stop loading once the process is complete
+        });
+      } catch (error) {
+        console.error("Error checking user authorization: ", error);
+        setLoading(false); // Ensure loading is stopped even in case of errors
+      }
     };
 
-    return (
-        <div className={styles.global}>
-        <div className={styles.sidebar}>
-      <img
-        src="lambang.png"
-        alt="Lambang Penicillisolver"
-        className={styles.lambang}
-      />
-      <div
-        className={styles.menuItem}
-        onClick={() => (window.location.href = "../Beranda/beranda.html")}
-      >
-        Beranda
-      </div>
-      <div
-        className={styles.menuItem}
-        onClick={() =>
-          (window.location.href = "../tentangPolaKuman/tentangPolaKuman.html")
-        }
-      >
-        Tentang Pola Kuman
-      </div>
-      <div
-        className={styles.menuItem}
-        onClick={() =>
-          (window.location.href = "../cariAntibiotik/cariAntibiotik.html")
-        }
-      >
-        Cari Antibiotik
-      </div>
-      <div
-        className={styles.menuItem}
-        onClick={() => (window.location.href = "../aturAkses/aturAkses.html")}
-      >
-        Atur Akses
-      </div>
-      <div className={styles.userInfo}>
-        <UserInfo name="Rizky Septian" role="PPI" />
-      </div>
-      <div
-        className={styles.logoutBox}
-        onClick={() => (window.location.href = "../Landing/landing.html")}
-      >
-        Log out
-      </div>
-    </div>
-        <div className={styles.mainContent}>
-            <h1>Atur Akses Tim yang Tersedia</h1>
-            <div className={styles.tim}>
-                <div>
-                    <p>TIM PPI</p>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            handleSave('PPI', ppiData);
-                        }}
-                    >
-                        <input
-                            type="checkbox"
-                            id="updatePPI"
-                            name="updatePPI"
-                            checked={ppiData.update}
-                            onChange={(e) =>
-                                setPpiData({ ...ppiData, update: e.target.checked })
-                            }
-                        />
-                        <label htmlFor="updatePPI"> Update Pola Kuman</label>
-                        <br />
-                        <input
-                            type="checkbox"
-                            id="hapusPPI"
-                            name="hapusPPI"
-                            checked={ppiData.hapus}
-                            onChange={(e) =>
-                                setPpiData({ ...ppiData, hapus: e.target.checked })
-                            }
-                        />
-                        <label htmlFor="hapusPPI"> Hapus Pola Kuman</label>
-                        <br />
-                        <button type="submit" className={styles.submitButton}>
-                            Simpan
-                        </button>
-                    </form>
-                </div>
-                <div>
-                    <p>TIM PPRA</p>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            handleSave('PPRA', ppraData);
-                        }}
-                    >
-                        <input
-                            type="checkbox"
-                            id="updatePPRA"
-                            name="updatePPRA"
-                            checked={ppraData.update}
-                            onChange={(e) =>
-                                setPpraData({ ...ppraData, update: e.target.checked })
-                            }
-                        />
-                        <label htmlFor="updatePPRA"> Update Pola Kuman</label>
-                        <br />
-                        <input
-                            type="checkbox"
-                            id="hapusPPRA"
-                            name="hapusPPRA"
-                            checked={ppraData.hapus}
-                            onChange={(e) =>
-                                setPpraData({ ...ppraData, hapus: e.target.checked })
-                            }
-                        />
-                        <label htmlFor="hapusPPRA"> Hapus Pola Kuman</label>
-                        <br />
-                        <button type="submit" className={styles.submitButton}>
-                            Simpan
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>    
-    );
-};
+    checkUserAuthorization();
+  }, []);
 
-const UserInfo = ({ name, role }) => (
-    <div className={styles.userDetails}>
-      <div className={styles.userAvatar}></div>
-      <div>{name}</div>
-      <div>• {role}</div>
+  const loadAccessData = async () => {
+    try {
+      const ppiDoc = await getDoc(doc(db, "hakAkses", "ppi"));
+      const ppraDoc = await getDoc(doc(db, "hakAkses", "ppra"));
+
+      if (ppiDoc.exists()) setPpiData(ppiDoc.data());
+      if (ppraDoc.exists()) setPpraData(ppraDoc.data());
+    } catch (error) {
+      console.error("Error loading access data: ", error);
+    }
+  };
+
+  const handleSave = async (tim, data) => {
+    if (!isAuthorized) {
+      alert("You are not authorized to make changes.");
+      return;
+    }
+
+    try {
+      const ref = doc(db, "hakAkses", tim.toLowerCase());
+      await updateDoc(ref, data);
+
+      alert(
+        `Data untuk TIM ${tim} disimpan!\nUpdate Pola Kuman: ${data.update}\nHapus Pola Kuman: ${data.hapus}`
+      );
+    } catch (error) {
+      console.error("Error updating document: ", error);
+      alert("Gagal menyimpan perubahan.");
+    }
+  };
+
+  // Render a loading state if the authorization check is ongoing
+  if (loading) {
+    return <div>Memuat...</div>;
+  }
+
+  // Render a message if the user is not authorized
+  if (!isAuthorized) {
+    return <div>Anda tidak memiliki akses untuk halaman ini.</div>;
+  }
+
+  return (
+    <div className={styles.global}>
+      <div className={styles.pageContainer}>
+        <Sidebar />
+        <div className={styles.mainContent}>
+          <h1>Atur Akses Tim yang Tersedia</h1>
+          <div className={styles.tim}>
+            <div>
+              <p>TIM PPI</p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSave("ppi", ppiData);
+                }}
+              >
+                <input
+                  type="checkbox"
+                  id="updatePPI"
+                  name="updatePPI"
+                  checked={ppiData.update}
+                  onChange={(e) =>
+                    setPpiData({ ...ppiData, update: e.target.checked })
+                  }
+                />
+                <label htmlFor="updatePPI"> Update Pola Kuman</label>
+                <br />
+                <input
+                  type="checkbox"
+                  id="hapusPPI"
+                  name="hapusPPI"
+                  checked={ppiData.hapus}
+                  onChange={(e) =>
+                    setPpiData({ ...ppiData, hapus: e.target.checked })
+                  }
+                />
+                <label htmlFor="hapusPPI"> Hapus Pola Kuman</label>
+                <br />
+                <button type="submit" className={styles.submitButton}>
+                  Simpan
+                </button>
+              </form>
+            </div>
+            <div>
+              <p>TIM PPRA</p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSave("ppra", ppraData);
+                }}
+              >
+                <input
+                  type="checkbox"
+                  id="updatePPRA"
+                  name="updatePPRA"
+                  checked={ppraData.update}
+                  onChange={(e) =>
+                    setPpraData({ ...ppraData, update: e.target.checked })
+                  }
+                />
+                <label htmlFor="updatePPRA"> Update Pola Kuman</label>
+                <br />
+                <input
+                  type="checkbox"
+                  id="hapusPPRA"
+                  name="hapusPPRA"
+                  checked={ppraData.hapus}
+                  onChange={(e) =>
+                    setPpraData({ ...ppraData, hapus: e.target.checked })
+                  }
+                />
+                <label htmlFor="hapusPPRA"> Hapus Pola Kuman</label>
+                <br />
+                <button type="submit" className={styles.submitButton}>
+                  Simpan
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
+};
 
 export default AturAkses;
