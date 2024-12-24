@@ -102,7 +102,7 @@ const Query = () => {
       <div className={styles.body}>
         <div className={styles.center}>
           <h1 className={styles.headingPrimary}>Cari Antibiotik</h1>
-          <h3 className={styles.headingSecondary}>Pilih pencarian (isi salah satu)</h3>
+          {/* <h3 className={styles.headingSecondary}>Pilih pencarian (isi salah satu)</h3> */}
           <br />
           <div className={styles.sicknessSearch}>
             <p className={styles.paragraph}>Berdasarkan spesies bakteri</p>
