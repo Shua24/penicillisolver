@@ -29,8 +29,7 @@
         });
 
         function closePage() {
-            // Go back to the previous page in history
-            window.history.back();
+            window.close();
         }
     </script>
     <style>
