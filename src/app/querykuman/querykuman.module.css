@@ -6,7 +6,7 @@
     height: 100vh;
     overflow: hidden;
     user-select: none;
-    background-color: #dfdfdf;
+    background-color: #f0f0f0;
 }
 
 .warning {
@@ -43,26 +43,30 @@
     font-size: 40px;
     margin-top: 50px;
     color: #005f76;
+    user-select: none;
 }
 
 .headingSecondary {
     color: #005f76;
     padding-right: 40px;
     font-size: 20px;
+    user-select: none;
 }
 
 .headingThird {
     color: #005f76;
+    user-select: none;
 }
 
 .label {
     color: #005f76;
     padding-right: 40px;
     font-size: 20px;
+    user-select: none;
 }
 
 .table {
-    background-color: #dfdfdf;
+    background-color: #f0f0f0;
     user-select: none;
 }
 
@@ -76,12 +80,14 @@
     background-color: white;
     user-select: text;
     word-wrap: break-word;
+    user-select: none;
 }
 
 .paragraph {
     margin-top: -5px;
     color: #005f76;
     font-size: 20px;
+    user-select: none;
 }
 
 .button {
@@ -99,6 +105,7 @@
 
 .button:hover {
     background-color: #005f76;
+    user-select: none;
 }
 
 /* Input field styles */
@@ -111,6 +118,7 @@
     float: right;
     border: 1px solid #ccc;
     border-radius: 5px;
+    user-select: none;
 }
 
 /* Search container */
@@ -120,7 +128,7 @@
     padding: 20px;
     width: 420px;
     border-radius: 8px;
-    background-color: #dfdfdf;
+    background-color: #f0f0f0;
 }
 
 /* Sidebar.module.css */
