@@ -1,6 +1,6 @@
 .global {
     opacity:0.8;
-    background-color:#dfdfdf;
+    background-color: #f0f0f0;
     position:fixed;
     width:100%;
     height:100%;
@@ -18,7 +18,7 @@
 
 .tableWrapper {
     padding-left: 30px;
-    background-color: #dfdfdf;
+    background-color: #f0f0f0;
     margin: 0 auto; 
     overflow-x: auto;
     padding-left: 300px;
@@ -30,11 +30,12 @@
 }
 
 .table {
-    background-color: #dfdfdf;
+    background-color: #f0f0f0;
     user-select: none;
     max-width: 90%;
     overflow: auto;
     margin: 0 auto;
+    user-select: none;
 }
 
 .tableContainer {
@@ -43,6 +44,7 @@
     max-height: 700px;
     overflow: auto;
     border: 1px solid black;
+    user-select: none;
 }
 
 .table, .th, .td {
@@ -67,6 +69,7 @@
     color: #005f76;
     padding-bottom: 30px;
     padding-top: 20px;
+    user-select: none;
 }
 
 .button {
@@ -79,19 +82,23 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    user-select: none;
 }
 
 .button:hover {
     background-color: #005f5f;
+    user-select: none;
 }
 
 .button:active {
     background-color: #004747;
+    user-select: none;
 }
 
 .uploading {
     background-color: #8c8c8c;
     color: grey;
+    user-select: none;
 }
 
 .pageContainer {

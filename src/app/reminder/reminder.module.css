@@ -9,10 +9,12 @@
     z-index:1000;
     font-family: Poppins;
     padding-left: 280px;
+    user-select: none;
 }
 
 .text {
     color: #005f76;
+    user-select: none;
 }
 
 .button {
@@ -29,6 +31,7 @@
     position: absolute;
     bottom: 50px;
     right: 50px;
+    user-select: none;
 }
 
 .container {
@@ -36,7 +39,8 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #dfdfdf;
+    background-color: #f0f0f0;
+    user-select: none;
 }
   
 .content {
@@ -46,12 +50,14 @@
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    user-select: none;
 }
   
 .heading1 {
     margin-bottom: 20px; 
     font-size: 24px;
     color: #005f76;
+    user-select: none;
 }
   
 .datePicker {
@@ -62,12 +68,14 @@
     padding: 8px;
     font-size: 16px;
     margin-bottom: 20px;
+    user-select: none;
 }
   
 .paragraph {
     margin-top: 20px;
     font-size: 16px;
     color: #555;
+    user-select: none;
 }
   
   
