@@ -104,7 +104,9 @@ const Tabel = () => {
 
   const handleUpdate = () => {
     const updateURL = process.env.NEXT_PUBLIC_TABLE_API_URL;
-    if (updateURL) window.location.href = updateURL;
+    if (updateURL) {
+      window.open(updateURL, '_blank');
+    }
     else alert("Update URL is not configured.");
   };
 
