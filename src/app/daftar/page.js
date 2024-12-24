@@ -23,6 +23,8 @@ const Daftar = () => {
   const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [message, setMessage] = useState('');
   const router = useRouter();
+  const [selectedRole, setSelectedRole] = useState(null);
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +32,7 @@ const Daftar = () => {
   };
 
   const selectRole = (role) => {
+    setSelectedRole(role);
     setFormData({ ...formData, role });
     console.log(`Selected role: ${role}`);
   };
@@ -38,16 +41,18 @@ const Daftar = () => {
     e.preventDefault();
     const { nama, email, password, confirmPassword, sip, role } = formData;
 
-    if (!nama || !email || !password || !confirmPassword || !role) {
-      setError("Harap isi semua field.");
-      return;
-    }
-
     if (password !== confirmPassword) {
       setError("Password dan Konfirmasi Password tidak cocok!");
       return;
     }
-
+    if (!nama || !email || !sip || !password || !confirmPassword) {
+      setError("Harap isi semua field.");
+      return;
+    }
+    else if (!role) {
+      setError("Anda Belum Memilih Role.");
+      return;
+    }
     // Menentukan dokumen referensi berdasarkan role
     const roleToHakAksesMap = {
       "Mikrobiologi": "mikrobiologi",
@@ -121,7 +126,7 @@ const Daftar = () => {
               <h3>Silakan Daftar</h3>
             </div>
             <form onSubmit={handleRegister}>
-              {error && <p className={styles.error}>{error}</p>}
+              
               <label htmlFor="nama" className={styles.label}>Nama Lengkap</label>
               <input
                 className={styles.input}
@@ -153,6 +158,7 @@ const Daftar = () => {
                 value={formData.sip}
                 onChange={handleInputChange}
                 autoComplete="off"
+                required
               />
               <label htmlFor="password" className={styles.label}>Password</label>
               <div className={styles.passwordInput}>
@@ -207,10 +213,13 @@ const Daftar = () => {
                   </button>
                 ))}
               </div>
+              
               <button type="submit" className={styles.daftar}>
                 Daftar
               </button>
+              
             </form>
+            {error && <div className={styles.error}>{error}</div>}
             <div className={styles.login}>
               Sudah Punya Akun? <Link href="/login">Login</Link>
             </div>
