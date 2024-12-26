@@ -105,7 +105,7 @@ const Tabel = () => {
   const handleUpdate = () => {
     const updateURL = process.env.NEXT_PUBLIC_TABLE_API_URL;
     if (updateURL) {
-      window.open(updateURL, '_blank');
+      window.location.href = updateURL;
     }
     else alert("Update URL is not configured.");
   };
@@ -170,7 +170,6 @@ const Tabel = () => {
     );
   }
 
-
   return (
     <div className={styles.pageContainer}>
       <Sidebar />
@@ -193,13 +192,6 @@ const Tabel = () => {
                 <div style={{ display: "flex", gap: "10px" }}>
                   <button className={styles.button} onClick={handleUpdate}>
                     Update
-                  </button>
-                  <button
-                    className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
-                    onClick={handlePostRequest}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Mengupload" : "Upload ke database"}
                   </button>
                 </div>
               )}
