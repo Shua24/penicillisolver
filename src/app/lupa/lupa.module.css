@@ -78,6 +78,8 @@
     display: block;
     margin: auto;
     margin-top: 20px;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 .LupaSandi {
     margin-top: -10px;
@@ -92,7 +94,6 @@
     margin-bottom: 0px;
     margin-top: 30px;
     display: block;
-
 }
 
 .input {
@@ -104,7 +105,6 @@
     background-color: white;
     color: black;
     width: 100%;
- 
     transition: border-color 0.3s ease;
 }
 .input:focus{
