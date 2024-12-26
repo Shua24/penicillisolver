@@ -128,7 +128,13 @@
   color: #008080;
   box-shadow: 0 0 10px 1px #008080;
 }
-
+.error{
+  text-align: center;
+  color: rgb(255, 0, 0);
+  font-size: 15px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
 .passwordInput {
     display: flex;
     align-items: center;
@@ -160,29 +166,25 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 12px;
+    box-shadow: #000000 5px 5px 0 1px;
 }
   
 .roleSelection button:hover {
     background-color: #008080;
     color: white;
-    transition: all 0.2s ease-out;
+    box-shadow: #000000 5px 5px 0 1px;
 }
 
-.roleSelection button:focus {
+.roleSelection button.selected {
     background-color: #005858;
     color: white;
-}
-
-.selected {
-    background-color: #008080;
-    color: white;
+    box-shadow: #000000 2px 2px 0 1px;
 }
 .pilih {
     color: #008080;
     text-align: center;
     margin-top: 10px;
 }
-  
 
 .login {
   font-size: 15px;
@@ -208,7 +210,11 @@
 .lanjutkan img {
     padding: 10px;
 }
-
+.lanjutkan img:hover {
+    background-color: #008080;
+    border-radius: 50%;
+    cursor: pointer;
+}
 @keyframes formAnimation {
   0% {
       transform: translateX(100px);
@@ -220,10 +226,3 @@
   }
 }
 
-.error{
-  text-align: center;
-  color: rgb(255, 0, 0);
-  font-size: 12px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-}

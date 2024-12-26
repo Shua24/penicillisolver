@@ -9,6 +9,7 @@
     overflow: hidden;
     box-sizing: border-box;
     position: relative;
+    user-select: none;
 }
 .background{
     position: absolute;
@@ -179,3 +180,4 @@
         opacity: 0; 
     }
 }
+

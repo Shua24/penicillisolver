@@ -232,6 +232,17 @@
 }
 
 .errorMessage{
+    font-weight: bold;
+    margin-bottom: -20px;
+    margin-top: 20px;
+    text-align: center;
     color: red;
 }
 
+.pesan{
+    margin-bottom: -20px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    color:#008080
+}
