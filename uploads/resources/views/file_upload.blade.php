@@ -29,14 +29,18 @@
         });
 
         function closePage() {
-            window.close();
+            if (history.length > 1) {
+                window.history.back();
+            } else {
+                window.close();
+            }
         }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
         :root[data-theme="light"] {
-            --bg-color: #dfdfdf;
+            --bg-color: #f0f0f0;
             --text-color: #005f76;
             --button-bg: #005f76;
             --button-text: #ffffff;
