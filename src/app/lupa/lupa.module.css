@@ -28,6 +28,8 @@
     width: 200px;
     padding: 5px;
     margin-top: 5px;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 .header h3{
     color: #008080;
