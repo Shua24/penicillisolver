@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from './lupa.module.css';
 import Link from "next/link";
-import { auth } from '../daftar/firebase'; // Pastikan path ini benar
+import { auth } from '../daftar/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import {useRouter} from 'next/navigation';
 
@@ -27,17 +27,15 @@ function LupaKataSandi() {
     }
 
     try {
-      // Kirim email reset password menggunakan Firebase
+     
       await sendPasswordResetEmail(auth, emailInput);
       setMessage("Email reset kata sandi telah dikirim. Periksa inbox Anda.");
 
-      // Redirect ke halaman login setelah beberapa detik
       setTimeout(() => {
-        router.push('/login'); // Ganti '/login' dengan path halaman login Anda
-      }, 3000); // Tunggu 3 detik sebelum redirect
+        router.push('/login');
+      }, 3000); 
     } catch (err) {
       setError(true);
-      // Tangani error berdasarkan kode error Firebase
       switch (err.code) {
         case "auth/user-not-found":
           setMessage("Email tidak ditemukan dalam sistem kami.");

@@ -9,6 +9,7 @@
     overflow: hidden;
     min-height: 100vh; 
     box-sizing: border-box; 
+    user-select: none;
 }
 
 .header{
@@ -22,8 +23,9 @@
     align-items: center;
 }
 .header img{
-    width: 150px;
-    padding: 10px;
+    min-width: 150px;
+    width: 200px;
+    padding: 5px;
     margin-top: 5px;
 }
 .header h3{
