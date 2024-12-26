@@ -40,7 +40,7 @@ function LandingPage() {
           </div>
         </div>
         <div className={styles.imageContent}>
-          <Image src="/dokter2.png" alt="Dokter" width={200} height={100} />
+          <Image src="/dokter2.png" alt="Dokter" width={1000} height={1000} />
         </div>
       </main>
     </div>

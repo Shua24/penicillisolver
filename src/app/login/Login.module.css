@@ -168,8 +168,8 @@
     margin-bottom: 5px;
   }
  .lupa {
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin-top: 35px;
+    margin-bottom: 15px;
     text-align: center;
     font-size: 15px;
     color: blue;
@@ -212,25 +212,26 @@
     text-align: center;
     font-size: 15px;
     color: #000;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     margin-left: 10px;
 }
 
- .icon {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: -15px;
+.lanjutkan {
+    text-align: center;
+    font-size: 15px;
+    color: black;
 }
-
- .icon img {
-    pointer-events: none;
-    width: 50px;
-    height: 50px;
-    padding: 5px;
-    border-radius: 20%;
+.lanjutkan p{
+  margin-bottom: 10px;
 }
-
+  
+.lanjutkan img {
+    padding: 10px;
+}
+.lanjutkan img:hover {
+  filter: drop-shadow(1px 1px 5px #008080);
+  cursor: pointer;
+}
 .errorMessage{
     font-weight: bold;
     margin-bottom: -20px;

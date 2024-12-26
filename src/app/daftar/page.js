@@ -17,7 +17,6 @@ const Daftar = () => {
     confirmPassword: "",
     role: "",
   });
-
   const [error, setError] = useState("");
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -107,6 +106,13 @@ const Daftar = () => {
     console.log(`Selected role: ${role}`);
   };
 
+  const togglePasswordVisibility1 = () => {
+    setPasswordVisible((prev) => !prev);
+  };
+  const togglePasswordVisibility2 = () => {
+    setConfirmPasswordVisible((prev) => !prev);
+  };
+
   return (
     <div className={styles.dasar}>
       <div className={styles.container}>
@@ -119,7 +125,7 @@ const Daftar = () => {
         <div className={styles.form}>
           <div className={styles.logo}>
             <Link href="/landing">
-              <img src="/logo.png" alt="logo" width={100} height={60} />
+              <img src="/logo.png" alt="logo" width={1000} height={600} />
             </Link>
           </div>
           <div className={styles.formContainer}>
@@ -172,13 +178,17 @@ const Daftar = () => {
                   onChange={handleInputChange}
                   required
                 />
-                <button
-                  className={styles.passwordButton}
-                  type="button"
-                  onClick={() => setPasswordVisible(!isPasswordVisible)}
+                <span
+                  className={`${styles.eye} ${
+                    isPasswordVisible ? styles.openEye : styles.closeEye
+                  }`}
+                  onClick={togglePasswordVisibility1}
                 >
-                  {isPasswordVisible ? "Hide" : "Show"}
-                </button>
+                  <img
+                    src={isPasswordVisible ? "/openeye.png" : "/closeeye.png"}
+                    alt={isPasswordVisible ? "Show Password" : "Hide Password"}
+                  />
+                </span>
               </div>
               <label htmlFor="confirmPassword" className={styles.label}>Konfirmasi Password</label>
               <div className={styles.passwordInput}>
@@ -191,13 +201,17 @@ const Daftar = () => {
                   onChange={handleInputChange}
                   required
                 />
-                <button
-                  className={styles.passwordButton}
-                  type="button"
-                  onClick={() => setConfirmPasswordVisible(!isConfirmPasswordVisible)}
+                <span
+                  className={`${styles.eye} ${
+                    isConfirmPasswordVisible ? styles.openEye : styles.closeEye
+                  }`}
+                  onClick={togglePasswordVisibility2}
                 >
-                  {isConfirmPasswordVisible ? "Hide" : "Show"}
-                </button>
+                  <img
+                    src={isConfirmPasswordVisible ? "/openeye.png" : "/closeeye.png"}
+                    alt={isConfirmPasswordVisible ? "Show Password" : "Hide Password"}
+                  />
+                </span>
               </div>
               <div className={styles.pilih}>
                 <label>Daftar sebagai:</label>
