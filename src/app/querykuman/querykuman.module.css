@@ -114,8 +114,7 @@
     background-color: white;
     color: grey;
     padding: 20px;
-    width: 200px;
-    float: right;
+    width: 500px;
     border: 1px solid #ccc;
     border-radius: 5px;
     user-select: none;
@@ -126,73 +125,64 @@
     border: 1px solid #bfbdbd;
     user-select: text;
     padding: 20px;
-    width: 420px;
+    width: 700px;
     border-radius: 8px;
     background-color: #f0f0f0;
 }
 
-/* Sidebar.module.css */
-.global {
-    font-family: "Poppins";
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+@media (max-width: 768px) {
+    .button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .inputText {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .sicknessSearch {
+        width: 100%;
+        padding: 15px;
+    }
 }
 
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 200px;
-    background-color: #ececec;
-    color: #005F76;
-    padding: 20px;
-}
+@media (max-width: 480px) {
+    .center {
+        margin-left: 0;
+        padding: 10px;
+    }
 
-.lambang {
-    width: 100%;
-    margin-bottom: 30px;
-}
+    .headingPrimary {
+        font-size: 20px;
+        margin-top: 10px;
+    }
 
-.menuItem {
-    background-color: #f7f7f7;
-    margin: 0 0 20px 0;
-    padding: 10px;
-    border-radius: 5px;
-    user-select: none;
-    cursor: pointer;
-}
+    .headingSecondary, .label {
+        font-size: 14px;
+    }
 
-.menuItem:hover {
-    background-color: #ffffff;
-    color: #008080;
-    box-shadow: 0 0 10px 1px #008080;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out; 
-}
+    .table, .th, .td {
+        font-size: 12px;
+    }
 
-.userInfo {
-    position: absolute;
-    bottom: 40px;
-    left: 20px;
-    right: 20px;
-    user-select: none;
-}
+    .paragraph {
+        font-size: 14px;
+    }
 
-.logoutBox {
-    background-color: #f7f7f7;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    user-select: none;
-    position: absolute;
-    bottom: 100px;
-    width: 75%;
-}
+    .button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 
-.logoutBox:hover {
-    background-color: #ffffff;
-    color: #008080;
-    box-shadow: 0 0 10px 1px #008080;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out; 
+    .inputText {
+        width: 100%;
+        padding: 15px;
+        margin-top: 10px;
+    }
+
+    .sicknessSearch {
+        width: 100%;
+        padding: 10px;
+    }
 }
