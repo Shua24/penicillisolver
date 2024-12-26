@@ -50,6 +50,8 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     user-select: none;
+    max-width: 600px;
+    width: 90%;
 }
   
 .heading1 {
@@ -59,7 +61,7 @@
     user-select: none;
     position: absolute;
     top: 50px;
-    right: 30px;
+    left: 30px;
 }
   
 .datePicker {
