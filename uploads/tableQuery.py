@@ -59,6 +59,11 @@ def delete_firebase_data():
 
 @app.route("/top-values", methods=["GET"])
 def top_values():
+    global df
+
+    if df.empty:
+        return jsonify({"error": "No data available. The DataFrame is empty."}), 404
+    
     column_name = request.args.get("column", "").strip().lower()
 
     matched_columns = [col for col in df.columns if col.lower() == column_name]
@@ -86,24 +91,24 @@ def top_values():
 def top_values_db():
     column_name = request.args.get("column", "").strip().lower()
 
-    # Firestore collection and document names
-    collection_name = os.getenv("APP_FIREBASE_COLLECTION", "polakuman")
+    collection_name = os.getenv("APP_FIREBASE_COLLECTION")
     document_name = "excel_data"
 
     try:
-        # Fetch the document from Firestore
         doc_ref = db.collection(collection_name).document(document_name)
         doc = doc_ref.get()
         
         if not doc.exists:
             return jsonify({"error": f"Document '{document_name}' not found in collection '{collection_name}'"}), 404
 
-        # Load the document data into a DataFrame
         document_data = doc.to_dict().get("rows", [])
         if not document_data:
             return jsonify({"error": "No data found in Firestore document"}), 400
         
         df_firestore = pd.DataFrame(document_data)
+
+        if df_firestore.empty:
+            return jsonify({"error": "No data available. The Firestore DataFrame is empty."}), 404
 
         # Match the column name case-insensitively
         matched_columns = [col for col in df_firestore.columns if col.lower() == column_name]
