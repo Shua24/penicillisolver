@@ -203,11 +203,6 @@ const Tabel = () => {
                   </button>
                 </div>
               )}
-              {postResponse && (
-                <div className={styles.text} style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-                  <p>{postResponse}</p>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -235,48 +230,47 @@ const Tabel = () => {
             </table>
           </div>
           <div className={styles.buttonGroup}>
-          {permissions.update && (
-            <div>
-              <div className={styles.flex}>
-                <button
-                  className={styles.button}
-                  onClick={() => (window.location.href = '/reminder')}
-                >
-                  Ubah tenggat pergantian
-                </button>
-                <button className={styles.button} onClick={handleUpdate}>
-                  Update
-                </button>
-                <button
-                  className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
-                  onClick={handlePostRequest}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Mengupload" : "Upload ke database"}
-                </button>
-              </div>
-              <p className={styles.text}>
-                Pola kuman dapat dibaca di aplikasi ponsel jika diunggah ke database.
-              </p>
-            </div>
-          )}
-
-            {postResponse && (
-              <div className={styles.text}>
-                <p>{postResponse}</p>
+            {permissions.update && (
+              <div>
+                <div className={styles.flex}>
+                  <button
+                    className={styles.button}
+                    onClick={() => (window.location.href = '/reminder')}
+                  >
+                    Ubah tenggat pergantian
+                  </button>
+                  <button className={styles.button} onClick={handleUpdate}>
+                    Update
+                  </button>
+                  <button
+                    className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
+                    onClick={handlePostRequest}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Mengupload" : "Upload ke database"}
+                  </button>
+                  {permissions.hapus && (
+                    <div>
+                      <button className={styles.button} onClick={handleDelete}>
+                        Hapus pola kuman
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <p className={styles.text}>
+                  Pola kuman dapat dibaca di aplikasi ponsel jika diunggah ke database.
+                </p>
               </div>
             )}
-            {permissions.hapus && (
-              <div>
-                <button className={styles.button} onClick={handleDelete}>
-                  Hapus pola kuman
-                </button>
-              </div>
+            </div>
+            {postResponse && (
+                <div className={styles.text}>
+                  <p>{postResponse}</p>
+                </div>
             )}
           </div>
-        </div>
-        )}
-    </div>
+          )}
+      </div>
   );
 };
 
