@@ -1,17 +1,10 @@
 .global {
-  background-color: white;
+  background-color: #f0f0f0;
   margin: 0;
   padding: 0;
   height: 100vh;
   width: 100%;
   display: flex;
-}
-
-.mainContent,
-.heading,
-.dateReminder,
-.tanggal {
-  user-select: none;
 }
 
 .pageContainer {
@@ -33,6 +26,7 @@
   text-align: left;
   margin: 50px 0 20px;
   font-weight: bold;
+  user-select: none;
 }
 
 .dateReminder {
@@ -40,18 +34,21 @@
   color: #005F76;
   text-align: left;
   margin: 0;
+  user-select: none;
 }
-
 
 .tanggal {
   color: green;
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 20px;
+  user-select: none;
 }
 
 .image {
   width: 800px;
   height: auto;
   margin-top: 20px;
+  -webkit-user-drag: none;
+  user-select: none;
 }

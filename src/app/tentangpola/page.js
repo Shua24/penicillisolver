@@ -64,7 +64,7 @@ export default function TentangPola() {
                         Cari Antibiotik
                       </span>
                     </li>
-                    <li className={styles.inline}>Masukkan species bakteri/penyakit pada kolom input.</li>
+                    <li className={styles.inline}>Masukkan species bakteri pada kolom input.</li>
                     <li className={styles.inline}>Klik button "cari" untuk menampilkan hasil pencariannya.</li>
                     <li className={styles.inline}>Gunakan hasil pencarian untuk dipakai di kasus anda!</li>
                   </ol>
