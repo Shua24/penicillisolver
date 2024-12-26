@@ -73,8 +73,12 @@ const Query = () => {
           `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`
         );
   
-        if (!response.ok) {
+        if (response.status === 400) {
+          setError(`Bakteri "${query}" tidak ditemukan.`)
           throw new Error(`Backup fetch failed with status: ${response.status}`);
+        } else if(response.status === 404) {
+          setError("Tidak dapat mengambil pola kuman dari excel. Hubungi Tim Mikrobiologi atau unggah pola kuman.");
+          throw new Error(`${response.status}, not found`)
         }
   
         const backupData = await response.json();
@@ -91,7 +95,6 @@ const Query = () => {
         setDataSource("api"); // Set ke API supaya bisa ada peringatan
       } catch (backupError) {
         console.error("Backup fetch error:", backupError);
-        setError("Tidak bisa mengambil data dari Excel maupun database. Coba lagi nanti.");
       }
     }
   };
