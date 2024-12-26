@@ -153,23 +153,6 @@
         padding: 10px;
     }
 
-    .headingPrimary {
-        font-size: 20px;
-        margin-top: 10px;
-    }
-
-    .headingSecondary, .label {
-        font-size: 14px;
-    }
-
-    .table, .th, .td {
-        font-size: 12px;
-    }
-
-    .paragraph {
-        font-size: 14px;
-    }
-
     .button {
         font-size: 12px;
         padding: 6px 12px;
