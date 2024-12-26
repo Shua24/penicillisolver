@@ -38,7 +38,7 @@ export default function Beranda() {
           <label id="update" className={styles.tanggal}>{deadlineDate}</label>
           <br /><br />
           <a href="/tabel">
-            <Image src="/pola.png" alt="Pola" className={styles.image} width={300} height={150} />
+            <Image src="/pola.png" alt="Pola" className={styles.image} width={3000} height={1500} />
           </a>
         </div>
       </div>

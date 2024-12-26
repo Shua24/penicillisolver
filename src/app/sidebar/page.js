@@ -81,6 +81,7 @@ const Sidebar = () => {
         src="lambang.png"
         alt="Lambang Penicillisolver"
         className={styles.lambang}
+        draggable="false"
       />
       <div
         className={styles.menuItem}
@@ -104,12 +105,14 @@ const Sidebar = () => {
       >
         Cari Antibiotik
       </div>
-      <div
+      {userData.role === "Mikrobiologi" && (
+        <div
         className={styles.menuItem}
         onClick={() => (window.location.href = "/hakAkses")}
       >
         Atur Akses
       </div>
+      )}
       {user ? (
         <div className={styles.userInfo}>
           <UserInfo nama={userData.nama} role={userData.role} />

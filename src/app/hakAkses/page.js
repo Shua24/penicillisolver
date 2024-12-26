@@ -95,9 +95,9 @@ const AturAkses = () => {
       <div className={styles.pageContainer}>
         <Sidebar />
         <div className={styles.mainContent}>
-          <h1>Atur Akses Tim yang Tersedia</h1>
+          <h1 className={styles.heading}>Atur Akses Tim yang Tersedia</h1>
           <div className={styles.tim}>
-            <div>
+            <div className={styles.timBox}>
               <p>TIM PPI</p>
               <form
                 onSubmit={(e) => {
@@ -132,7 +132,7 @@ const AturAkses = () => {
                 </button>
               </form>
             </div>
-            <div>
+            <div className={styles.timBox}>
               <p>TIM PPRA</p>
               <form
                 onSubmit={(e) => {

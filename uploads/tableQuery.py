@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -22,22 +21,30 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 file_path = "public/storage/uploads/data.xlsx"
-try:
-    df = pd.read_excel(file_path)
-    df = df.drop(df.index[[0, 2]], axis=0)
-    df = df.fillna(0)
-except FileNotFoundError:
-    print(f"File '{file_path}' not found. The server will continue running.")
-    df = pd.DataFrame()  # Initialize an empty DataFrame to avoid crashes
-except Exception as e:
-    print(f"An error occurred while loading the file: {e}")
-    df = pd.DataFrame()
+
+def load_excel_file():
+    try:
+        # Only load the file if it exists
+        if os.path.exists(file_path):
+            df = pd.read_excel(file_path)
+            df = df.drop(df.index[[0, 2]], axis=0)
+            df = df.fillna(0)
+            return df
+        else:
+            print(f"File '{file_path}' not found.")
+            return pd.DataFrame()  # Return an empty DataFrame if file is missing
+    except Exception as e:
+        print(f"Error loading the file: {e}")
+        return pd.DataFrame()  # Return an empty DataFrame if any error occurs
 
 @app.route("/upload-to-firebase", methods=["POST"])
 def upload_to_firebase():
+    df = load_excel_file()  # Reload the Excel file
     try:
-        excel_data = df.to_dict(orient="records")
+        if df.empty:
+            return jsonify({"error": "No data to upload, the file is empty or missing."}), 400
 
+        excel_data = df.to_dict(orient="records")
         collection_name = os.getenv("APP_FIREBASE_COLLECTION")
         document_name = "excel_data"
         
@@ -52,19 +59,17 @@ def delete_firebase_data():
         collection_name = os.getenv("APP_FIREBASE_COLLECTION")
         document_name = "excel_data"
         db.collection(collection_name).document(document_name).delete()
-        return jsonify({"message":"Pola kuman berhasil terhapus!"}), 200
+        return jsonify({"message": "Pola kuman berhasil terhapus!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 @app.route("/top-values", methods=["GET"])
 def top_values():
-    global df
+    column_name = request.args.get("column", "").strip().lower()
+    df = load_excel_file()  # Reload the Excel file
 
     if df.empty:
-        return jsonify({"error": "No data available. The DataFrame is empty."}), 404
-    
-    column_name = request.args.get("column", "").strip().lower()
+        return jsonify({"error": "excel file doesn't exist."}), 404
 
     matched_columns = [col for col in df.columns if col.lower() == column_name]
     if not matched_columns:
@@ -91,24 +96,24 @@ def top_values():
 def top_values_db():
     column_name = request.args.get("column", "").strip().lower()
 
-    collection_name = os.getenv("APP_FIREBASE_COLLECTION")
+    # Firestore collection and document names
+    collection_name = os.getenv("APP_FIREBASE_COLLECTION", "polakuman")
     document_name = "excel_data"
 
     try:
+        # Fetch the document from Firestore
         doc_ref = db.collection(collection_name).document(document_name)
         doc = doc_ref.get()
         
         if not doc.exists:
             return jsonify({"error": f"Document '{document_name}' not found in collection '{collection_name}'"}), 404
 
+        # Load the document data into a DataFrame
         document_data = doc.to_dict().get("rows", [])
         if not document_data:
             return jsonify({"error": "No data found in Firestore document"}), 400
         
         df_firestore = pd.DataFrame(document_data)
-
-        if df_firestore.empty:
-            return jsonify({"error": "No data available. The Firestore DataFrame is empty."}), 404
 
         # Match the column name case-insensitively
         matched_columns = [col for col in df_firestore.columns if col.lower() == column_name]
