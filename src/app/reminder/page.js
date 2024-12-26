@@ -66,7 +66,11 @@ export default function DatePicker() {
   };
   
   if (!isMikrobiologi) {
-    return <p>Loading...</p>;
+    return (
+      <div className={styles.global}>
+        <h1 className={styles.text}>Memuat...</h1>
+      </div>
+    )
   }
 
   return (

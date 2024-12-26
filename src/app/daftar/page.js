@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import styles from "./daftar.module.css";
 import { auth, db } from "./firebase";
@@ -23,37 +23,34 @@ const Daftar = () => {
   const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [message, setMessage] = useState('');
   const router = useRouter();
-  const [selectedRole, setSelectedRole] = useState(null);
+  const roleRef = useRef(null);
   
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const selectRole = (role) => {
-    setSelectedRole(role);
-    setFormData({ ...formData, role });
-    console.log(`Selected role: ${role}`);
-  };
-
   const handleRegister = async (e) => {
     e.preventDefault();
     const { nama, email, password, confirmPassword, sip, role } = formData;
+    const passwordCriteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
-    if (password !== confirmPassword) {
-      setError("Password dan Konfirmasi Password tidak cocok!");
+    if (!passwordCriteria.test(password)) {
+      setError("Password harus minimal 6 karakter, mengandung huruf kapital, huruf kecil, dan angka.");
       return;
-    }
-    if (!nama || !email || !sip || !password || !confirmPassword) {
+    }else if (!nama || !email || !sip || !password || !confirmPassword) {
       setError("Harap isi semua field.");
       return;
-    }
-    else if (!role) {
+    }else if (password !== confirmPassword) {
+      setError("Password dan Konfirmasi Password tidak cocok!");
+      return;
+    }else if (!role) {
       setError("Anda Belum Memilih Role.");
       return;
+    }else if (nama || email || sip || password || confirmPassword || role) {
+      setMessage('Akun Berhasil Dibuat!');
     }
-    // Menentukan dokumen referensi berdasarkan role
+    
     const roleToHakAksesMap = {
       "Mikrobiologi": "mikrobiologi",
       "PPI": "ppi",
@@ -71,23 +68,20 @@ const Daftar = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Update display name
       await updateProfile(user, { displayName: nama });
 
-      // Add user data to Firestore
       await setDoc(doc(collection(db, "users"), user.uid), {
         uid: user.uid,
         nama,
         email,
         sip,
         role,
-        hakAksesRef, // Menambahkan field referensi ke hakAkses
+        hakAksesRef, 
         createdAt: new Date().toISOString(),
       });
       await sendEmailVerification(user);
       setMessage('Pendaftaran berhasil! Silakan verifikasi!');
 
-      // Redirect to the User Verification page
       router.push('/verifikasi-user');
       console.log("User registered:", user);
 
@@ -103,6 +97,14 @@ const Daftar = () => {
       console.error("Error registering user:", error.message);
       setError("Pendaftaran gagal: " + error.message);
     }
+  };
+
+  const selectRole = (role) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      role: prevData.role === role ? "" : role,
+    }));
+    console.log(`Selected role: ${role}`);
   };
 
   return (
@@ -147,7 +149,6 @@ const Daftar = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                autoComplete="off"
               />
               <label htmlFor="sip" className={styles.label}>Nomor SIP</label>
               <input
@@ -201,7 +202,7 @@ const Daftar = () => {
               <div className={styles.pilih}>
                 <label>Daftar sebagai:</label>
               </div>
-              <div className={styles.roleSelection}>
+              <div className={styles.roleSelection} ref={roleRef}>
                 {["Mikrobiologi", "Dokter lain", "PPI", "PPRA", "Penanggung Jawab Lab"].map((role) => (
                   <button
                     key={role}
