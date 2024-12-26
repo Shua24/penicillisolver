@@ -31,7 +31,7 @@ const UserVerificationPage = () => {
 
   const checkEmailVerification = async (currentUser) => {
     let attempts = 0;
-    const maxAttempts = 10; // Limit the number of checks (10 * 2 seconds = 20 seconds)
+    const maxAttempts = 10;
     const interval = setInterval(async () => {
       await reload(currentUser);
       if (currentUser.emailVerified) {
@@ -39,14 +39,14 @@ const UserVerificationPage = () => {
         setEmailVerified(true);
         setMessage('Email Anda telah diverifikasi! 🎉 Mengalihkan ke halaman login...');
         setTimeout(() => {
-          router.push('/login'); // Redirect after 3 seconds
+          router.push('/login'); 
         }, 3000);
       } else if (attempts >= maxAttempts) {
         clearInterval(interval);
         setMessage('Email belum terverifikasi. Coba lagi nanti.');
       }
       attempts++;
-    }, 2000); // Check every 2 seconds
+    }, 2000); 
   };
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const UserVerificationPage = () => {
     try {
       await sendEmailVerification(user);
       setMessage('Tautan verifikasi terkirim. Silakan cek inbox pada email.');
-      setTimer(600); // Timer for 10 minutes
+      setTimer(600); 
     } catch (error) {
       if (error.code === 'auth/too-many-requests') {
         setMessage('Terlalu banyak permintaan. Tapi silakan cek email anda 😊');

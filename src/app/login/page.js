@@ -13,24 +13,25 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrorMessage(""); // Clear error messages before submission
+    setErrorMessage("");
 
     try {
-      // Authenticate user with Firebase
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       if (user.emailVerified) {
-        // Navigate to homepage if email is verified
-        router.push("/beranda");
+        setMessage('Login Berhasil!');
+        setTimeout(() => {
+          router.push('/beranda'); 
+        }, 3000);
       } else {
         setErrorMessage("Email belum diverifikasi. Silakan cek inbox Anda.");
       }
     } catch (error) {
-      // Handle errors during login
       switch (error.code) {
         case "auth/user-not-found":
           setErrorMessage("Pengguna tidak ditemukan. Silakan daftar terlebih dahulu.");
@@ -43,7 +44,6 @@ function Login() {
           break;
         default:
           setErrorMessage("Terjadi kesalahan. Silakan coba lagi nanti.");
-          // setErrorMessage(`${error.code}`);
           break;
       }
     }
@@ -109,12 +109,19 @@ function Login() {
                   />
                 </span>
               </div>
-              {errorMessage && (
-                <p className={styles.errorMessage}>{errorMessage}</p>
-              )}
+              
               <button type="submit" className={styles.login}>
                 Login
               </button>
+              {errorMessage && (
+                <p className={styles.errorMessage}>{errorMessage}</p>
+              )}
+              <p
+                id="pesan"
+                className={styles.pesan}   
+              >
+                {message}
+              </p>
               <div className={styles.lupa}>
                 <Link href="/lupa">Lupa Kata Sandi?</Link>
               </div>
