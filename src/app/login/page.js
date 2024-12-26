@@ -57,7 +57,7 @@ function Login() {
     <div className={styles.scopedContainer}>
       <div className={styles.container}>
         <div className={styles.background}>
-          <img src="/dokter3.jpg" alt="Gambar Dokter" />
+          <img src="/dokter3.jpg" alt="Gambar Dokter" width={1000} height={600}/>
         </div>
         <div className={styles.form}>
           <div className={styles.logo}>
@@ -132,16 +132,29 @@ function Login() {
             <div className={styles.lanjut}>
               <p>Atau lanjutkan dengan:</p>
             </div>
-            <div className={styles.icon}>
-              <a href="http://www.google.com" target="_blank" rel="noopener noreferrer">
-                <img src="/google.png" alt="Google" />
-              </a>
-              <a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                <img src="/fb.png" alt="Facebook" />
-              </a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer">
-                <img src="/x.png" alt="X" className={styles.twitterLogo} />
-              </a>
+            <div className={styles.lanjutkan}>
+              <Link href="http://www.google.com" target="_blank">
+                <img 
+                src="/google.png"
+                alt="Google"
+                width={60}
+                height={60} />
+              </Link>
+              <Link href="http://www.facebook.com" target="_blank">
+                <img
+                src="/fb.png"
+                alt="Facebook"
+                width={60}
+                height={60} />
+              </Link>
+              <Link href="https://x.com/?lang=en" target="_blank">
+                <img 
+                src="/x.png"
+                alt="X"
+                className={styles.twitterLogo}
+                width={60}
+                height={60} />
+              </Link>
             </div>
           </div>
         </div>

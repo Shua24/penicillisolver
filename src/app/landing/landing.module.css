@@ -55,6 +55,7 @@
     height: 50px;
     width: auto;
     animation: Animation2 1s ease-in-out;
+    pointer-events: none;
 }
 
 .button {
@@ -139,6 +140,7 @@
     object-fit: cover;
     object-position: center 30%;
     filter: drop-shadow(5px 1px 15px #000000);
+    pointer-events: none;
 }
 
 @keyframes Animation1 {
@@ -180,4 +182,5 @@
         opacity: 0; 
     }
 }
+
 
