@@ -229,7 +229,7 @@ const Tabel = () => {
                     className={styles.button}
                     onClick={() => (window.location.href = '/reminder')}
                   >
-                    Ubah tenggat pergantian
+                    Ubah deadline pergantian
                   </button>
                   <button className={styles.button} onClick={handleUpdate}>
                     Update
