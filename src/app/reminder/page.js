@@ -78,7 +78,7 @@ export default function DatePicker() {
         <Sidebar />
         <div className={styles.container}>
           <div className={styles.content}>
-            <h1 className={styles.heading1}>Ubah masa tenggat pola kuman</h1>
+            <h1 className={styles.heading1}>Ubah deadline pola kuman</h1>
             <input
               type="date"
               value={selectedDate}
