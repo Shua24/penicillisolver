@@ -1,19 +1,17 @@
 import React from "react";
-import styles from "./landing.module.css"; 
+import styles from "./landing.module.css";
 import Image from "next/image";
 import Link from "next/link";
-
 
 function LandingPage() {
   return (
     <div className={styles.container}>
-      <div className={styles.background}>
-       </div> 
+      <div className={styles.background}></div>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <img src="/lambang.png" alt="Logo"/>
+          <img src="/lambang.png" alt="Logo" />
         </div>
-        <div className={styles.hello}>Selamat Datang di Penicillisolver !</div>
+        <div className={styles.hello}>Selamat Datang di Penicillisolver!</div>
         <div className={styles.button}>
           <Link href="/daftar">Daftar</Link>
           <Link href="/login">Login</Link>
