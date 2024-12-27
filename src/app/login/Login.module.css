@@ -6,50 +6,50 @@
     overflow: hidden;
     user-select: none;
     background-color: #ffffff;
-}
-
- .container {
+  }
+  
+  .container {
     display: flex;
     height: 100vh;
-}
-
- .background {
+  }
+  
+  .background {
     flex: 0 0 auto;
     position: relative;
     animation: moveBackground 30s linear infinite;
-}
-
- .background img {
+  }
+  
+  .background img {
     pointer-events: none;
     width: 2500px;
     height: 100%;
     object-fit: cover;
-
-}
-@keyframes moveBackground {
+  }
+  
+  @keyframes moveBackground {
     0% {
-        transform: translateX(0);
+      transform: translateX(0);
     }
     50% {
-        transform: translateX(-100px); 
+      transform: translateX(-100px);
     }
     100% {
-        transform: translateX(0); 
+      transform: translateX(0);
     }
-}
-
-@keyframes formAnimation {
+  }
+  
+  @keyframes formAnimation {
     0% {
-        transform: translateX(100px);
-        opacity: 0;
+      transform: translateX(100px);
+      opacity: 0;
     }
     100% {
-        transform: translateX(0px);
-        opacity: 5;
+      transform: translateX(0px);
+      opacity: 1;
     }
-}
-
- .form {
+  }
+  
+  .form {
     position: absolute;
     margin: auto;
     right: 0;
@@ -66,47 +66,36 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     animation: formAnimation 1s ease-in-out;
-}
-
- .logo img {
+  }
+  
+  .logo img {
     pointer-events: none;
     width: 150px;
     display: block;
     margin: 0 auto 10px;
-}
-
- .selamat h1 {
+  }
+  
+  .selamat h1 {
     color: #000;
     margin-bottom: 5px;
     text-align: center;
     font-size: 20px;
     margin-top: 10px;
-}
-
- .selamat h3 {
+  }
+  
+  .selamat h3 {
     color: #666;
     font-weight: normal;
     margin-bottom: 20px;
     text-align: center;
     font-size: 15px;
-}
-
- .form {
-    display: flex;
-    flex-direction: column;
-    color: #ffffff;
-}
-
- .label {
-    color: #008080;
-}
-
- .a {
+  }
   
-    text-decoration: none;
-}
-
- .input {
+  .label {
+    color: #008080;
+  }
+  
+  .input {
     margin-top: 5px;
     display: block;
     border: 1px solid #008080;
@@ -117,23 +106,26 @@
     transition: all 0.3s ease-out;
     width: 100%;
     color: #000;
-}
-.passwordContainer {
+  }
+  
+  .passwordContainer {
     position: relative;
     display: flex;
     align-items: center;
   }
- .input:focus {
+  
+  .input:focus {
     background-color: #ffffff;
     color: #000000;
     box-shadow: 0 0 5px 0.1px #008080;
     outline: none;
-}
-.input:hover {
-    pointer-events:visibleFill;
-}
-
- .login {
+  }
+  
+  .input:hover {
+    pointer-events: visibleFill;
+  }
+  
+  .login {
     background-color: #008080;
     color: white;
     border: 3px #008080;
@@ -142,55 +134,50 @@
     cursor: pointer;
     margin-top: 10px;
     width: 100%;
-}
-
-.eye {
+  }
+  
+  .login:hover {
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 0 10px 1px #008080;
+    transition: all 0.2s ease-out;
+  }
+  
+  .eye {
     margin-left: 15px;
-    top: 50%; 
+    top: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 30px;
-    width: 30px; 
+    width: 30px;
   }
   
   .eye img {
-    width: 100%; 
-    height: auto; 
-    object-fit: contain; 
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
-  .openEye img{
+  
+  .openEye img {
     filter: brightness(1);
     margin-bottom: 20px;
   }
-  .closeEye img{
+  
+  .closeEye img {
     margin-bottom: 5px;
   }
- .lupa {
+  
+  .lupa {
     margin-top: 35px;
     margin-bottom: 15px;
     text-align: center;
     font-size: 15px;
     color: blue;
-}
-
- .button[type="submit"]:not(.login) {
-    color: #00B4D8;
-    text-align: right;
-    cursor: pointer;
-    padding: 0;
-    margin-left: auto;
-}
-
- .login:hover {
-    background-color: #ffffff;
-    color: #008080;
-    box-shadow: 0 0 10px 1px #008080;
-    transition: all 0.2s ease-out;
-}
-
-.daftar {
+  }
+  
+  .daftar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,52 +185,53 @@
     text-align: center;
     margin: auto;
     color: #000;
-    height: 100%;
     margin-bottom: 15px;
-}
-
-
- .daftar a {
+  }
+  
+  .daftar a {
     margin-left: 5px;
     color: blue;
-}
-
- .lanjut {
+  }
+  
+  .lanjut {
     text-align: center;
     font-size: 15px;
     color: #000;
     margin-bottom: 10px;
     margin-left: 10px;
-}
-
-.lanjutkan {
+  }
+  
+  .lanjutkan {
     text-align: center;
     font-size: 15px;
     color: black;
-}
-.lanjutkan p{
-  margin-bottom: 10px;
-}
+  }
   
-.lanjutkan img {
+  .lanjutkan p {
+    margin-bottom: 10px;
+  }
+  
+  .lanjutkan img {
     padding: 10px;
-}
-.lanjutkan img:hover {
-  filter: drop-shadow(1px 1px 5px #008080);
-  cursor: pointer;
-}
-.errorMessage{
+  }
+  
+  .lanjutkan img:hover {
+    filter: drop-shadow(1px 1px 5px #008080);
+    cursor: pointer;
+  }
+  
+  .errorMessage {
     font-weight: bold;
     margin-bottom: -20px;
     margin-top: 20px;
     text-align: center;
     color: red;
-}
-
-.pesan{
+  }
+  
+  .pesan {
     margin-bottom: -20px;
     font-weight: bold;
     margin-top: 20px;
     text-align: center;
-    color:#008080
-}
+    color: #008080;
+  }  
