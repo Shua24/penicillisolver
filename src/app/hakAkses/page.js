@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../sidebar/page";
 import styles from "./hakAkses.module.css";
-import { auth, db } from "../daftar/firebase"; // Firebase config
+import { auth, db } from "../daftar/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -24,13 +24,12 @@ const AturAkses = () => {
               const role = userDoc.data().role;
               setUserRole(role);
 
-              // Set authorization status based on role
               if (
                 role === "Mikrobiologi" ||
                 role === "Penanggung Jawab Lab"
               ) {
                 setIsAuthorized(true);
-                await loadAccessData(); // Load access data only for authorized roles
+                await loadAccessData();
               } else {
                 setIsAuthorized(false);
               }
@@ -38,14 +37,13 @@ const AturAkses = () => {
           } else {
             setIsAuthorized(false);
           }
-          setLoading(false); // Stop loading once the process is complete
+          setLoading(false);
         });
       } catch (error) {
         console.error("Error checking user authorization: ", error);
-        setLoading(false); // Ensure loading is stopped even in case of errors
+        setLoading(false);
       }
     };
-
     checkUserAuthorization();
   }, []);
 
@@ -80,12 +78,10 @@ const AturAkses = () => {
     }
   };
 
-  // Render a loading state if the authorization check is ongoing
   if (loading) {
     return <div>Memuat...</div>;
   }
 
-  // Render a message if the user is not authorized
   if (!isAuthorized) {
     return <div>Anda tidak memiliki akses untuk halaman ini.</div>;
   }

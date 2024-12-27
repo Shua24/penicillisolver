@@ -5,10 +5,9 @@ import styles from './lupa.module.css';
 import Link from "next/link";
 import { auth } from '../daftar/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 function LupaKataSandi() {
-  const [isResetCompleted, setResetCompleted] = useState(false);
   const [emailInput, setEmailInput] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
@@ -27,13 +26,11 @@ function LupaKataSandi() {
     }
 
     try {
-     
       await sendPasswordResetEmail(auth, emailInput);
       setMessage("Email reset kata sandi telah dikirim. Periksa inbox Anda.");
-
       setTimeout(() => {
         router.push('/login');
-      }, 3000); 
+      }, 3000);
     } catch (err) {
       setError(true);
       switch (err.code) {

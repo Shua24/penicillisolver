@@ -12,8 +12,8 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const router = useRouter();
-  const [message, setMessage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,9 +24,9 @@ function Login() {
       const user = userCredential.user;
 
       if (user.emailVerified) {
-        setMessage('Login Berhasil!');
+        setMessage("Login Berhasil!");
         setTimeout(() => {
-          router.push('/beranda'); 
+          router.push("/beranda");
         }, 3000);
       } else {
         setErrorMessage("Email belum diverifikasi. Silakan cek inbox Anda.");
@@ -57,12 +57,12 @@ function Login() {
     <div className={styles.scopedContainer}>
       <div className={styles.container}>
         <div className={styles.background}>
-          <img src="/dokter3.jpg" alt="Gambar Dokter" width={1000} height={600}/>
+          <img src="/dokter3.jpg" alt="Gambar Dokter" width={1000} height={600} />
         </div>
         <div className={styles.form}>
           <div className={styles.logo}>
             <Link href="/landing">
-              <img src="/logo.png" alt="logo" />
+              <img src="/logo.png" alt="Logo" />
             </Link>
           </div>
           <div className={styles.formContainer}>
@@ -84,6 +84,7 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.input}
               />
+
               <label htmlFor="password" className={styles.label}>
                 Kata Sandi
               </label>
@@ -109,17 +110,12 @@ function Login() {
                   />
                 </span>
               </div>
-              
+
               <button type="submit" className={styles.login}>
                 Login
               </button>
-              {errorMessage && (
-                <p className={styles.errorMessage}>{errorMessage}</p>
-              )}
-              <p
-                id="pesan"
-                className={styles.pesan}   
-              >
+              {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+              <p id="pesan" className={styles.pesan}>
                 {message}
               </p>
               <div className={styles.lupa}>
@@ -129,31 +125,19 @@ function Login() {
                 Belum Punya Akun? <Link href="/daftar">Daftar</Link>
               </div>
             </form>
+
             <div className={styles.lanjut}>
               <p>Atau lanjutkan dengan:</p>
             </div>
             <div className={styles.lanjutkan}>
               <Link href="http://www.google.com" target="_blank">
-                <img 
-                src="/google.png"
-                alt="Google"
-                width={60}
-                height={60} />
+                <img src="/google.png" alt="Google" width={60} height={60} />
               </Link>
               <Link href="http://www.facebook.com" target="_blank">
-                <img
-                src="/fb.png"
-                alt="Facebook"
-                width={60}
-                height={60} />
+                <img src="/fb.png" alt="Facebook" width={60} height={60} />
               </Link>
               <Link href="https://x.com/?lang=en" target="_blank">
-                <img 
-                src="/x.png"
-                alt="X"
-                className={styles.twitterLogo}
-                width={60}
-                height={60} />
+                <img src="/x.png" alt="X" width={60} height={60} />
               </Link>
             </div>
           </div>
