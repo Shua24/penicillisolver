@@ -1,12 +1,12 @@
 .global {
     background-color: #f0f0f0;
-    position:fixed;
-    width:100%;
-    height:100%;
-    top:0px;
-    left:0px;
-    z-index:1000;
-    font-family: Poppins;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    font-family: "Poppins", sans-serif;
 }
 
 .buttonGroup {
@@ -16,25 +16,22 @@
 }
 
 .tableWrapper {
-    padding-left: 30px;
-    background-color: #f0f0f0;
-    margin: 0 auto; 
-    overflow-x: auto;
     padding-left: 300px;
+    background-color: #f0f0f0;
+    margin: 0 auto;
+    overflow-x: auto;
 }
 
 .flex {
     display: flex;
-    gap:5px;
+    gap: 5px;
 }
 
 .table {
     background-color: #f0f0f0;
-    user-select: none;
     max-width: 90%;
-    overflow: auto;
     margin: 0 auto;
-    user-select: none;
+    overflow: auto;
 }
 
 .tableContainer {
@@ -43,18 +40,17 @@
     max-height: 700px;
     overflow: auto;
     border: 1px solid black;
-    user-select: none;
 }
 
-.table, .th, .td {
-    font-family: Poppins, sans-serif;
+.table,
+.th,
+.td {
+    font-family: "Poppins", sans-serif;
     border: 1px solid black;
     border-collapse: collapse;
     color: black;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 0 10px;
     background-color: white;
-    user-select: text;
     word-wrap: break-word;
 }
 
@@ -63,11 +59,11 @@
     padding: 30px;
 }
 
-.title, .text {
-    font-family: Poppins, sans-serif;
+.title,
+.text {
+    font-family: "Poppins", sans-serif;
     color: #005f76;
-    padding-bottom: 30px;
-    padding-top: 20px;
+    padding: 20px 0 30px;
     user-select: none;
 }
 
@@ -86,12 +82,10 @@
 
 .button:hover {
     background-color: #005f5f;
-    user-select: none;
 }
 
 .button:active {
     background-color: #004747;
-    user-select: none;
 }
 
 .uploading {
@@ -105,4 +99,3 @@
     height: 100vh;
     overflow: hidden;
 }
-

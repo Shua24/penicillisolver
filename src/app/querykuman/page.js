@@ -4,41 +4,38 @@ import React, { useState } from "react";
 import styles from "./querykuman.module.css";
 import Sidebar from "../sidebar/page";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../daftar/firebase"; // Adjust the import according to your Firebase setup
+import { db } from "../daftar/firebase";
 
 const Query = () => {
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
-  const [dataSource, setDataSource] = useState(null); // Track if data is from Firebase or API
+  const [dataSource, setDataSource] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     const form = event.target;
     const inputField = form.querySelector("input");
-    const query = inputField.value.trim().toLowerCase(); // case insensitive (selalu jadi input bersih)
-  
+    const query = inputField.value.trim().toLowerCase();
+
     try {
       const docRef = doc(db, "polakuman", "excel_data");
       const docSnap = await getDoc(docRef);
-  
+
       if (docSnap.exists()) {
         const data = docSnap.data();
 
-        // Cek isi dokumen
         if (data.rows && data.rows.length > 0) {
           const keys = Object.keys(data.rows[0]).map((key) => key.toLowerCase());
-          
-          // cek bakteri
+
           if (keys.includes(query)) {
             const actualKey = Object.keys(data.rows[0]).find(
               (key) => key.toLowerCase() === query
             );
-            
-            // Sort data (manual)
+
             const sortedRows = data.rows.sort((a, b) => b[actualKey] - a[actualKey]);
             const topRows = sortedRows.slice(0, 3);
-  
+
             setResults({
               bakteri: actualKey,
               tiga_antibiotik: topRows.map((row) => ({
@@ -66,24 +63,24 @@ const Query = () => {
       }
     } catch (firebaseError) {
       console.warn("Error saat menangkap data di database:", firebaseError.message);
-  
-      // Fallback: Fetch data from the backup endpoint (using NEXT_PUBLIC_TABLE_QUERY_URL from .env)
+
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`
         );
-  
+
         if (response.status === 400) {
-          setError(`Bakteri "${query}" tidak ditemukan.`)
+          setError(`Bakteri "${query}" tidak ditemukan.`);
           throw new Error(`Backup fetch failed with status: ${response.status}`);
-        } else if(response.status === 404) {
-          setError("Tidak dapat mengambil pola kuman dari excel. Hubungi Tim Mikrobiologi atau unggah pola kuman.");
-          throw new Error(`${response.status}, not found`)
+        } else if (response.status === 404) {
+          setError(
+            "Tidak dapat mengambil pola kuman dari excel. Hubungi Tim Mikrobiologi atau unggah pola kuman."
+          );
+          throw new Error(`${response.status}, not found`);
         }
-  
+
         const backupData = await response.json();
-  
-        // Ambil dari firebase
+
         setResults({
           bakteri: backupData.bakteri,
           tiga_antibiotik: backupData.tiga_antibiotik.map((item) => ({
@@ -92,23 +89,21 @@ const Query = () => {
           })),
         });
         setError(null);
-        setDataSource("api"); // Set ke API supaya bisa ada peringatan
+        setDataSource("api");
       } catch (backupError) {
         console.error("Backup fetch error:", backupError);
       }
     }
   };
-  
+
   return (
     <div className={styles.pageContainer}>
       <Sidebar />
       <div className={styles.body}>
         <div className={styles.center}>
           <h1 className={styles.headingPrimary}>Cari Antibiotik</h1>
-          {/* <h3 className={styles.headingSecondary}>Pilih pencarian (isi salah satu)</h3> */}
-          <br />
           <div className={styles.sicknessSearch}>
-            <p className={styles.paragraph}>Berdasarkan spesies bakteri</p>
+            <p className={styles.paragraph}>Input bakteri untuk antibiotik responsif</p>
             <form onSubmit={handleSubmit}>
               <label htmlFor="bacteria" className={styles.label}>
                 Bakteri:
@@ -125,25 +120,6 @@ const Query = () => {
               </button>
             </form>
           </div>
-          <br />
-          {/* <div className={styles.sicknessSearch}>
-            <p className={styles.paragraph}>Berdasarkan penyakit</p>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="sickness" className={styles.label}>
-                Penyakit:
-              </label>
-              <input
-                type="text"
-                name="sickness"
-                id="sickness"
-                placeholder="Masukkan penyakit"
-                className={styles.inputText}
-              />
-              <button type="submit" className={styles.button}>
-                Cari
-              </button>
-            </form>
-          </div> */}
           {error && <div className={styles.error}>{error}</div>}
 
           {!error && results && (
