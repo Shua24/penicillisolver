@@ -16,10 +16,9 @@ class ExcelController extends Controller
             return response()->json(['error' => 'File not found. Public path is in '.$filePath], 404);
         }
         try {
-            // Load the Excel file
             $spreadsheet = IOFactory::load($filePath);
             $sheet = $spreadsheet->getActiveSheet();
-            $rows = $sheet->toArray(null, true, true, true); // Convert sheet to array
+            $rows = $sheet->toArray(null, true, true, true); // sheet ke array
 
             return response()->json($rows, 200);
         } catch (\Exception $e) {

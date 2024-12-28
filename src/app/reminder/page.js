@@ -18,7 +18,6 @@ export default function DatePicker() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
-
         if (userDoc.exists() && userDoc.data().role === 'Mikrobiologi') {
           setIsMikrobiologi(true);
         } else {
@@ -29,7 +28,6 @@ export default function DatePicker() {
         router.push('/login');
       }
     });
-
     return () => unsubscribe();
   }, [router]);
 
@@ -39,17 +37,16 @@ export default function DatePicker() {
 
     const [year, month, day] = date.split("-");
     const formattedDate = `${day}-${month}-${year}`;
-  
+
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_DATE_STORE_API_URL}/api/date`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ date: formattedDate }),
       });
-  
+
       const contentType = response.headers.get('Content-Type');
       if (contentType && contentType.includes('application/json')) {
-  
         const result = await response.json();
         if (response.ok) {
           setResponseMessage(`Tanggal berhasil diubah! Tanggal: ${result.date}`);
@@ -64,36 +61,37 @@ export default function DatePicker() {
       setResponseMessage('Failed to send date to the server.');
     }
   };
-  
+
   if (!isMikrobiologi) {
     return (
       <div className={styles.global}>
         <h1 className={styles.text}>Memuat...</h1>
       </div>
-    )
+    );
   }
 
   return (
-      <div className={styles.global}>
-        <Sidebar />
-        <div className={styles.container}>
-          <div className={styles.content}>
-            <h1 className={styles.heading1}>Ubah deadline pola kuman</h1>
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={handleDateChange}
-              className={styles.datePicker}
-            />
-            {responseMessage && <p className={styles.text}>{responseMessage}</p>}
-            <br/>
-            <button
+    <div className={styles.global}>
+      <Sidebar />
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <h1 className={styles.heading1}>Ubah deadline pola kuman</h1>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={handleDateChange}
+            className={styles.datePicker}
+          />
+          {responseMessage && <p className={styles.text}>{responseMessage}</p>}
+          <br />
+          <button
             className={styles.button}
-            onClick={() => location.href = "/tabel"}>
-              Kembali melihat pola kuman
-            </button>
-            </div>
-          </div>
+            onClick={() => (location.href = "/tabel")}
+          >
+            Kembali melihat pola kuman
+          </button>
+        </div>
       </div>
+    </div>
   );
 }

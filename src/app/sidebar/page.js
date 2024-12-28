@@ -1,26 +1,24 @@
-
 'use client';
 
 import React, { useState, useEffect } from "react";
-import { auth, db } from "../daftar/firebase"; // Adjust the path if necessary
+import { auth, db } from "../daftar/firebase";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import styles from "./sidebar.module.css";
 
 const Sidebar = () => {
-  const [user, setUser] = useState(null); // Holds user authentication data
-  const [userData, setUserData] = useState({ nama: "", role: "" }); // Holds Firestore user details
+  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState({ nama: "", role: "" });
 
   useEffect(() => {
-    // Listen to the authentication state
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        // Fetch additional user details from Firestore
-        const userDocRef = doc(db, "users", currentUser.uid); // Assuming 'users' collection
+
+        const userDocRef = doc(db, "users", currentUser.uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-          const { nama, role } = userDoc.data(); // Retrieve 'nama' and 'role'
+          const { nama, role } = userDoc.data();
           setUserData({ nama, role });
         }
       } else {
@@ -29,23 +27,22 @@ const Sidebar = () => {
       }
     });
 
-    return () => unsubscribe(); // Cleanup the listener
+    return () => unsubscribe();
   }, []);
 
-  // Handle logout
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Firebase sign-out
-      window.location.href = "/landing"; // Redirect to the landing page
+      await signOut(auth);
+      window.location.href = "/landing";
     } catch (error) {
       console.error("Error logging out:", error);
       alert("Gagal keluar. Silakan coba lagi.");
     }
   };
 
-  // Handle delete account
   const handleDeleteAccount = async () => {
-    if (!user) return; // Ensure user is logged in
+    if (!user) return;
+
     const confirmDelete = window.confirm(
       "Apakah Anda yakin ingin menghapus akun Anda? Tindakan ini tidak dapat dibatalkan."
     );
@@ -53,14 +50,10 @@ const Sidebar = () => {
     if (!confirmDelete) return;
 
     try {
-      // Delete user's Firestore document
       const userDocRef = doc(db, "users", user.uid);
       await deleteDoc(userDocRef);
-
-      // Delete user's Firebase Authentication account
       await deleteUser(user);
 
-      // Redirect to landing page or confirmation page after account deletion
       alert("Akun Anda telah dihapus.");
       window.location.href = "/landing";
     } catch (error) {
@@ -91,27 +84,23 @@ const Sidebar = () => {
       </div>
       <div
         className={styles.menuItem}
-        onClick={() =>
-          (window.location.href = "/tentangpola")
-        }
+        onClick={() => (window.location.href = "/tentangpola")}
       >
         Tentang Pola Kuman
       </div>
       <div
         className={styles.menuItem}
-        onClick={() =>
-          (window.location.href = "/querykuman")
-        }
+        onClick={() => (window.location.href = "/querykuman")}
       >
         Cari Antibiotik
       </div>
       {userData.role === "Mikrobiologi" && (
         <div
-        className={styles.menuItem}
-        onClick={() => (window.location.href = "/hakAkses")}
-      >
-        Atur Akses
-      </div>
+          className={styles.menuItem}
+          onClick={() => (window.location.href = "/hakAkses")}
+        >
+          Atur Akses
+        </div>
       )}
       {user ? (
         <div className={styles.userInfo}>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { auth } from '../daftar/firebase'; // Ensure the path is correct
+import { auth } from '../daftar/firebase';
 import { sendEmailVerification, onAuthStateChanged, reload } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import style from "./verifikasi-user.module.css";
@@ -12,7 +12,7 @@ const UserVerificationPage = () => {
   const [emailVerified, setEmailVerified] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
-  const [timer, setTimer] = useState(0); // Timer in seconds
+  const [timer, setTimer] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -38,15 +38,13 @@ const UserVerificationPage = () => {
         clearInterval(interval);
         setEmailVerified(true);
         setMessage('Email Anda telah diverifikasi! 🎉 Mengalihkan ke halaman login...');
-        setTimeout(() => {
-          router.push('/login'); 
-        }, 3000);
+        setTimeout(() => router.push('/login'), 3000);
       } else if (attempts >= maxAttempts) {
         clearInterval(interval);
         setMessage('Email belum terverifikasi. Coba lagi nanti.');
       }
       attempts++;
-    }, 2000); 
+    }, 2000);
   };
 
   useEffect(() => {
@@ -73,7 +71,7 @@ const UserVerificationPage = () => {
     try {
       await sendEmailVerification(user);
       setMessage('Tautan verifikasi terkirim. Silakan cek inbox pada email.');
-      setTimer(600); 
+      setTimer(600);
     } catch (error) {
       if (error.code === 'auth/too-many-requests') {
         setMessage('Terlalu banyak permintaan. Tapi silakan cek email anda 😊');
@@ -122,7 +120,7 @@ const UserVerificationPage = () => {
                   type="button"
                   className={`${style.tombol} ${error ? style.tombolError : ""}`}
                   onClick={handleSendVerificationEmail}
-                  disabled={timer > 0} // Disable button if timer is active
+                  disabled={timer > 0}
                 >
                   Kirim Ulang Email Verifikasi
                 </button>
