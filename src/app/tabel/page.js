@@ -1,39 +1,43 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import styles from './tabel.module.css';
-import Sidebar from '../sidebar/page';
+import React, { useState, useEffect } from "react";
+import styles from "./tabel.module.css";
+import Sidebar from "../sidebar/page";
 import { auth, db } from "../daftar/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
 
 const Tabel = () => {
   const [jsonData, setJsonData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [postResponse, setPostResponse] = useState(null);
-  const [permissions, setPermissions] = useState({ update: false, delete: false });
+  const [permissions, setPermissions] = useState({
+    update: false,
+    delete: false,
+  });
   const [userId, setUserId] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/excel-data`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/excel-data`
+        );
         if (response.status === 404) {
           throw new Error("Pola kuman belum ada!");
         }
-  
+
         const data = await response.json();
-        setJsonData(data); // Set the table data
+        setJsonData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setIsLoading(false); // Stop loading
+        setIsLoading(false);
       }
     };
-  
+
     fetchData();
   }, []);
 
@@ -45,10 +49,10 @@ const Tabel = () => {
 
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
-          const hakAksesRef = userData.hakAksesRef; // Get the reference
+          const hakAksesRef = userData.hakAksesRef;
 
           if (hakAksesRef) {
-            const hakAksesDocSnap = await getDoc(hakAksesRef); // Fetch permissions document
+            const hakAksesDocSnap = await getDoc(hakAksesRef);
 
             if (hakAksesDocSnap.exists()) {
               const { update, hapus: canDelete } = hakAksesDocSnap.data();
@@ -79,12 +83,16 @@ const Tabel = () => {
   const handlePostRequest = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/upload-to-firebase`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/upload-to-firebase`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
-      if (!response.ok) throw new Error(`Error: ${response.status} ${response.statusText}`);
+      if (!response.ok)
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
 
       const result = await response.json();
       setPostResponse(result.message);
@@ -106,13 +114,12 @@ const Tabel = () => {
     const updateURL = process.env.NEXT_PUBLIC_TABLE_API_URL;
     if (updateURL) {
       window.location.href = updateURL;
-    }
-    else alert("Update URL is not configured.");
+    } else alert("Update URL is not configured.");
   };
 
   const handleDelete = async () => {
     const deleteURL = `${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/delete-excel`;
-    const secondDeleteURL = `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/delete-excel`
+    const secondDeleteURL = `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/delete-excel`;
     if (!deleteURL) {
       alert("Delete URL is not configured.");
       return;
@@ -120,7 +127,7 @@ const Tabel = () => {
 
     try {
       const response = await fetch(deleteURL, {
-        method: "DELETE"
+        method: "DELETE",
       });
 
       if (!response.ok) {
@@ -128,29 +135,30 @@ const Tabel = () => {
       }
 
       const secondResponse = await fetch(secondDeleteURL, {
-        method: "DELETE"
+        method: "DELETE",
       });
 
-      if(!secondResponse.ok) {
-        throw new Error(`Error. Details: ${(secondResponse).status} ${secondResponse.statusText}`);
+      if (!secondResponse.ok) {
+        throw new Error(
+          `Error. Details: ${secondResponse.status} ${secondResponse.statusText}`
+        );
       }
 
       alert("Pola kuman terhapus.");
       setJsonData({});
       setError(null);
-
     } catch (error) {
       console.error("Error deleting data:", error);
       alert("Penghapusan pola kuman gagal.");
     }
   };
 
-  if(error) {
+  if (error) {
     return (
       <div className={styles.global}>
         <div className={styles.pageContainer}>
           <div className={styles.tableWrapper}>
-            <Sidebar/>
+            <Sidebar />
             <p className={styles.text}>Pola kuman tidak ada.</p>
             {permissions.update && (
               <div className={styles.flex}>
@@ -160,7 +168,10 @@ const Tabel = () => {
               </div>
             )}
             {postResponse && (
-              <div className={styles.text} style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+              <div
+                className={styles.text}
+                style={{ marginTop: "10px", display: "flex", gap: "10px" }}
+              >
                 <p>{postResponse}</p>
               </div>
             )}
@@ -206,7 +217,9 @@ const Tabel = () => {
               <thead>
                 <tr className={styles.tr}>
                   {headers.map((header, index) => (
-                    <th key={index} className={styles.th}>{header}</th>
+                    <th key={index} className={styles.th}>
+                      {header}
+                    </th>
                   ))}
                 </tr>
               </thead>
@@ -214,7 +227,9 @@ const Tabel = () => {
                 {dataRows.map((row, index) => (
                   <tr key={index} className={styles.tr}>
                     {Object.values(row).map((value, i) => (
-                      <td key={i} className={styles.td}>{value}</td>
+                      <td key={i} className={styles.td}>
+                        {value}
+                      </td>
                     ))}
                   </tr>
                 ))}
@@ -227,7 +242,7 @@ const Tabel = () => {
                 <div className={styles.flex}>
                   <button
                     className={styles.button}
-                    onClick={() => (window.location.href = '/reminder')}
+                    onClick={() => (window.location.href = "/reminder")}
                   >
                     Ubah deadline pergantian
                   </button>
@@ -235,7 +250,9 @@ const Tabel = () => {
                     Update
                   </button>
                   <button
-                    className={`${styles.button} ${isLoading ? styles.uploading : ""}`}
+                    className={`${styles.button} ${
+                      isLoading ? styles.uploading : ""
+                    }`}
                     onClick={handlePostRequest}
                     disabled={isLoading}
                   >
@@ -250,19 +267,20 @@ const Tabel = () => {
                   )}
                 </div>
                 <p className={styles.text}>
-                  Pola kuman dapat dibaca di aplikasi ponsel jika diunggah ke database.
+                  Pola kuman dapat dibaca di aplikasi ponsel jika diunggah ke
+                  database.
                 </p>
               </div>
             )}
-            </div>
-            {postResponse && (
-                <div className={styles.text}>
-                  <p>{postResponse}</p>
-                </div>
-            )}
           </div>
+          {postResponse && (
+            <div className={styles.text}>
+              <p>{postResponse}</p>
+            </div>
           )}
-      </div>
+        </div>
+      )}
+    </div>
   );
 };
 
