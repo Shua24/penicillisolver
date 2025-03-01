@@ -36,6 +36,11 @@ def load_excel_file():
         print(f"Error loading the file: {e}")
         return pd.DataFrame()
 
+@app.route("exceldata", methods=["GET"])
+def load_excel_collection():
+    df = load_excel_file()
+    return df
+
 @app.route("/upload-to-firebase", methods=["POST"])
 def upload_to_firebase():
     df = load_excel_file() # Reload 
