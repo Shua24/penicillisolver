@@ -36,7 +36,7 @@ def load_excel_file():
         print(f"Error loading the file: {e}")
         return pd.DataFrame()
 
-@app.route("exceldata", methods=["GET"])
+@app.route("/exceldata", methods=["GET"])
 def load_excel_collection():
     df = load_excel_file()
     return df
