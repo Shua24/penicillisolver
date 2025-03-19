@@ -23,7 +23,7 @@ const Tabel = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/excel-data`
+          `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/exceldata`
         );
         if (response.status === 404) {
           throw new Error("Pola kuman belum ada!");
