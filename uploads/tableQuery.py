@@ -22,11 +22,24 @@ db = firestore.client()
 
 file_path = "public/storage/uploads/data.xlsx" # TODO: ubah
 
+def load_pure_excel():
+    try:
+        if os.path.exists(file_path):
+            dframe = pd.read_excel(file_path)
+            dframe = dframe.fillna(0)
+            return dframe
+        else:
+            print(f"file '{file_path}' not found,")
+            return pd.DataFrame()
+    except Exception as err:
+        print(f"Error loading file: {err}")
+        return pd.DataFrame()
+
 def load_excel_file():
     try:
         if os.path.exists(file_path):
             df = pd.read_excel(file_path)
-            df = df.drop(df.index[[0, 2]], axis=0)
+            df = df.drop(df.index[[0]], axis=0)
             df = df.fillna(0)
             return df
         else:
@@ -38,8 +51,8 @@ def load_excel_file():
 
 @app.route("/exceldata", methods=["GET"])
 def load_excel_collection():
-    df = load_excel_file()
-    df_json = df.to_dict(orient="records")
+    df = load_pure_excel()
+    df_json = [df.columns.tolist()] + df.values.tolist()
 
     return jsonify(df_json)
     
