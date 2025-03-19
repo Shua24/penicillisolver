@@ -20,7 +20,7 @@ cred = credentials.Certificate(firebase_credentials_path)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-file_path = "public/storage/uploads/data.xlsx"
+file_path = "public/storage/uploads/data.xlsx" # TODO: ubah
 
 def load_excel_file():
     try:
@@ -39,7 +39,11 @@ def load_excel_file():
 @app.route("/exceldata", methods=["GET"])
 def load_excel_collection():
     df = load_excel_file()
-    return df
+    df_json = df.to_dict(orient="records")
+
+    return jsonify(df_json)
+    
+    # TODO: Page upload tabel [FE]
 
 @app.route("/upload-to-firebase", methods=["POST"])
 def upload_to_firebase():
