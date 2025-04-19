@@ -83,6 +83,17 @@ def delete_firebase_data():
         return jsonify({"message": "Pola kuman berhasil terhapus!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/delete-excel-file", methods=["DELETE"])
+def delete_excel_file():
+    try:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            return jsonify({"message": "File Excel berhasil dihapus!"}), 200
+        else:
+            return jsonify({"error": "File tidak ditemukan!"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/top-values", methods=["GET"])
 def top_values():
