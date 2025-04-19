@@ -118,7 +118,7 @@ const Tabel = () => {
   };
 
   const handleDelete = async () => {
-    const deleteURL = `${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/delete-excel`;
+    const deleteURL = `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/delete-excel-file`;
     const secondDeleteURL = `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/delete-excel`;
     if (!deleteURL) {
       alert("Delete URL is not configured.");
