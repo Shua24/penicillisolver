@@ -37,29 +37,29 @@ Run halaman upload
 
 $ streamlit run upload.py 
 /disini wajib pip install streamlit
+---
 
-
-bagian QA testing unit-test
+### bagian QA testing unit-test
 1. Masuk ke ./uploads/tests
 $ cd ./uploads/tests
 
-2. bagian test performa Qa test
+#### 2. bagian test performa Qa test
 Install k6
 $ choco install k6
 $ scoop install k6
 $ cd uploads/tests
 $ k6 run performance_test.js
 
-3. UI Testing (Selenium + pytest)
+### 3. UI Testing (Selenium + pytest)
    $ pip install selenium
    $ pip install pytest-selenium
 
-4. API Testing (Postman + Newman)
+### 4. API Testing (Postman + Newman)
    Install Newman (CLI untuk Postman):
    $ npm install -g newman
    
    
-6. buat run koleksi Postman:
+#### 6. buat run koleksi Postman:
    $ newman run postman_collection.json
    $ newman run simple_api_test.json
    $ newman run api_test.json
