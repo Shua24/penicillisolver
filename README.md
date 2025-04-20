@@ -1,12 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-## Penicillisolver proyek tingkat III
-- **1302220085 - Mohammed Yousef Gumilar**
-- **1302220072 - Joshua Daniel Simanjuntak**
-- **1302223076 - Irvan Dzawin Nuha**
-- **1302220109 - Muhammad Ghiyats Fatiha**
-- **1302220121 - Mochammad Rizky Septian**
+
+## 🧪 Penicillisolver – Proyek Tingkat III
+
+- **1302220085 – Mohammed Yousef Gumilar**  
+- **1302220072 – Joshua Daniel Simanjuntak**  
+- **1302223076 – Irvan Dzawin Nuha**  
+- **1302220109 – Muhammad Ghiyats Fatiha**  
+- **1302220121 – Mochammad Rizky Septian**
 ---
-## Getting Started
+
+## 🚀 Getting Started
 
 First, run the development server:
 
@@ -14,69 +17,114 @@ First, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
----
-## Langkah run di dev environment
-1. Run server utama
-$ npm run dev 
 
-2. Masuk ke ./uploads/
-$ cd ./uploads/
-Run date.py
-
-$ python date.py
-Run table API
-
-$ python tableQuery.py
-Run halaman upload
-
-
-$ streamlit run upload.py 
-/disini wajib pip install streamlit
 ---
 
-### bagian QA testing unit-test
-1. Masuk ke ./uploads/tests
-$ cd ./uploads/tests
+## ⚙️ Langkah Run di Dev Environment
 
-#### 2. bagian test performa Qa test
-Install k6
-$ choco install k6
-$ scoop install k6
-$ cd uploads/tests
-$ k6 run performance_test.js
+1. Jalankan server utama:
 
-### 3. UI Testing (Selenium + pytest)
-   $ pip install selenium
-   $ pip install pytest-selenium
+   ```bash
+   npm run dev
+   ```
 
-### 4. API Testing (Postman + Newman)
-   Install Newman (CLI untuk Postman):
-   $ npm install -g newman
-   
-   
-#### 6. buat run koleksi Postman:
-   $ newman run postman_collection.json
-   $ newman run simple_api_test.json
-   $ newman run api_test.json
+2. Masuk ke folder `./uploads/`:
 
+   ```bash
+   cd ./uploads/
+   ```
 
-## Learn More
+3. Jalankan script `date.py`:
+
+   ```bash
+   python date.py
+   ```
+
+4. Jalankan `tableQuery.py`:
+
+   ```bash
+   python tableQuery.py
+   ```
+
+5. Jalankan halaman upload Streamlit:
+
+   ```bash
+   streamlit run upload.py
+   ```
+
+   > ⚠️ Wajib install terlebih dahulu:
+   ```bash
+   pip install streamlit
+   ```
+
+---
+
+## 🧪 QA Testing & Unit-Test
+
+1. Masuk ke folder `./uploads/tests`:
+
+   ```bash
+   cd ./uploads/tests
+   ```
+
+2. Jalankan **Performance Test (QA)** dengan k6:
+
+   Instalasi:
+
+   ```bash
+   choco install k6
+   # atau
+   scoop install k6
+   ```
+
+   Lalu jalankan tes:
+
+   ```bash
+   k6 run performance_test.js
+   ```
+
+3. Jalankan **UI Testing (Selenium + Pytest)**:
+
+   ```bash
+   pip install selenium
+   pip install pytest-selenium
+   ```
+
+4. Jalankan **API Testing (Postman + Newman)**:
+
+   Install Newman:
+
+   ```bash
+   npm install -g newman
+   ```
+
+   Jalankan koleksi Postman:
+
+   ```bash
+   newman run postman_collection.json
+   newman run simple_api_test.json
+   newman run api_test.json
+   ```
+
+---
+
+## 📚 Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Learn Next.js](https://nextjs.org/learn)
+- [Next.js GitHub repository](https://github.com/vercel/next.js)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ☁️ Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
