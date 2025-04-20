@@ -94,9 +94,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
    ```bash
    choco install k6
    ```
-
+ #### atau
    ```bash
-   ### atau
    scoop install k6
    ```
 
