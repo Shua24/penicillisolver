@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
+## Penicillisolver proyek tingkat III
+- **1302220085 - Mohammed Yousef Gumilar**
+- **1302220072 - Joshua Daniel Simanjuntak**
+- **1302223076 - Irvan Dzawin Nuha**
+- **1302220109 - Muhammad Ghiyats Fatiha**
+- **1302220121 - Mochammad Rizky Septian**
+---
 ## Getting Started
 
 First, run the development server:
