@@ -61,7 +61,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
    ```bash
    pip install streamlit
    ```
- 6. Jika saat di run belum pastikan install terlebih dahulu:
+ 6. Jika saat di run belum bisa, pastikan install terlebih dahulu dibawah ini:
     ```bash
        npm install 
     ```
