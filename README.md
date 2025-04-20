@@ -48,7 +48,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 4. Jalankan `tableQuery.py`:
 
    ```bash
-   python tableQuery.py
+    python tableQuery.py
    ```
 
 5. Jalankan halaman upload Streamlit:
@@ -93,7 +93,10 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
    ```bash
    choco install k6
-   # atau
+   ```
+
+   ```bash
+   ### atau
    scoop install k6
    ```
 
@@ -103,11 +106,18 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
    k6 run performance_test.js
    ```
 
-3. Jalankan **UI Testing (Selenium + Pytest)**:
+4. Jalankan **UI Testing (Selenium + Pytest)**:
 
    ```bash
    pip install selenium
+    ```
+   
+   ```bash
    pip install pytest-selenium
+   ```
+  ## run UI testing
+  ```bash
+   python test_simple.py
    ```
 
 4. Jalankan **API Testing (Postman + Newman)**:
@@ -118,14 +128,17 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
    npm install -g newman
    ```
 
-   Jalankan koleksi Postman:
-
+   ### Jalankan koleksi Postman:
    ```bash
    newman run postman_collection.json
+   ```
+   ```bash
    newman run simple_api_test.json
+   ```
+   
+    ```bash
    newman run api_test.json
    ```
-
 ---
 
 ## 📚 Learn More
