@@ -134,15 +134,15 @@ const Tabel = () => {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
-      const secondResponse = await fetch(secondDeleteURL, {
-        method: "DELETE",
-      });
+      // const secondResponse = await fetch(secondDeleteURL, {
+      //   method: "DELETE",
+      // });
 
-      if (!secondResponse.ok) {
-        throw new Error(
-          `Error. Details: ${secondResponse.status} ${secondResponse.statusText}`
-        );
-      }
+      // if (!secondResponse.ok) {
+      //   throw new Error(
+      //     `Error. Details: ${secondResponse.status} ${secondResponse.statusText}`
+      //   );
+      // }
 
       alert("Pola kuman terhapus.");
       setJsonData({});
