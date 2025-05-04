@@ -7,7 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./daftar/firebase";
 
-const publicRoutes = ["/login", "/daftar", "/hakAkses"];
+const publicRoutes = ["/login", "/daftar", "/hakAkses", "/landing"];
 
 export default function AuthLayout({ children }) {
   const router = useRouter();
