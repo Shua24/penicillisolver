@@ -23,7 +23,7 @@ const Tabel = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/excel-data`
+          `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/exceldata`
         );
         if (response.status === 404) {
           throw new Error("Pola kuman belum ada!");
@@ -118,7 +118,7 @@ const Tabel = () => {
   };
 
   const handleDelete = async () => {
-    const deleteURL = `${process.env.NEXT_PUBLIC_TABLE_API_URL}/api/delete-excel`;
+    const deleteURL = `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/delete-excel-file`;
     const secondDeleteURL = `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/delete-excel`;
     if (!deleteURL) {
       alert("Delete URL is not configured.");
@@ -134,15 +134,15 @@ const Tabel = () => {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
-      const secondResponse = await fetch(secondDeleteURL, {
-        method: "DELETE",
-      });
+      // const secondResponse = await fetch(secondDeleteURL, {
+      //   method: "DELETE",
+      // });
 
-      if (!secondResponse.ok) {
-        throw new Error(
-          `Error. Details: ${secondResponse.status} ${secondResponse.statusText}`
-        );
-      }
+      // if (!secondResponse.ok) {
+      //   throw new Error(
+      //     `Error. Details: ${secondResponse.status} ${secondResponse.statusText}`
+      //   );
+      // }
 
       alert("Pola kuman terhapus.");
       setJsonData({});
