@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import AuthLayout from "./authlayout";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,7 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppinsExtraBold.variable} ${poppinsRegular.variable} ${kronaOneRegular.variable}`}>
-        {children}
+        <AuthLayout>{children}</AuthLayout>
       </body>
     </html>
   );

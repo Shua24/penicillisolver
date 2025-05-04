@@ -1,0 +1,134 @@
+{
+  "info": {
+    "name": "API Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Test Homepage",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000"
+        }
+      }
+    },
+    {
+      "name": "Test Login Page",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["login"]
+        }
+      }
+    },
+    {
+      "name": "Test Login API",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["login"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Test Upload File",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "multipart/form-data"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/upload-file",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["upload-file"]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "test_data.xlsx"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Test Get Results",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/get-results",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["get-results"]
+        }
+      }
+    },
+    {
+      "name": "Test Download Report",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/download-report",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["download-report"]
+        }
+      }
+    },
+    {
+      "name": "Test Analyze Data",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/analyze-data",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["analyze-data"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"data\": \"test data\"\n}"
+        }
+      }
+    }
+  ]
+} 

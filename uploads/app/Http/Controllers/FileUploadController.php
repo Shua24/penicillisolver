@@ -9,7 +9,7 @@ class FileUploadController extends Controller
 {
     public function upload(Request $request)
     {
-        // Validate the uploaded file
+        // Validasi
         $request->validate([
             'file' => 'required|mimes:xlsx|max:5120',
         ]);
