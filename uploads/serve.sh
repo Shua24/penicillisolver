@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-(php artisan serve --host=0.0.0.0) &
+# (php artisan serve --host=0.0.0.0) &
 (python tableQuery.py) &
-(node date.js) &
+(python date.py) &
+(streamlit run upload.py) &
 
 wait
