@@ -57,7 +57,7 @@ st.markdown("""
 st.title("Unggah File")
 upload_file = st.file_uploader("Choose a file", type=["xlsx"])
 if upload_file is not None:
-    file_path = os.path.join("./public/storage/uploads/", upload_file.name)
+    file_path = os.path.join("./public/storage/uploads/", "data.xlsx")
     with open(file_path, "wb") as f:
         f.write(upload_file.read())
     st.success(f"File {upload_file.name} berhasil terunggah!")

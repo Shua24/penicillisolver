@@ -73,11 +73,13 @@ def load_excel_file():
 @require_api_key
 def load_excel_collection():
     df = load_pure_excel()
+
+    if df is None or df.empty:
+        return jsonify({"error": "no table in directory"}), 404
+
     df_json = [df.columns.tolist()] + df.values.tolist()
 
     return jsonify(df_json)
-    
-    # TODO: Page upload tabel [FE]
 
 @app.route("/upload-to-firebase", methods=["POST"])
 @require_api_key
