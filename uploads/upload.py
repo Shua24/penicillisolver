@@ -1,6 +1,8 @@
 import streamlit as st
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 os.mkdir("./public/storage/uploads/") if not os.path.exists("./public/storage/uploads/") else None
 redirect = os.getenv("APP_REDIRECT_URL")
 
@@ -53,13 +55,13 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("Unggah File")
-upload_file = st.file_uploader("Choose a file", type=["csv", "xlsx"])
+upload_file = st.file_uploader("Choose a file", type=["xlsx"])
 if upload_file is not None:
-    file_path = os.path.join("./public/storage/uploads/", upload_file.name)
+    file_path = os.path.join("./public/storage/uploads/", "data.xlsx")
     with open(file_path, "wb") as f:
         f.write(upload_file.read())
     st.success(f"File {upload_file.name} berhasil terunggah!")
 
     if st.button("Kembali ke Halaman Pola Kuman"):
-        st.markdown(f'<meta http-equiv="refresh" content="0; url={redirect}">', unsafe_allow_html=True)
+        st.markdown(f'<meta http-equiv="refresh" content="0; url={redirect}/tabel">', unsafe_allow_html=True)
         

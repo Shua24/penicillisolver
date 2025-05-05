@@ -105,7 +105,14 @@ const Query = () => {
       if (query) {
         try {
            const response = await fetch(
-            `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`
+            `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`,
+            {
+              method: "GET",
+              headers: { 
+                "Content-Type": "application/json",
+                "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+              },
+            }
           );
 
           if (!response.ok) {

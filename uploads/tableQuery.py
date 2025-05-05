@@ -5,6 +5,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import os
 from dotenv import load_dotenv
+from functools import wraps
 
 load_dotenv()
 
@@ -21,6 +22,25 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 file_path = "public/storage/uploads/data.xlsx" # TODO: ubah
+API_KEY = os.getenv("APP_API_KEY")
+
+def require_api_key(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Get API key from request header
+        provided_key = request.headers.get('X-API-Key')
+        
+        # Get API key from query parameter as fallback
+        if not provided_key:
+            provided_key = request.args.get('api_key')
+        
+        # Check if API key is valid
+        if not provided_key or provided_key != API_KEY:
+            return jsonify({"error": "Unauthorized access. Invalid or missing API key."}), 401
+        
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 def load_pure_excel():
     try:
@@ -50,15 +70,19 @@ def load_excel_file():
         return pd.DataFrame()
 
 @app.route("/exceldata", methods=["GET"])
+@require_api_key
 def load_excel_collection():
     df = load_pure_excel()
+
+    if df is None or df.empty:
+        return jsonify({"error": "no table in directory"}), 404
+
     df_json = [df.columns.tolist()] + df.values.tolist()
 
     return jsonify(df_json)
-    
-    # TODO: Page upload tabel [FE]
 
 @app.route("/upload-to-firebase", methods=["POST"])
+@require_api_key
 def upload_to_firebase():
     df = load_excel_file() # Reload 
     try:
@@ -75,6 +99,7 @@ def upload_to_firebase():
         return jsonify({"error": str(e)}), 500
 
 @app.route("/delete-excel", methods=["DELETE"])
+@require_api_key
 def delete_firebase_data():
     try:
         collection_name = os.getenv("APP_FIREBASE_COLLECTION")
@@ -85,6 +110,7 @@ def delete_firebase_data():
         return jsonify({"error": str(e)}), 500
     
 @app.route("/delete-excel-file", methods=["DELETE"])
+@require_api_key
 def delete_excel_file():
     try:
         if os.path.exists(file_path):
@@ -96,6 +122,7 @@ def delete_excel_file():
         return jsonify({"error": str(e)}), 500
 
 @app.route("/top-values", methods=["GET"])
+@require_api_key
 def top_values():
     column_name = request.args.get("column", "").strip().lower()
     df = load_excel_file()  # Reload
@@ -125,6 +152,7 @@ def top_values():
     return response
 
 @app.route("/top-values-db", methods=["GET"])
+@require_api_key
 def top_values_db():
     column_name = request.args.get("column", "").strip().lower()
 
