@@ -1,88 +1,302 @@
-.global {
-    font-family: "Poppins";
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+.header {
+background-color: #008080;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 7px;
+z-index: 10;
+text-align: center;
+position: fixed; 
+top: 0;
+left: 0;
+right: 0;
+box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+height: 80px;
+
+}
+
+.headerTitle {
+margin-right: 225px;
+color: white;
+font-size: 30px;
+font-weight: bold;
+text-align: center;
+flex: 1;
+animation: Animation1 1s ease-in-out;
+}
+
+
+.lambang {
+width: 200px;
+user-select: none;
+margin-left: 5px;
+animation: Animation1 1s ease-in-out;
+}
+.userContainer {
+position: absolute;
+right: 10px;
+display: flex;
+align-items: center;
+gap: 10px;
+animation: Animation1 1s ease-in-out;
+}
+
+.userAvatar {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+object-fit: cover;
+user-select: none;
+}
+
+.userText {
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+}
+
+.userName {
+font-size: 20px;
+color: #ffffff;
+font-weight: bold;
+margin: 0;
+}
+
+.userRole {
+font-size: 14px;
+color: #ffffff;
+margin: 0;
 }
 
 .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 250px;
-    background-color: #ececec;
-    color: #005F76;
-    padding: 20px;
+position: fixed;
+top: 100px; 
+left: 0;
+bottom: 0;
+width: 250px;
+background-color: #ffffff;
+color: #005F76;
+padding: 20px;
+border-radius: 0 15px 15px 0;
+transition: transform 0.3s ease;
+backdrop-filter: blur(5px);
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+transform: translateX(0);
+z-index: 999;
+animation: slideInLeft 1s ease-in-out;
+
 }
 
-.lambang {
-    width: 100%;
-    margin-bottom: 30px;
-    user-select: none;
+.sidebarTop {
+display: flex;
+flex-direction: column;
+margin-bottom: 20px;
+margin-top: -100px;
 }
 
-.menuItem {
-    background-color: #f7f7f7;
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    user-select: none;
-    cursor: pointer;
+.sidebarBottom {
+display: flex;
+flex-direction: column;
+margin-top: auto;
 }
 
-.menuItem:hover {
-    background-color: #ffffff;
-    color: #008080;
-    box-shadow: 0 0 10px 1px #008080;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+
+.berandaBtn{
+background-color: #ffffff;
+margin-bottom: 20px;
+padding: 10px;
+box-shadow: 1px 1px 1px 2px #008080;
+border-radius: 15px;
+user-select: none;
+cursor: pointer;
+color: #008080;
+text-align: center;
+font-weight: bold;
+display: flex;
+gap: 8px;
+justify-content: center;
+}
+.homeIcon {
+width: 24px;
+height: 24px;
+user-select: none;
 }
 
-.userInfo {
-    position: absolute;
-    bottom: 40px;
-    left: 20px;
-    right: 20px;
-    user-select: none;
+.activeBeranda {
+background-color: #ffffff;
+box-shadow: 0 0 3px 7px #008080;
 }
 
-.deleteAccount {
-    background-color: #f74040;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    user-select: none;
-    position: absolute;
-    bottom: 175px;
-    width: 75%;
-    color: white;
+.berandaBtn:hover {
+background-color: #dcecec;
+color: #008080;
+transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
-.deleteAccount:hover {
-    background-color: #ff0000;
-    color: white;
-    box-shadow: 0 0 10px 1px #ff0000;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+
+
+.polaKuman{
+margin-top: 10px;
+background-color: #ffffff;
+margin-bottom: 20px;
+padding: 10px;
+box-shadow: 1px 1px 1px 2px #008080;
+border-radius: 15px;
+user-select: none;
+cursor: pointer;
+color: #008080;
+text-align: center;
+font-weight: bold;
+display: flex;
+gap: 8px;
+justify-content: center;
+}
+.kumanIcon {
+width: 26px;
+height: 25px;
+user-select: none;
+}
+.polaKuman:hover {
+background-color: #dcecec;
+color: #008080;
+transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.activePola {
+background-color: #ffffff;
+box-shadow: 0 0 3px 7px #008080;
 }
 
-.logoutBox {
-    background-color: #f7f7f7;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    user-select: none;
-    position: absolute;
-    bottom: 125px;
-    width: 75%;
+
+
+
+.cariItem{
+margin-top: 10px;
+background-color: #ffffff;
+margin-bottom: 30px;
+padding: 10px;
+box-shadow: 1px 1px 1px 2px #008080;
+border-radius: 15px;
+user-select: none;
+cursor: pointer;
+color: #008080;
+text-align: center;
+font-weight: bold;
+display: flex;
+gap: 8px;
+justify-content: center;
+}
+.searchIcon {
+width: 24px;
+height: 24px;
+user-select: none;
 }
 
-.logoutBox:hover {
-    background-color: #ffffff;
-    color: #008080;
-    box-shadow: 0 0 10px 1px #008080;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+.cariItem:hover {
+background-color: #dcecec;
+color: #008080;
+transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.activeCari {
+background-color: #ffffff;
+box-shadow: 0 0 3px 7px #008080;
 }
 
-.hidden {
-    display: none;
+
+
+
+.setting {
+margin-top: 270px;
+background-color: #008080;
+margin-bottom: 20px;
+padding: 10px;
+box-shadow: 1px 1px 1px 1px #000000;
+border-radius: 15px;
+user-select: none;
+cursor: pointer;
+color: #ffffff;
+text-align: center;
+font-weight: bold;
+display: flex;
+gap: 8px;
+justify-content: center;
 }
+.setting:hover {
+background-color: #008080;
+color: #ffffff;
+box-shadow: 0 0 10px 1px #008080;
+transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.settingsIcon {
+width: 24px;
+height: 24px;
+user-select: none;
+}
+.activeSettings {
+background-color: #008080;
+box-shadow: 0 0 1px 5px #005050;
+}
+
+
+
+
+.sidebarHidden {
+transform: translateX(-110%);
+}
+
+.toggleButton {
+position: fixed;
+top: 120px;
+background-color: #008080;
+color: white;
+border: none;
+border-radius: 0 100% 100% 0;
+padding: 15px 10px;
+font-size: 20px;
+cursor: pointer;
+box-shadow: 0 0 5px rgba(0,0,0,0.3);
+transition: left 0.3s ease;
+animation: slideInLeftToggle 1s ease-in-out;
+align-content: center;
+}
+
+
+@keyframes slideInLeft {
+0% {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+100% {
+  transform: translateX(0);
+  opacity: 1;
+}
+}
+
+
+@keyframes slideInLeftToggle {
+0% {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+70% {
+  transform: translateX(-70%);
+  opacity: 0;
+}
+100% {
+  transform: translateX(0);
+  opacity: 1;
+}
+}
+
+@keyframes Animation1 {
+0% {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+100% {
+  transform: translateY(0);
+  opacity: 1;
+}
+}
+

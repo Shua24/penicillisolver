@@ -77,18 +77,13 @@
     box-shadow: 0 0 5px 1px #008080;
 }
   
-.mainContent2 {
-    display: flex;
-    justify-content: space-between;
+.mainContent {
+
     align-items: center;
     background-color: #ffffff;
     color: #008080;
     padding: 20px;
     border-radius: 10px;
-    min-height: 75vh;
-    margin: 50px 20px 30px;
-    box-sizing: border-box;
-    position: relative;
     overflow: hidden;
     align-items: center;
 }

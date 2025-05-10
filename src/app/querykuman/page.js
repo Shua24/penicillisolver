@@ -55,6 +55,13 @@ const Query = () => {
       return;
     }
 
+    // Main API 
+    const apiSuccess = await fetchFirebase(query);
+    if (apiSuccess) {
+      return;
+    }
+
+    // fallback to Firestore
     try {
       const docRef = doc(db, "polakuman", "excel_data");
       const docSnap = await getDoc(docRef);
@@ -69,10 +76,6 @@ const Query = () => {
             const actualKey = Object.keys(data.rows[0]).find(
               (key) => key.toLowerCase() === query
             );
-
-            if (!actualKey) {
-               throw new Error(`Could not find original casing for key: ${query}`);
-            }
 
             const sortedRows = [...data.rows].sort((a, b) => {
                const valA = parseFloat(a[actualKey]) || 0;
@@ -91,65 +94,21 @@ const Query = () => {
             setError(null);
             setDataSource("firebase");
           } else {
-            throw new Error(`Bakteri "${inputValue.trim()}" tidak ditemukan di Firestore.`);
+            setError(`Bakteri "${inputValue.trim()}" tidak ditemukan di Firestore.`);
+            setResults(null);
+            setDataSource(null);
           }
         } else {
-          throw new Error("Dokumen pola kuman kosong.");
+          setError("Dokumen pola kuman kosong.");
         }
       } else {
-        throw new Error("Dokumen pola kuman tidak ada.");
+        setError("Dokumen pola kuman tidak ada.");
       }
     } catch (firebaseError) {
-      console.warn("Gagal mengambil data dari Firestore, mencoba API backup:", firebaseError.message);
-
-      if (query) {
-        try {
-           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`,
-            {
-              method: "GET",
-              headers: { 
-                "Content-Type": "application/json",
-                "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
-              },
-            }
-          );
-
-          if (!response.ok) {
-             if (response.status === 404 || response.status === 400) {
-                 setError(`Bakteri "${inputValue.trim()}" tidak ditemukan.`);
-             } else {
-                 setError("Gagal mengambil data dari API backup.");
-             }
-             throw new Error(`Backup fetch failed with status: ${response.status}`);
-          }
-
-          const backupData = await response.json();
-
-          if (!backupData || !backupData.bakteri || !Array.isArray(backupData.tiga_antibiotik)) {
-             setError("Data dari API backup tidak valid.");
-             throw new Error("Invalid backup data structure");
-          }
-
-          setResults({
-            bakteri: backupData.bakteri,
-            tiga_antibiotik: backupData.tiga_antibiotik.map((item) => ({
-              Organism: item.Organism || "N/A",
-              Score: item[backupData.bakteri] !== undefined ? item[backupData.bakteri] : "N/A",
-            })),
-          });
-          setError(null);
-          setDataSource("api");
-
-        } catch (backupError) {
-           console.error("Backup fetch error:", backupError);
-           if (!error) {
-               setError("Terjadi kesalahan saat mencoba mengambil data.");
-           }
-           setResults(null);
-           setDataSource(null);
-        }
-      }
+      console.error("Error fetching data from Firestore:", firebaseError);
+      setError("Terjadi kesalahan saat mengambil data dari Firestore.");
+      setResults(null);
+      setDataSource(null);
     }
   };
 

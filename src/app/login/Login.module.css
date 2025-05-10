@@ -170,7 +170,7 @@
   }
   
   .lupa {
-    margin-top: 35px;
+    margin-top: 55px;
     margin-bottom: 15px;
     text-align: center;
     font-size: 15px;
@@ -193,32 +193,7 @@
     color: blue;
   }
   
-  .lanjut {
-    text-align: center;
-    font-size: 15px;
-    color: #000;
-    margin-bottom: 10px;
-    margin-left: 10px;
-  }
-  
-  .lanjutkan {
-    text-align: center;
-    font-size: 15px;
-    color: black;
-  }
-  
-  .lanjutkan p {
-    margin-bottom: 10px;
-  }
-  
-  .lanjutkan img {
-    padding: 10px;
-  }
-  
-  .lanjutkan img:hover {
-    filter: drop-shadow(1px 1px 5px #008080);
-    cursor: pointer;
-  }
+
   
   .errorMessage {
     font-weight: bold;
