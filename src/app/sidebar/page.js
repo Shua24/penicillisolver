@@ -2,19 +2,24 @@
 
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../daftar/firebase";
-import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import styles from "./sidebar.module.css";
+import { usePathname } from "next/navigation";
+
 
 const Sidebar = () => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({ nama: "", role: "" });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const pathname = usePathname();
+  const [animateIn, setAnimateIn] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-
+  
         const userDocRef = doc(db, "users", currentUser.uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
@@ -26,107 +31,127 @@ const Sidebar = () => {
         setUserData({ nama: "", role: "" });
       }
     });
-
-    return () => unsubscribe();
+  
+    const timer = setTimeout(() => {
+      setAnimateIn(true);
+    }, 50);
+  
+    return () => {
+      clearTimeout(timer);   
+      unsubscribe();      
+    };
   }, []);
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      window.location.href = "/landing";
-    } catch (error) {
-      console.error("Error logging out:", error);
-      alert("Gagal keluar. Silakan coba lagi.");
+  
+  const getHeaderTitle = (path) => {
+    switch (path) {
+      case '/beranda':
+        return 'Beranda';
+      case '/tentangpola':
+        return 'Pola Kuman';
+      case '/querykuman':
+        return 'Cari Antibiotik';
+      case '/settingAkun':
+        return 'Pengaturan Akun';
+      case '/hakAkses':
+        return 'Atur Akses';
+      default:
+        return 'PenicilliSolver';
     }
   };
 
-  const handleDeleteAccount = async () => {
-    if (!user) return;
-
-    const confirmDelete = window.confirm(
-      "Apakah Anda yakin ingin menghapus akun Anda? Tindakan ini tidak dapat dibatalkan."
-    );
-
-    if (!confirmDelete) return;
-
-    try {
-      const userDocRef = doc(db, "users", user.uid);
-      await deleteDoc(userDocRef);
-      await deleteUser(user);
-
-      alert("Akun Anda telah dihapus.");
-      window.location.href = "/landing";
-    } catch (error) {
-      console.error("Error deleting account:", error);
-      if (error.code === "auth/requires-recent-login") {
-        alert(
-          "Anda harus masuk lagi sebelum menghapus akun Anda. Silakan keluar dan masuk kembali."
-        );
-      } else {
-        alert("Gagal menghapus akun Anda. Silakan coba lagi nanti.");
-      }
-    }
-  };
-
+  
   return (
-    <div className={styles.sidebar}>
-      <img
-        src="lambang.png"
-        alt="Lambang Penicillisolver"
-        className={styles.lambang}
-        draggable="false"
-      />
-      <div
-        className={styles.menuItem}
-        onClick={() => (window.location.href = "/beranda")}
-      >
-        Beranda
-      </div>
-      <div
-        className={styles.menuItem}
-        onClick={() => (window.location.href = "/tentangpola")}
-      >
-        Tentang Pola Kuman
-      </div>
-      <div
-        className={styles.menuItem}
-        onClick={() => (window.location.href = "/querykuman")}
-      >
-        Cari Antibiotik
-      </div>
-      {userData.role === "Mikrobiologi" && (
-        <div
-          className={styles.menuItem}
-          onClick={() => (window.location.href = "/hakAkses")}
+      <div className={styles.header}>
+        <img
+          src="lambang(putih).png"
+          alt="Lambang Penicillisolver"
+          className={styles.lambang}
+          draggable="false"
+        />
+        <h2 className={styles.headerTitle}>{getHeaderTitle(pathname)}</h2>
+        <div className={styles.userContainer}>
+          {user ? (
+            <div className={styles.userText}>
+              <p className={styles.userName}>{userData.nama}</p>
+              <p className={styles.userRole}>{userData.role}</p>
+            </div>
+          ) : (
+            <div className={styles.userInfo}>
+            </div>
+          )}
+          <img
+            src="user(putih).png"
+            alt="User Avatar"
+            className={styles.userAvatar}
+            draggable="false"
+
+          />
+        </div>
+        <button
+          className={styles.toggleButton}
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          style={{ left: isSidebarOpen ? '250px' : '0px' }}
         >
-          Atur Akses
+          {isSidebarOpen ? 'x' : '>'}
+        </button>
+        <div className={`${styles.sidebar} ${!isSidebarOpen ? styles.sidebarHidden : ''}`}>
+          <div className={styles.sidebar}>
+            <div className={styles.sidebarTop}>
+            </div>
+            <div className={styles.sidebarBottom}>
+              <div
+                className={`${styles.berandaBtn} ${pathname === "/beranda" ? styles.activeBeranda : ""}`}
+                onClick={() => (window.location.href = "/beranda")}
+              >
+                <img
+                  src="beranda(black).png"
+                  alt="Settings Icon"
+                  className={styles.homeIcon}
+                  draggable="false"
+                />
+                Beranda
+              </div>
+              <div
+                className={`${styles.polaKuman} ${pathname === "/tentangpola" ? styles.activePola : ""}`}
+                onClick={() => (window.location.href = "/tentangpola")}
+              >
+                <img
+                  src="bakteri.png"
+                  alt="Bakteri Icon"
+                  className={styles.kumanIcon}
+                  draggable="false"
+                />
+                Pola Kuman
+              </div>
+              <div
+                className={`${styles.cariItem} ${pathname === "/querykuman" ? styles.activeCari : ""}`}
+                onClick={() => (window.location.href = "/querykuman")}
+              >
+                 <img
+                  src="search(black).png"
+                  alt="Search Icon"
+                  className={styles.searchIcon}
+                  draggable="false"
+                />
+                Cari Antibiotik
+              </div>
+              <div
+                className={`${styles.setting} ${pathname === "/settingAkun" ? styles.activeSettings : ""}`}
+                onClick={() => (window.location.href = "/settingAkun")}
+              >
+                <img
+                  src="settings(white).png"
+                  alt="Settings Icon"
+                  className={styles.settingsIcon}
+                  draggable="false"
+                />
+                Pengaturan
+              </div>
+            </div>
+          </div>
         </div>
-      )}
-      {user ? (
-        <div className={styles.userInfo}>
-          <UserInfo nama={userData.nama} role={userData.role} />
-        </div>
-      ) : (
-        <div className={styles.userInfo}>
-          <p>Loading user info...</p>
-        </div>
-      )}
-      <div className={styles.deleteAccount} onClick={handleDeleteAccount}>
-        Hapus Akun
       </div>
-      <div className={styles.logoutBox} onClick={handleLogout}>
-        Log out
-      </div>
-    </div>
   );
 };
-
-const UserInfo = ({ nama, role }) => (
-  <div className={styles.userDetails}>
-    <div className={styles.userAvatar}></div>
-    <div>{nama}</div>
-    <div>• {role}</div>
-  </div>
-);
 
 export default Sidebar;
