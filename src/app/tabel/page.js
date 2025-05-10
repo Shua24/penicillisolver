@@ -23,7 +23,14 @@ const Tabel = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/exceldata`
+          `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/exceldata`,
+          {
+            method: "GET",
+            headers: { 
+              "Content-Type": "application/json",
+              "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+            },
+          }
         );
         if (response.status === 404) {
           throw new Error("Pola kuman belum ada!");
@@ -87,7 +94,10 @@ const Tabel = () => {
         `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/upload-to-firebase`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
         }
       );
 
@@ -128,6 +138,10 @@ const Tabel = () => {
     try {
       const response = await fetch(deleteURL, {
         method: "DELETE",
+        headers: { 
+            "Content-Type": "application/json",
+            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
       });
 
       if (!response.ok) {
