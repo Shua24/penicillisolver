@@ -27,7 +27,7 @@ function Login() {
         setMessage("Login Berhasil!");
         setTimeout(() => {
           router.push("/beranda");
-        }, 3000);
+        }, 1000);
       } else {
         setErrorMessage("Email belum diverifikasi. Silakan cek inbox Anda.");
       }
@@ -126,20 +126,7 @@ function Login() {
               </div>
             </form>
 
-            <div className={styles.lanjut}>
-              <p>Atau lanjutkan dengan:</p>
-            </div>
-            <div className={styles.lanjutkan}>
-              <Link href="http://www.google.com" target="_blank">
-                <img src="/google.png" alt="Google" width={60} height={60} />
-              </Link>
-              <Link href="http://www.facebook.com" target="_blank">
-                <img src="/fb.png" alt="Facebook" width={60} height={60} />
-              </Link>
-              <Link href="https://x.com/?lang=en" target="_blank">
-                <img src="/x.png" alt="X" width={60} height={60} />
-              </Link>
-            </div>
+            
           </div>
         </div>
       </div>

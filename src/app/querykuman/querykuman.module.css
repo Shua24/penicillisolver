@@ -32,13 +32,19 @@
 }
 
 .center {
-    margin-left: 280px;
+    margin-top: 110px;
+    margin-left: 325px;
     padding: 20px;
+    overflow-x: hidden;
+    background-color: rgb(255, 255, 255);
+    width: 75%;
+    height: auto;
+    border-radius: 15px;
 }
 
 .headingPrimary {
     font-size: 32px;
-    margin: 50px 0 25px;
+    margin: 0px 0 25px;
     color: #005f76;
     user-select: none;
 }
