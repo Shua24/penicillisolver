@@ -1,9 +1,12 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+import json
 import pandas as pd
 import firebase_admin
-from firebase_admin import credentials, firestore
 import os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from collections import OrderedDict
+from flask import Response
+from firebase_admin import credentials, firestore
 from dotenv import load_dotenv
 from functools import wraps
 
@@ -197,6 +200,7 @@ def delete_firebase_data():
 @app.route("/delete-excel-file", methods=["DELETE"])
 @require_api_key
 def delete_excel_file():
+    delete_firebase_data()
     try:
         if os.path.exists(file_path):
             os.remove(file_path)
@@ -205,7 +209,7 @@ def delete_excel_file():
             return jsonify({"error": "File tidak ditemukan!"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-        
+
 @app.route("/top-values", methods=["GET"])
 @require_api_key
 def top_values():
@@ -219,27 +223,31 @@ def top_values():
     is_translated_format = "Amikacin" in df.columns or "Ceftriaxone" in df.columns
 
     if is_translated_format:
-        matched_bacteria = df[df["Organism"].str.lower() == bacteria_name]
-        if matched_bacteria.empty:
+        matched = df[df["Organism"].str.lower() == bacteria_name]
+        if matched.empty:
             return jsonify({"error": f"Bacteria '{bacteria_name}' not found in data."}), 400
 
         top_series = infer_raw_excel(bacteria_name)
 
-        top_cols = [
-            {
-                **{bacteria_name: float(value)},
-                "Organism": antibiotic
-            }
-            for antibiotic, value in top_series.items()
-        ]
+        # Build an ordered record so that bacteria_name comes first
+        top_rows = []
+        for antibiotic, value in top_series.items():
+            record = OrderedDict()
+            record[bacteria_name] = float(value)
+            record["Organism"]     = antibiotic
+            top_rows.append(record)
 
-        response = {
+        response_dict = {
             "bakteri": bacteria_name,
-            "tiga_antibiotik": top_cols
+            "tiga_antibiotik": top_rows
         }
-        return jsonify(response), 200
+        # Return without Flask's sort_keys, preserving insertion order
+        return Response(
+            json.dumps(response_dict, ensure_ascii=False, sort_keys=False),
+            mimetype="application/json"
+        )
 
-    # Raw format (column-wise)
+    # ————— Raw format (column-wise) —————
     matched_columns = [col for col in df.columns if col.lower() == bacteria_name]
     if not matched_columns:
         return jsonify({"error": f"Column '{bacteria_name}' not found"}), 400
@@ -247,7 +255,8 @@ def top_values():
     bacteria_column = matched_columns[0]
 
     try:
-        top_rows = df.nlargest(3, bacteria_column)[['Organism', bacteria_column]].to_dict(orient='records')
+        top_rows = df.nlargest(3, bacteria_column)[['Organism', bacteria_column]] \
+                     .to_dict(orient='records')
     except Exception as e:
         return jsonify({"error": f"Could not process column '{bacteria_column}': {str(e)}"}), 500
 
@@ -255,7 +264,6 @@ def top_values():
         "bakteri": bacteria_column,
         "tiga_antibiotik": top_rows
     }
-
     return jsonify(response), 200
 
 @app.route("/top-values-db", methods=["GET"])
@@ -279,6 +287,36 @@ def top_values_db():
         
         df_firestore = pd.DataFrame(document_data)
 
+        # Detect translated format by checking for a known column like "Amikacin"
+        is_translated_format = "Amikacin" in df_firestore.columns or "Ceftriaxone" in df_firestore.columns
+
+        if is_translated_format:
+            matched = df_firestore[df_firestore["Organism"].str.lower() == column_name]
+            if matched.empty:
+                return jsonify({"error": f"Bacteria '{column_name}' not found in data."}), 400
+
+            selected_row = matched.iloc[0]
+            numeric_values = selected_row.drop(labels="Organism")
+            top_series = numeric_values.sort_values(ascending=False).head(3)
+
+            top_rows = []
+            for antibiotic, value in top_series.items():
+                record = OrderedDict()
+                record[column_name] = float(value)
+                record["Organism"] = antibiotic
+                top_rows.append(record)
+
+            response_dict = {
+                "bakteri": column_name,
+                "tiga_antibiotik": top_rows
+            }
+
+            return Response(
+                json.dumps(response_dict, ensure_ascii=False, sort_keys=False),
+                mimetype="application/json"
+            )
+
+        # ——— Raw format (column-wise) ———
         matched_columns = [col for col in df_firestore.columns if col.lower() == column_name]
         if not matched_columns:
             return jsonify({"error": f"Column '{column_name}' not found in Firestore data"}), 400
@@ -299,6 +337,7 @@ def top_values_db():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
