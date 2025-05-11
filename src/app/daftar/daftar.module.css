@@ -138,16 +138,6 @@
   align-items: center;
 }
 
-.passwordButton {
-  background-color: transparent;
-  border: none;
-  color: #008080;
-  cursor: pointer;
-  padding: 5px 10px;
-  font-size: 14px;
-  margin-left: 10px;
-}
-
 .roleSelection {
   display: flex;
   flex-wrap: wrap;
@@ -185,7 +175,7 @@
 }
 
 .eye {
-  margin: 13px 0 0 15px;
+  margin: -5px 0 0 15px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -209,25 +199,6 @@
 
 .login a {
   color: blue;
-}
-
-.lanjutkan {
-  text-align: center;
-  font-size: 15px;
-  color: black;
-}
-
-.lanjutkan p {
-  margin-bottom: 10px;
-}
-
-.lanjutkan img {
-  padding: 10px;
-}
-
-.lanjutkan img:hover {
-  filter: drop-shadow(1px 1px 5px #008080);
-  cursor: pointer;
 }
 
 @keyframes formAnimation {

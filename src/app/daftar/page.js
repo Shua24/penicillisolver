@@ -25,14 +25,14 @@ const Daftar = () => {
   const roleRef = useRef(null);
   
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const { name, value } = e.target;
+  setFormData({ ...formData, [name]: value.trim() });
+};
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const { nama, email, password, confirmPassword, sip, role } = formData;
-    const passwordCriteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const passwordCriteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{6,}$/;
 
     if (!passwordCriteria.test(password)) {
       setError("Password harus minimal 6 karakter, mengandung huruf kapital, huruf kecil, dan angka.");
@@ -237,31 +237,6 @@ const Daftar = () => {
             {error && <div className={styles.error}>{error}</div>}
             <div className={styles.login}>
               Sudah Punya Akun? <Link href="/login">Login</Link>
-            </div>
-            <div className={styles.lanjutkan}>
-              <p>Atau lanjutkan dengan :</p>
-              <Link href="http://www.google.com" target="_blank">
-                <img 
-                src="/google.png"
-                alt="Google"
-                width={60}
-                height={60} />
-              </Link>
-              <Link href="http://www.facebook.com" target="_blank">
-                <img
-                src="/fb.png"
-                alt="Facebook"
-                width={60}
-                height={60} />
-              </Link>
-              <Link href="https://x.com/?lang=en" target="_blank">
-                <img 
-                src="/x.png"
-                alt="X"
-                className={styles.twitterLogo}
-                width={60}
-                height={60} />
-              </Link>
             </div>
           </div>
         </div>

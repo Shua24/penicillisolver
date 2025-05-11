@@ -7,7 +7,6 @@ import { doc, getDoc } from "firebase/firestore";
 import styles from "./sidebar.module.css";
 import { usePathname } from "next/navigation";
 
-
 const Sidebar = () => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({ nama: "", role: "" });
@@ -47,18 +46,21 @@ const Sidebar = () => {
       case '/beranda':
         return 'Beranda';
       case '/tentangpola':
-        return 'Pola Kuman';
+        return 'Tentang Pola Kuman';
       case '/querykuman':
         return 'Cari Antibiotik';
       case '/settingAkun':
         return 'Pengaturan Akun';
       case '/hakAkses':
         return 'Atur Akses';
+      case '/tabel':
+        return 'Tabel Pola Kuman';
+      case '/reminder':
+        return 'Reminder';
       default:
         return 'PenicilliSolver';
     }
   };
-
   
   return (
       <div className={styles.header}>
@@ -84,7 +86,6 @@ const Sidebar = () => {
             alt="User Avatar"
             className={styles.userAvatar}
             draggable="false"
-
           />
         </div>
         <button
@@ -109,7 +110,7 @@ const Sidebar = () => {
                   className={styles.homeIcon}
                   draggable="false"
                 />
-                Beranda
+                 Beranda
               </div>
               <div
                 className={`${styles.polaKuman} ${pathname === "/tentangpola" ? styles.activePola : ""}`}

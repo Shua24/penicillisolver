@@ -203,7 +203,6 @@ const Query = () => {
       <Sidebar />
       <div className={styles.body}>
         <div className={styles.center}>
-          <h1 className={styles.headingPrimary}>Cari Antibiotik</h1>
           <div className={styles.sicknessSearch}>
             <p className={styles.paragraph}>Input bakteri untuk antibiotik responsif</p>
             <form onSubmit={handleSubmit}>
@@ -237,7 +236,7 @@ const Query = () => {
 
           {!error && results && (
             <div className={styles.results}>
-              <h3 className={styles.headingThird}>
+              <h3 className={styles.heading}>
                 Antibiotik responsif untuk {results.bakteri || "N/A"}:
               </h3>
               <table className={styles.table}>

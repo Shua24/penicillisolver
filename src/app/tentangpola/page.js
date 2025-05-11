@@ -16,28 +16,13 @@ export default function TentangPola() {
       <Sidebar />
       <div className={styles.global}>
         <div className={styles.mainContent}>
-          <h1 className={styles.heading}>Tentang Pola Kuman</h1>
-
           <div className={styles.textContainer}>
             <h2 className={styles.headingSecondary}>Apa itu pola kuman?</h2>
             <p className={styles.paragraph}>
-              Pola kuman adalah data mengenai kuman yang menyebabkan infeksi,
-              terutama di rumah sakit, terutama di ICU. Data ini berguna untuk
-              memilih antibiotik yang tepat dalam menatalaksana pasien.
-            </p>
-
-            <p className={styles.paragraph}>
-              Kuman atau mikroba adalah organisme mikroskopis yang dapat menyebabkan
-              infeksi dan penyakit jika masuk ke dalam tubuh. Kuman dapat ditemukan
-              di mana saja, seperti pada makanan, minuman, udara, air, dan barang-barang
-              di sekitar.
-            </p>
-
-            <p className={styles.paragraph}>
-              Resistensi antibiotik adalah kondisi ketika bakteri, virus, jamur, dan
-              parasit tidak dapat dimatikan oleh antibiotik. Resistensi antibiotik dapat
-              terjadi karena mutasi gen yang diturunkan secara vertikal atau melalui
-              transfer gen horizontal.
+              Pola kuman adalah tabel yang berisi pemetaan antara bakteri dan responsivitasnya yang bernilai 0 
+              hingga 100 terhadap antibiotik tertentu. Antibiotik paling responsif bernilai 100 sedangkan 
+              antibiotik tidak responsif bernilai 0. Dengan membaca pola kuman, seorang dokter dapat menentukan 
+              antibiotik terbaik melalui pola kuman dengan melihat antibiotik yang paling responsif.
             </p>
 
             <div id="dynamic-content">
@@ -52,11 +37,11 @@ export default function TentangPola() {
               )}
               {dynamicContent && (
                 <div>
-                  <h2 className={styles.headingSecondary}>Bagaimana cara mencari pola kuman?</h2>
-                  <p className={styles.paragraph}>Cara mencari pola kuman sebagai berikut:</p>
+                  <h2 className={styles.headingSecondary}>Bagaimana cara mencari Antibiotik terbaik?</h2>
+                  <p className={styles.paragraph}>Cara mencari 3 Antibiotik terbaik menggunakan Penicillisolver:</p>
                   <ol>
                     <li className={styles.inline}>
-                      Pergi ke halaman cari antibiotik.
+                      Pergi ke halaman Cari Antibiotik.
                       <span
                         className={styles.textlink}
                         onClick={() => window.location.href="/querykuman"}
@@ -65,7 +50,7 @@ export default function TentangPola() {
                       </span>
                     </li>
                     <li className={styles.inline}>Masukkan species bakteri pada kolom input.</li>
-                    <li className={styles.inline}>Klik button "cari" untuk menampilkan hasil pencariannya.</li>
+                    <li className={styles.inline}>Klik tombol "cari" untuk menampilkan hasil pencariannya.</li>
                     <li className={styles.inline}>Gunakan hasil pencarian untuk dipakai di kasus anda!</li>
                   </ol>
                 </div>

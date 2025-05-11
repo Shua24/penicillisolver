@@ -33,7 +33,6 @@ export default function Beranda() {
       <Sidebar />
       <div className={styles.global}>
         <div className={styles.mainContent}>
-          <h1 className={styles.heading}>Beranda</h1>
           <p className={styles.dateReminder}>Deadline pergantian:</p>
           <label id="update" className={styles.tanggal}>{deadlineDate}</label>
           <br /><br />

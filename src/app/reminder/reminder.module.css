@@ -7,7 +7,6 @@
     left: 0;
     z-index: 1000;
     font-family: "Poppins", sans-serif;
-    padding-left: 280px;
     user-select: none;
 }
 
@@ -45,7 +44,7 @@
 .content {
     text-align: center;
     position: relative;
-    padding: 150px;
+    padding: 110px;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
