@@ -16,7 +16,7 @@ const Query = () => {
     const fetchFirebase = async (query) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`,
+        `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values-db?column=${encodeURIComponent(query)}`,
         {
           method: "GET",
           headers: { 
