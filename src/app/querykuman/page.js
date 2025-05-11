@@ -63,29 +63,52 @@ const Query = () => {
 
   useEffect(() => {
     const fetchSuggestions = async () => {
-      try {
-        const docRef = doc(db, "polakuman", "excel_data");
-        const docSnap = await getDoc(docRef);
+  try {
+    const docRef  = doc(db, "polakuman", "excel_data");
+    const snap    = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          if (data.rows && data.rows.length > 0) {
-            const keys = Object.keys(data.rows[0]);
-            const suggestions = keys.filter(key => key.toLowerCase() !== 'organism');
-            setBacteriaSuggestions(suggestions);
-          } else {
-            console.warn("Firestore document 'polakuman/excel_data' has no rows to extract suggestions.");
-            setBacteriaSuggestions([]);
-          }
-        } else {
-           console.warn("Firestore document 'polakuman/excel_data' not found for suggestions.");
-           setBacteriaSuggestions([]);
-        }
-      } catch (err) {
-        console.error("Error fetching suggestions from Firestore:", err);
-        setBacteriaSuggestions([]);
-      }
-    };
+    if (!snap.exists()) {
+      console.warn("…excel_data not found");
+      return setBacteriaSuggestions([]);
+    }
+
+    const rows = snap.data().rows || [];
+    if (rows.length === 0) {
+      console.warn("…no rows to extract suggestions.");
+      return setBacteriaSuggestions([]);
+    }
+
+    const firstRow = rows[0];
+    // all the column-names except “Organism”
+    const cols = Object.keys(firstRow)
+                      .filter(k => k.toLowerCase() !== "organism");
+
+    // detect antibiotic-as-columns layout by presence of “Number of isolates”
+    const isAntibioticLayout = cols
+      .some(k => k.toLowerCase() === "number of isolates");
+
+    let suggestions = [];
+
+    if (isAntibioticLayout) {
+      // ─── Case A: antibiotics are columns, species in .Organism ───
+      const allOrganisms = rows
+        .map(r => r.Organism)
+        .filter(o => typeof o === "string" && o.trim() !== "");
+      suggestions = Array.from(new Set(allOrganisms));
+    } else {
+      // ─── Case B: species are columns, antibiotic in .Organism ───
+      // exactly your original logic:
+      suggestions = cols;
+    }
+
+    setBacteriaSuggestions(suggestions);
+
+  } catch (err) {
+    console.error("Error fetching suggestions:", err);
+    setBacteriaSuggestions([]);
+  }
+};
+
 
     fetchSuggestions();
   }, []);
