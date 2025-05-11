@@ -200,6 +200,7 @@ def delete_firebase_data():
 @app.route("/delete-excel-file", methods=["DELETE"])
 @require_api_key
 def delete_excel_file():
+    delete_firebase_data()
     try:
         if os.path.exists(file_path):
             os.remove(file_path)
@@ -286,6 +287,36 @@ def top_values_db():
         
         df_firestore = pd.DataFrame(document_data)
 
+        # Detect translated format by checking for a known column like "Amikacin"
+        is_translated_format = "Amikacin" in df_firestore.columns or "Ceftriaxone" in df_firestore.columns
+
+        if is_translated_format:
+            matched = df_firestore[df_firestore["Organism"].str.lower() == column_name]
+            if matched.empty:
+                return jsonify({"error": f"Bacteria '{column_name}' not found in data."}), 400
+
+            selected_row = matched.iloc[0]
+            numeric_values = selected_row.drop(labels="Organism")
+            top_series = numeric_values.sort_values(ascending=False).head(3)
+
+            top_rows = []
+            for antibiotic, value in top_series.items():
+                record = OrderedDict()
+                record[column_name] = float(value)
+                record["Organism"] = antibiotic
+                top_rows.append(record)
+
+            response_dict = {
+                "bakteri": column_name,
+                "tiga_antibiotik": top_rows
+            }
+
+            return Response(
+                json.dumps(response_dict, ensure_ascii=False, sort_keys=False),
+                mimetype="application/json"
+            )
+
+        # ——— Raw format (column-wise) ———
         matched_columns = [col for col in df_firestore.columns if col.lower() == column_name]
         if not matched_columns:
             return jsonify({"error": f"Column '{column_name}' not found in Firestore data"}), 400
@@ -306,6 +337,7 @@ def top_values_db():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
