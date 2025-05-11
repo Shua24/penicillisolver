@@ -24,16 +24,12 @@ function LandingPage() {
           </div>
           <div className={styles.text}>
             <p>
-              Pola kuman merujuk pada jenis dan distribusi mikroorganisme, terutama
-              bakteri, yang ditemukan dalam lingkungan atau tubuh manusia, dan penting
-              untuk diagnosa serta penanganan infeksi. Analisis pola ini membantu tenaga
-              medis mengidentifikasi penyebab penyakit dan menentukan terapi yang tepat,
-              dengan mempertimbangkan faktor-faktor seperti lokasi geografis dan
-              kebiasaan penggunaan antibiotik. Pemahaman tentang pola kuman juga
-              berkontribusi dalam pencegahan infeksi dan mengurangi risiko penyebaran
-              bakteri resisten, sehingga meningkatkan kesehatan masyarakat secara
-              keseluruhan. Penicillisolver menjadi solusi untuk para dokter agar
-              mempermudah pencarian pola kuman.
+              Penicillisolver adalah aplikasi yang dirancang untuk membantu dokter dalam mencari 
+              antibiotik yang sesuai berdasarkan pola kuman. Dengan Aplikasi ini, Tim Mikrobiologi 
+              dapat menyajikan informasi terkini mengenai kecocokan antara jenis kuman dan antibiotik 
+              yang efektif dan Dokter dapat dengan cepat dan efisien mengakses 
+              data yang dibutuhkan untuk menentukan terapi antibiotik yang tepat bagi pasien, 
+              sekaligus melakukan manajemen pola kuman secara lebih sistematis dan akurat.
             </p>
           </div>
         </div>

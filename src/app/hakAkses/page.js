@@ -103,7 +103,7 @@ const AturAkses = () => {
         </div>
         <div className={styles.text}>
             <p>
-              Silakan hubungi administrator untuk mendapatkan akses ke halaman ini.
+              hubungi Tim Mikrobiologi untuk mendapatkan akses ke halaman ini.
             </p>
             </div>
         </div>
@@ -116,7 +116,6 @@ const AturAkses = () => {
       <div className={styles.pageContainer}>
         <Sidebar />
         <div className={styles.mainContent}>
-          <h1 className={styles.heading}>Atur Akses Tim yang Tersedia</h1>
           <div className={styles.tim}>
             <div className={styles.timBox}>
               <p>TIM PPI</p>

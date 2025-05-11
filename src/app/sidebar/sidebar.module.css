@@ -12,7 +12,6 @@ left: 0;
 right: 0;
 box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
 height: 80px;
-
 }
 
 .headerTitle {
@@ -22,9 +21,9 @@ font-size: 30px;
 font-weight: bold;
 text-align: center;
 flex: 1;
+user-select: none;
 animation: Animation1 1s ease-in-out;
 }
-
 
 .lambang {
 width: 200px;
@@ -32,12 +31,14 @@ user-select: none;
 margin-left: 5px;
 animation: Animation1 1s ease-in-out;
 }
+
 .userContainer {
 position: absolute;
 right: 10px;
 display: flex;
 align-items: center;
 gap: 10px;
+user-select: none;
 animation: Animation1 1s ease-in-out;
 }
 
@@ -86,7 +87,6 @@ justify-content: flex-start;
 transform: translateX(0);
 z-index: 999;
 animation: slideInLeft 1s ease-in-out;
-
 }
 
 .sidebarTop {
@@ -99,13 +99,12 @@ margin-top: -100px;
 .sidebarBottom {
 display: flex;
 flex-direction: column;
-margin-top: auto;
+margin-top: 1px;
 }
-
 
 .berandaBtn{
 background-color: #ffffff;
-margin-bottom: 20px;
+margin: 10px 0 20px 0;
 padding: 10px;
 box-shadow: 1px 1px 1px 2px #008080;
 border-radius: 15px;
@@ -116,17 +115,19 @@ text-align: center;
 font-weight: bold;
 display: flex;
 gap: 8px;
-justify-content: center;
+justify-content: left;
+padding-left: 25px;
 }
 .homeIcon {
 width: 24px;
 height: 24px;
 user-select: none;
+padding-right: 3px;
 }
 
 .activeBeranda {
 background-color: #ffffff;
-box-shadow: 0 0 3px 7px #008080;
+box-shadow: 0 0 3px 5px #008080;
 }
 
 .berandaBtn:hover {
@@ -135,12 +136,9 @@ color: #008080;
 transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
-
-
 .polaKuman{
-margin-top: 10px;
+margin: 10px 0 20px 0;
 background-color: #ffffff;
-margin-bottom: 20px;
 padding: 10px;
 box-shadow: 1px 1px 1px 2px #008080;
 border-radius: 15px;
@@ -151,12 +149,14 @@ text-align: center;
 font-weight: bold;
 display: flex;
 gap: 8px;
-justify-content: center;
+justify-content: left;
+padding-left: 25px;
 }
 .kumanIcon {
 width: 26px;
 height: 25px;
 user-select: none;
+padding-right: 3px;
 }
 .polaKuman:hover {
 background-color: #dcecec;
@@ -165,16 +165,12 @@ transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s
 }
 .activePola {
 background-color: #ffffff;
-box-shadow: 0 0 3px 7px #008080;
+box-shadow: 0 0 3px 5px #008080;
 }
 
-
-
-
 .cariItem{
-margin-top: 10px;
+margin: 10px 0 20px 0;
 background-color: #ffffff;
-margin-bottom: 30px;
 padding: 10px;
 box-shadow: 1px 1px 1px 2px #008080;
 border-radius: 15px;
@@ -185,7 +181,8 @@ text-align: center;
 font-weight: bold;
 display: flex;
 gap: 8px;
-justify-content: center;
+justify-content: left;
+padding-left: 25px;
 }
 .searchIcon {
 width: 24px;
@@ -200,14 +197,11 @@ transition: background-color 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s
 }
 .activeCari {
 background-color: #ffffff;
-box-shadow: 0 0 3px 7px #008080;
+box-shadow: 0 0 3px 5px #008080;
 }
 
-
-
-
 .setting {
-margin-top: 270px;
+margin-top: 50vh;
 background-color: #008080;
 margin-bottom: 20px;
 padding: 10px;
@@ -235,11 +229,8 @@ user-select: none;
 }
 .activeSettings {
 background-color: #008080;
-box-shadow: 0 0 1px 5px #005050;
+box-shadow: 0 0 1px 3px #005050;
 }
-
-
-
 
 .sidebarHidden {
 transform: translateX(-110%);
@@ -261,7 +252,6 @@ animation: slideInLeftToggle 1s ease-in-out;
 align-content: center;
 }
 
-
 @keyframes slideInLeft {
 0% {
   transform: translateX(-100%);
@@ -272,7 +262,6 @@ align-content: center;
   opacity: 1;
 }
 }
-
 
 @keyframes slideInLeftToggle {
 0% {
@@ -299,4 +288,3 @@ align-content: center;
   opacity: 1;
 }
 }
-

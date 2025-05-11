@@ -42,21 +42,7 @@
     border-radius: 15px;
 }
 
-.headingPrimary {
-    font-size: 32px;
-    margin: 0px 0 25px;
-    color: #005f76;
-    user-select: none;
-}
-
-.headingSecondary {
-    color: #005f76;
-    padding-right: 40px;
-    font-size: 20px;
-    user-select: none;
-}
-
-.headingThird {
+.heading {
     color: #005f76;
     padding: 40px 0 0;
     user-select: none;

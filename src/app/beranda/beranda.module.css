@@ -18,28 +18,18 @@
 }
 
 .mainContent {
-  margin-top: 45px;
-  margin-left: 325px;
-  margin-bottom: 50px;
-  padding: 20px;
+  margin: 45px 0px 50px 325px;
+  padding: 20px 0 20px 50px;
   overflow-x: hidden;
   background-color: rgb(255, 255, 255);
   width: 75%;
-  height: 100vh;
+  height: 75vh;
   border-radius: 15px;
-}
-
-.heading {
-  font-size: 2rem;
-  color: #333;
-  text-align: left;
-  margin: 0 0 20px;
-  font-weight: bold;
-  user-select: none;
 }
 
 .dateReminder {
   font-size: 1rem;
+  padding: 20px 0 0 0;
   color: #005F76;
   margin: 0;
   user-select: none;
@@ -53,8 +43,7 @@
 }
 
 .image {
-  width: 100%;
-
+  width: 80%;
   height: auto;
   margin-top: 20px;
   -webkit-user-drag: none;
