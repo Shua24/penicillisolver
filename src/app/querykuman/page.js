@@ -13,6 +13,54 @@ const Query = () => {
   const [inputValue, setInputValue] = useState("");
   const [bacteriaSuggestions, setBacteriaSuggestions] = useState([]);
 
+    const fetchFirebase = async (query) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_TABLE_QUERY_URL}/top-values?column=${encodeURIComponent(query)}`,
+        {
+          method: "GET",
+          headers: { 
+            "Content-Type": "application/json",
+            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        if (response.status === 404 || response.status === 400) {
+          setError(`Bakteri "${query}" tidak ditemukan.`);
+        } else {
+          setError("Gagal mengambil antibiotik terbaik dari API backup.");
+        }
+        return false;
+      }
+
+      const backupData = await response.json();
+
+      if (!backupData || !backupData.bakteri || !Array.isArray(backupData.tiga_antibiotik)) {
+        setError("Data dari API backup tidak valid.");
+        return false;
+      }
+
+      setResults({
+        bakteri: backupData.bakteri,
+        tiga_antibiotik: backupData.tiga_antibiotik.map((item) => ({
+          Organism: item.Organism || "N/A",
+          Score: item[backupData.bakteri] !== undefined ? item[backupData.bakteri] : "N/A",
+        })),
+      });
+      setError(null);
+      setDataSource("firebase");
+      return true;
+    } catch (err) {
+      console.error("Error fetching data from API backup:", err);
+      setError("Gagal mengambil data dari API backup.");
+      setResults(null);
+      setDataSource(null);
+      return false;
+    }
+  };
+
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
