@@ -110,7 +110,7 @@ const Sidebar = () => {
                   className={styles.homeIcon}
                   draggable="false"
                 />
-                 Beranda
+                Beranda
               </div>
               <div
                 className={`${styles.polaKuman} ${pathname === "/tentangpola" ? styles.activePola : ""}`}
