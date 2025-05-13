@@ -114,74 +114,105 @@ const Query = () => {
   }, []);
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    setError(null);
+  event.preventDefault();
+  setError(null);
+  setResults(null);
+  setDataSource(null);
+
+  const query = inputValue.trim().toLowerCase();
+
+  if (!query) {
+    setError("Silakan masukkan nama bakteri.");
+    return;
+  }
+
+  try {
+    const docRef = doc(db, "polakuman", "excel_data");
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      setError("Dokumen pola kuman tidak ada.");
+      return;
+    }
+
+    const data = docSnap.data();
+    const rows = data.rows || [];
+
+    if (rows.length === 0) {
+      setError("Dokumen pola kuman kosong.");
+      return;
+    }
+
+    const hasOrganism = rows[0].hasOwnProperty("Organism");
+    const lowercasedQuery = query.toLowerCase();
+
+    if (hasOrganism) {
+      // === Case A: Search inside "Organism" values ===
+      const matchedRows = rows.filter(
+        (row) =>
+          typeof row.Organism === "string" &&
+          row.Organism.toLowerCase() === lowercasedQuery
+      );
+
+      if (matchedRows.length === 0) {
+        setError(`Bakteri "${inputValue.trim()}" tidak ditemukan di Firestore.`);
+        return;
+      }
+
+      // Sort columns (excluding Organism) by descending value for the first matched organism
+      const antibioticScores = Object.entries(matchedRows[0])
+        .filter(([key, value]) => key.toLowerCase() !== "organism" && typeof value === "number")
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3);
+
+      const tiga_antibiotik = antibioticScores.map(([antibiotik, score]) => ({
+        Organism: antibiotik,
+        Score: score,
+      }));
+
+      setResults({
+        bakteri: matchedRows[0].Organism,
+        tiga_antibiotik,
+      });
+      setDataSource("firebase");
+    } else {
+      // === Case B: Search inside column names ===
+      const keys = Object.keys(rows[0]).map((key) => key.toLowerCase());
+
+      if (!keys.includes(lowercasedQuery)) {
+        setError(`Bakteri "${inputValue.trim()}" tidak ditemukan di Firestore.`);
+        return;
+      }
+
+      const actualKey = Object.keys(rows[0]).find(
+        (key) => key.toLowerCase() === lowercasedQuery
+      );
+
+      const sortedRows = [...rows].sort((a, b) => {
+        const valA = parseFloat(a[actualKey]) || 0;
+        const valB = parseFloat(b[actualKey]) || 0;
+        return valB - valA;
+      });
+
+      const topRows = sortedRows.slice(0, 3);
+
+      setResults({
+        bakteri: actualKey,
+        tiga_antibiotik: topRows.map((row) => ({
+          Organism: row.Organism || "N/A",
+          Score: row[actualKey] !== undefined ? row[actualKey] : "N/A",
+        })),
+      });
+      setDataSource("firebase");
+    }
+  } catch (firebaseError) {
+    console.error("Error fetching data from Firestore:", firebaseError);
+    setError("Terjadi kesalahan saat mengambil data dari Firestore.");
     setResults(null);
     setDataSource(null);
+  }
+};
 
-    const query = inputValue.trim().toLowerCase();
-
-    if (!query) {
-      setError("Silakan masukkan nama bakteri.");
-      return;
-    }
-
-    // Main API 
-    const apiSuccess = await fetchFirebase(query);
-    if (apiSuccess) {
-      return;
-    }
-
-    // fallback to Firestore
-    try {
-      const docRef = doc(db, "polakuman", "excel_data");
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-
-        if (data.rows && data.rows.length > 0) {
-          const keys = Object.keys(data.rows[0]).map((key) => key.toLowerCase());
-
-          if (keys.includes(query)) {
-            const actualKey = Object.keys(data.rows[0]).find(
-              (key) => key.toLowerCase() === query
-            );
-
-            const sortedRows = [...data.rows].sort((a, b) => {
-               const valA = parseFloat(a[actualKey]) || 0;
-               const valB = parseFloat(b[actualKey]) || 0;
-               return valB - valA;
-             });
-            const topRows = sortedRows.slice(0, 3);
-
-            setResults({
-              bakteri: actualKey,
-              tiga_antibiotik: topRows.map((row) => ({
-                Organism: row.Organism || "N/A",
-                Score: row[actualKey] !== undefined ? row[actualKey] : "N/A",
-              })),
-            });
-            setError(null);
-            setDataSource("firebase");
-          } else {
-            setError(`Bakteri "${inputValue.trim()}" tidak ditemukan di Firestore.`);
-            setResults(null);
-            setDataSource(null);
-          }
-        } else {
-          setError("Dokumen pola kuman kosong.");
-        }
-      } else {
-        setError("Dokumen pola kuman tidak ada.");
-      }
-    } catch (firebaseError) {
-      console.error("Error fetching data from Firestore:", firebaseError);
-      setError("Terjadi kesalahan saat mengambil data dari Firestore.");
-      setResults(null);
-      setDataSource(null);
-    }
-  };
 
   const getFilteredSuggestions = () => {
     const trimmedInput = inputValue.trim().toLowerCase();
