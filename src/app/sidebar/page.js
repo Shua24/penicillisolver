@@ -98,8 +98,6 @@ const Sidebar = () => {
         <div className={`${styles.sidebar} ${!isSidebarOpen ? styles.sidebarHidden : ''}`}>
           <div className={styles.sidebar}>
             <div className={styles.sidebarTop}>
-            </div>
-            <div className={styles.sidebarBottom}>
               <div
                 className={`${styles.berandaBtn} ${pathname === "/beranda" ? styles.activeBeranda : ""}`}
                 onClick={() => (window.location.href = "/beranda")}
@@ -136,6 +134,9 @@ const Sidebar = () => {
                 />
                 Cari Antibiotik
               </div>
+            </div>
+            <div className={styles.sidebarBottom}>
+              
               <div
                 className={`${styles.setting} ${pathname === "/settingAkun" ? styles.activeSettings : ""}`}
                 onClick={() => (window.location.href = "/settingAkun")}
