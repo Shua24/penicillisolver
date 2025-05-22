@@ -50,7 +50,7 @@ export default function TentangPola() {
                       </span>
                     </li>
                     <li className={styles.inline}>Masukkan species bakteri pada kolom input.</li>
-                    <li className={styles.inline}>Klik tombol "cari" untuk menampilkan hasil pencariannya.</li>
+                    <li className={styles.inline}>Klik tombol cari untuk menampilkan hasil pencariannya.</li>
                     <li className={styles.inline}>Gunakan hasil pencarian untuk dipakai di kasus anda!</li>
                   </ol>
                 </div>
