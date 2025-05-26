@@ -11,21 +11,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## 🚀 Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-```
-
-Open http://localhost:3000 with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<!-- This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel. -->
 
 ---
-
-## ⚙️ Langkah Run di Dev Environment
+## ⚙️ Development Environment
+Berikut cara menjalankan server secara lokal. Asumsi adalah bahwa developer sudah memiliki ```.env.```
 
 1. Jalankan server utama:
 
@@ -59,24 +49,61 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
    > ⚠️ Wajib install terlebih dahulu:
    ```bash
-   pip install streamlit
+   pip install -r requirements.txt
    ```
- 6. Jika saat di run belum bisa, pastikan install terlebih dahulu dibawah ini:
+ 6. Jika saat di run belum bisa, pastikan install terlebih dahulu di bawah ini:
     ```bash
-       npm install 
-    ```
-    
-    ```bash
-       composer install
-    ```
-    
-    ```bash
-       npm install 
+       npm i
     ```
     
     ```bash
         python -m pip install --upgrade pip
     ```
+
+## Deployment (Production Environment)
+Berikut adalah cara melakukan deployment ke lingkungan produksi (production/prod) dengan asumsi bahwa deployment dilakukan di Linux.
+1. Masukkan semua `.env` yang diperlukan, termasuk folder `private/` pada root (dasar) dari semua file dan pada folder `uploads`.
+
+2. Ubah nilai beberapa konfigurasi .env pada Next.js menjadi:
+```python
+   NEXT_PUBLIC_TABLE_API_URL=http://[IP_PROD]:[PORT_PROD] # sesuaikan dengan port dan IP pada server target
+   NEXT_PUBLIC_DATE_STORE_API_URL=http://[IP_PROD]:[PORT_PROD] # Port pasti berbeda dari yang sebelumnya
+   NEXT_PUBLIC_TABLE_QUERY_URL=http://[IP_PROD]:[PORT_PROD] # Port juga pasti berbeda dari yang sebelumnya.
+```
+3. Ubah nilai konfigurasi .env pada ```./uploads``` menjadi:
+```python
+   APP_REDIRECT_URL=[DOMAIN_TARGET]
+```
+4. Install semua package untuk Next.js
+```bash
+   $ npm i
+```
+5. Ganti direktori ke ./uploads/
+```bash
+   $ cd uploads/
+```
+
+6. Buat lingkungan virtual (venv) untuk mencegah konflik antar package.
+```bash
+   $ python3 -m venv venv
+```
+7. Lakukan pemasangan semua package yang diperlukan pada setiap file Python.
+```bash
+   $ pip install -r requirements.txt
+```
+8. Jalankan skrip shell produksi, startsrv.sh melalui nohup supaya statusnya detached.
+```bash
+   $ nohup ./startsrv.sh
+```
+Jika tidak bisa, maka jalankan perintah berikut ini:
+```bash
+   $ chmod +x startserv.sh
+```
+Jika ingin menghentikan semua proses yang berkaitan, Anda dapat mengeksekusi stopsrv.sh
+```bash
+$ sh stopsrc.sh
+```
+
 ---
 
 ## 🧪 QA Testing & Unit-Test
