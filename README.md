@@ -93,7 +93,7 @@ Berikut adalah cara melakukan deployment ke lingkungan produksi (production/prod
 ```
 8. Jalankan skrip shell produksi, startsrv.sh melalui nohup supaya statusnya detached.
 ```bash
-   $ nohup ./startsrv.sh
+   $ nohup ./startsrv.sh > out.log 2>&1 # Ubah sesuai selera
 ```
 Jika tidak bisa, maka jalankan perintah berikut ini:
 ```bash
@@ -101,7 +101,7 @@ Jika tidak bisa, maka jalankan perintah berikut ini:
 ```
 Jika ingin menghentikan semua proses yang berkaitan, Anda dapat mengeksekusi stopsrv.sh
 ```bash
-$ sh stopsrc.sh
+   $  sh stopsrv.sh
 ```
 
 ---
