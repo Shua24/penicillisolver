@@ -26,31 +26,38 @@ const Query = () => {
         }
       );
 
+      const backupData = await response.json();
+
       if (!response.ok) {
-        if (response.status === 404 || response.status === 400) {
+        // Prefer error from API if present
+        if (backupData && backupData.error) {
+          setError(backupData.error);
+        } else if (response.status === 404 || response.status === 400) {
           setError(`Bakteri "${query}" tidak ditemukan.`);
         } else {
           setError("Gagal mengambil antibiotik terbaik dari API backup.");
         }
+        setResults(null);
+        setDataSource(null);
         return false;
       }
 
-      const backupData = await response.json();
-
       if (!backupData || !backupData.bakteri || !Array.isArray(backupData.tiga_antibiotik)) {
         setError("Data dari API backup tidak valid.");
+        setResults(null);
+        setDataSource(null);
         return false;
       }
 
       setResults({
         bakteri: backupData.bakteri,
-        tiga_antibiotik: backupData.tiga_antibiotik.map((item) => ({
+        tiga_antibiotik: backupData.tiga_antibiotik.slice(0, 5).map((item) => ({
           Organism: item.Organism || "N/A",
-          Score: item[backupData.bakteri] !== undefined ? item[backupData.bakteri] : "N/A",
+          Score: item[backupData.bakteri] !== undefined ? item[backupData.bakteri] : item.Score !== undefined ? item.Score : "N/A",
         })),
       });
       setError(null);
-      setDataSource("firebase");
+      setDataSource("api");
       return true;
     } catch (err) {
       console.error("Error fetching data from API backup:", err);
