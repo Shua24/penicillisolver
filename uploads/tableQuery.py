@@ -155,7 +155,7 @@ def infer_raw_excel(bacteria_name):
     df = load_translated_excel()
     selected_row = df[df["Organism"].str.lower() == bacteria_name.lower()].iloc[0]
     numeric_values = selected_row.drop(labels="Organism")
-    return numeric_values.sort_values(ascending=False).head(3)
+    return numeric_values.sort_values(ascending=False).head(5)
 
 @app.route("/exceldata", methods=["GET"])
 @require_api_key
