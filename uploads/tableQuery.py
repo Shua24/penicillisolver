@@ -255,7 +255,7 @@ def top_values():
     bacteria_column = matched_columns[0]
 
     try:
-        top_rows = df.nlargest(3, bacteria_column)[['Organism', bacteria_column]] \
+        top_rows = df.nlargest(5, bacteria_column)[['Organism', bacteria_column]] \
                      .to_dict(orient='records')
     except Exception as e:
         return jsonify({"error": f"Could not process column '{bacteria_column}': {str(e)}"}), 500
@@ -324,7 +324,7 @@ def top_values_db():
         column_name = matched_columns[0]
 
         try:
-            top_rows = df_firestore.nlargest(3, column_name)[['Organism', column_name]].to_dict(orient="records")
+            top_rows = df_firestore.nlargest(5, column_name)[['Organism', column_name]].to_dict(orient="records")
         except Exception as e:
             return jsonify({"error": f"Could not process column '{column_name}': {str(e)}"}), 500
 
