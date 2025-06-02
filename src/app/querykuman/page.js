@@ -13,7 +13,7 @@ const Query = () => {
   const [inputValue, setInputValue] = useState("");
   const [bacteriaSuggestions, setBacteriaSuggestions] = useState([]);
 
-  // API fallback: fetch from /top-values endpoint (tableQuery.py logic)
+  // API fallback
   const fetchFirebase = async (query) => {
     try {
       const response = await fetch(
@@ -30,7 +30,15 @@ const Query = () => {
 
       if (!response.ok) {
         if (backupData && backupData.error) {
-          setError(backupData.error);
+          // If tidak ditemukan
+          if (
+            backupData.error.toLowerCase().includes("not found") ||
+            backupData.error.toLowerCase().includes("tidak ditemukan")
+          ) {
+            setError(`Bakteri "${query}" tidak ditemukan.`);
+          } else {
+            setError(backupData.error);
+          }
         } else if (response.status === 404 || response.status === 400) {
           setError(`Bakteri "${query}" tidak ditemukan.`);
         } else {
@@ -64,7 +72,7 @@ const Query = () => {
       setDataSource("api");
       return true;
     } catch (err) {
-      console.error("Error fetching data from API cadangan:", err);
+      console.error("Error fetching dari API cadangan:", err);
       setError("Gagal mengambil data dari API cadangan.");
       setResults(null);
       setDataSource(null);
@@ -90,10 +98,8 @@ const Query = () => {
         }
 
         const firstRow = rows[0];
-        // all the column-names except “Organism”
         const cols = Object.keys(firstRow).filter((k) => k.toLowerCase() !== "organism");
 
-        // detect antibiotic-as-columns layout by presence of “Number of isolates”
         const isAntibioticLayout = cols.some((k) => k.toLowerCase() === "number of isolates");
 
         let suggestions = [];
