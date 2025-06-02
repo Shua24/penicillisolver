@@ -138,7 +138,6 @@ const Query = () => {
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
-        // Fallback to API if Firestore is unavailable
         await fetchFirebase(query);
         return;
       }
@@ -173,7 +172,7 @@ const Query = () => {
         const antibioticScores = Object.entries(matchedRows[0])
           .filter(([key, value]) => key.toLowerCase() !== "organism" && typeof value === "number")
           .sort((a, b) => b[1] - a[1])
-          .slice(0, 3);
+          .slice(0, 5); // Show up to 5 items
 
         const tiga_antibiotik = antibioticScores.map(([antibiotik, score]) => ({
           Organism: antibiotik,
@@ -205,7 +204,7 @@ const Query = () => {
           return valB - valA;
         });
 
-        const topRows = sortedRows.slice(0, 3);
+        const topRows = sortedRows.slice(0, 5); // Show up to 5 items
 
         setResults({
           bakteri: actualKey,
