@@ -138,7 +138,8 @@ const Query = () => {
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
-        setError("Dokumen pola kuman tidak ada.");
+        // Fallback to API if Firestore is unavailable
+        await fetchFirebase(query);
         return;
       }
 
@@ -146,7 +147,8 @@ const Query = () => {
       const rows = data.rows || [];
 
       if (rows.length === 0) {
-        setError("Dokumen pola kuman kosong.");
+        // Fallback to API if Firestore is empty
+        await fetchFirebase(query);
         return;
       }
 
@@ -162,7 +164,8 @@ const Query = () => {
         );
 
         if (matchedRows.length === 0) {
-          setError(`Bakteri "${inputValue.trim()}" tidak ditemukan di Firestore.`);
+          // Fallback to API if not found in Firestore
+          await fetchFirebase(query);
           return;
         }
 
@@ -187,7 +190,8 @@ const Query = () => {
         const keys = Object.keys(rows[0]).map((key) => key.toLowerCase());
 
         if (!keys.includes(lowercasedQuery)) {
-          setError(`Bakteri "${inputValue.trim()}" tidak ditemukan di Firestore.`);
+          // Fallback to API if not found in Firestore
+          await fetchFirebase(query);
           return;
         }
 
@@ -213,10 +217,9 @@ const Query = () => {
         setDataSource("firebase");
       }
     } catch (firebaseError) {
+      // Fallback to API if Firestore throws error
       console.error("Error fetching data from Firestore:", firebaseError);
-      setError("Terjadi kesalahan saat mengambil data dari Firestore.");
-      setResults(null);
-      setDataSource(null);
+      await fetchFirebase(query);
     }
   };
 
