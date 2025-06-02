@@ -297,7 +297,7 @@ def top_values_db():
 
             selected_row = matched.iloc[0]
             numeric_values = selected_row.drop(labels="Organism")
-            top_series = numeric_values.sort_values(ascending=False).head(3)
+            top_series = numeric_values.sort_values(ascending=False).head(5)
 
             top_rows = []
             for antibiotic, value in top_series.items():
