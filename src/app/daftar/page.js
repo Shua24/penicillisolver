@@ -35,7 +35,7 @@ const Daftar = () => {
     const passwordCriteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{6,}$/;
 
     if (!passwordCriteria.test(password)) {
-      setError("Password harus minimal 6 karakter, mengandung huruf kapital, huruf kecil, dan angka.");
+      setError("Password harus minimal 6 karakter, mengandung huruf kapital, huruf kecil, angka, dan simbol. Contoh: '$' atau '#'");
       return;
     }else if (!nama || !email || !sip || !password || !confirmPassword) {
       setError("Harap isi semua field.");
