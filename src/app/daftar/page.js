@@ -25,9 +25,9 @@ const Daftar = () => {
   const roleRef = useRef(null);
   
   const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setFormData({ ...formData, [name]: value.trim() });
-};
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: name === "nama" ? value : value.trim() });
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
